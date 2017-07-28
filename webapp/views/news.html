@@ -1,0 +1,20 @@
+<div style="height: 100%;width: 100%;background: #F2F2F2;">
+	<div class="bar bar-header padding0 news_header">
+		<div ng-click="systemMessage()"  ng-class="{active:message==0}">系统消息</div><label class="c999">|</label>
+		<div ng-click="myMessage()" ng-class="{active:message==1}">我的消息</div>
+	</div>
+		<div class="tabs tabs-icon-top">
+		  <a class="tab-item"  ng-click="home()">		  				
+		    <i class="icon ion-home"></i>
+		   活动
+		  </a>
+		  <a class="tab-item active"  ng-click="news()">
+		    <i class="icon ion-ios-chatbubble"></i>
+		  消息
+		  </a>
+		  <a class="tab-item"  ng-click="my()">
+		    <i class="icon ion-android-person"></i>
+		    我
+		  </a>
+        </div>
+</div>

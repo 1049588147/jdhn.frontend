@@ -1,0 +1,62 @@
+<div style="height: 100%;width: 100%;background: #F2F2F2;">
+	<div class="bar bar-header padding0">
+		<button class="button button-clear icon-left ion-star" style="color: #EF705D;" ui-sref="activityScreening">精品活动</button>
+		<a class="button button-icon icon ion-ios-search-strong" style="color: #EF705D;" ui-sref="search"></a>
+	</div>
+	<ion-content class="has-header has-footer">
+			   <ion-slide-box does-continue="true" auto-play="true" style="width:100%;margin-bottom:-5px;">
+		            <ion-slide ng-repeat="item in vo.slides track by $index">
+		                <img style="width:100%;" ng-src="{{item.lbpicUrl}}">
+		            </ion-slide>
+		        </ion-slide-box>
+			  <ion-refresher   pulling-text="下拉刷新" refreshing-text="刷新中"   on-refresh="doRefresh()" spinner>		
+			  </ion-refresher>
+			      <ion-list  show-delete="data.showDelete" show-reorder="data.showReorder">               
+			        <ion-item  class="item item-thumbnail-left mt10" ng-repeat="item in listUrl"  ui-sref="detalis">			 
+				     <img src="img/beike.png">
+				     <div class="read">613阅读</div>
+				      <h2 class="c000 font14 font-w">KTV青春交友派对，报名啦！</h2>
+				      <div class="huo-list">
+				      	<div>品牌活动</div>
+				      	<div>互动交友</div>
+				      	<div>轻松快乐</div>
+				      </div>
+				      <div class="times mt5">
+				      	<label class="font12 c666">时间：</label>
+				      	<label class="font12 c666">07月19 18:30</label>
+				      	<label class="font12 c666">~</label>
+				      	<label class="font12 c666">07月19 18:30</label>
+				      </div>
+				      <div class="place">
+				      	<label class="font12 c666">地点：</label>
+				      	<label class="font12 c666">上海市南京东路479号.6f.好乐迪44444444444</label>
+				      </div>
+				      <div class="numberOf">
+				      	<label class="font12 c666">人数：</label>
+				      	<label class="font12 c666"><label class="font12">不限</label>( <label class="c2C">22</label>人申请|<label class="cFF"> 22</label>人通过 )</label>
+				      </div>
+				      <div class="information">
+				      	<div>17人报名</div>
+				      	<div>7留言</div>
+				      </div>
+			        </ion-item>
+			      </ion-list>
+			<div ng-show="loading" style="position:static;font-size:16px;z-index:9999;margin:30px 0 -70px 0;padding-bottom:10px;text-align:center;">加载中</div>
+			<ion-infinite-scroll on-infinite="loadMore()" spinner>
+		    </ion-infinite-scroll>
+		</ion-content>
+		<div class="tabs tabs-icon-top">
+		  <a class="tab-item active"    ng-click="home()">		  				
+		    <i class="icon ion-home"></i>
+		   活动
+		  </a>
+		  <a class="tab-item"   ng-click="news()">
+		    <i class="icon ion-ios-chatbubble"></i>
+		  消息
+		  </a>
+		  <a class="tab-item" ng-click="my()">
+		    <i class="icon ion-android-person"></i>
+		    我
+		  </a>
+        </div>
+</div>
