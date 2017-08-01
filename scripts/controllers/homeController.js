@@ -36,7 +36,7 @@
 					var promise = homeService.queryWarehouseInfoList({});
 					promise.then(function (result) { 	
 			        	console.log(result)
-			        	$scope.listUrl=result
+			        	$scope.listUrl=result.list
 			       });	
 			    
 			}    

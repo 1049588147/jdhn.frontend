@@ -1,13 +1,17 @@
-[
-	{"id":"1","name":"一号冷链","age":"25"},
-    {"id":"3","name":"一号冷链","age":"26"},
-    {"id":"4","name":"一号冷链","age":"27"},
-    {"id":"5","name":"一号冷链","age":"20"},
-    {"id":"1","name":"一号冷链","age":"21"},
-    {"id":"1","name":"一号冷链","age":"22"},
-    {"id":"1","name":"一号冷链","age":"23"},
-    {"id":"1","name":"一号冷链","age":"24"},
-    {"id":"1","name":"一号冷链","age":"25"},
-    {"id":"1","name":"一号冷链","age":"26"},
-    {"id":"1","name":"一号冷链","age":"27"}
-]
+
+
+{ 
+	"urlid":111,
+	"slides": [
+		{ "id":1, "imgcUrl":"url" },
+		
+		{ "id": 2, "imgcUrl":"url"},
+		
+		{ "id": 3, "imgcUrl":"url"}
+	 ],
+	 "list":[
+	 
+	 	{"imgurl":"", "title":"","starttime":"","endtime":"","place":"","numberapplicants":"","throughnumber":"","limit":null,"read":"","signup":"","leavingmessage":"","urlid":222}
+	 	
+	 ]
+}
