@@ -4,9 +4,9 @@
         .module('makeFriends')
         .controller('homeControl', homeCtrl)
 
-    homeCtrl.$inject = ['$scope', '$rootScope', '$state','$timeout', '$window', '$stateParams','homeService'];
+    homeCtrl.$inject = ['$scope', '$rootScope', '$state','$timeout', '$window', '$stateParams','homeService',"$http"];
 
-    function homeCtrl($scope, $rootScope, $state, $timeout, $window, $stateParams,homeService) {
+    function homeCtrl($scope, $rootScope, $state, $timeout, $window, $stateParams,homeService,$http) {
 		$rootScope.title = $state.$current.data.pageTitle;
 	    $scope.login=$window.localStorage.getItem("login")
 		$scope.pass=$window.localStorage.getItem("pass")
@@ -36,7 +36,7 @@
 					var promise = homeService.queryWarehouseInfoList({});
 					promise.then(function (result) { 	
 			        	console.log(result)
-			        	$scope.listUrl=result.list
+//			        	$scope.listUrl=result.list
 			       });	
 			    
 			}    

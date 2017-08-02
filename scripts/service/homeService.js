@@ -8,14 +8,13 @@
        .factory('homeService', ['$http', '$q', function ($http, $q) {
            return {
         	   queryWarehouseInfoList: function (param) {
-                   var url = "dist/json.json";
+				   var url="https://saas.sunjoypai.com/data/initUser.do?callback=JSON_CALLBACK"
                    var deferred = $q.defer();
-                   $http.get(url, param).success(function (result) {
-                       deferred.resolve(result); // 声明执行成功，即http请求数据成功，可以返回数据了
-                   }).error(function (result) {
-                       deferred.reject(result);
-                   });
-                   return deferred.promise;
+                   $http.jsonp(url,param).success(function(result){
+					 deferred.resolve(result)
+					
+				});
+		        return deferred.promise;          
                },
                queryWarehouseInfoByStockGuid: function (param) {
                    var url = bootPATH + "queryWarehouseInfoByStockGuid.do";//获取仓库的首页显示信息

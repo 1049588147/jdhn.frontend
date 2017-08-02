@@ -253,9 +253,12 @@ transform:translate(0%,-50%); -webkit-transform:translate(0%,-50%); -moz-transfo
 
 /*关于小鹿*/
 .jiaotong-center{background: #F8F8F8;padding: 10px;}
-.logo{height: 80px;width: 80px;margin:10px auto; background: red;}
+.logo{width: 137px;margin:10px auto;display: block;}
 .introduce{text-indent: 2em;color: #333333;line-height: 22px;}
 .corporateName{color: #b7b2b2;}
+
+/*联系客服*/
+.hao{font-weight: normal;padding-left: 80px;}
 
 @media screen and (max-width: 320px) {
 
