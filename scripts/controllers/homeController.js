@@ -11,8 +11,6 @@
 	    $scope.login=$window.localStorage.getItem("login")
 		$scope.pass=$window.localStorage.getItem("pass")
 		
-		console.log($scope.login+"--"+$scope.pass)
-		
 		if($scope.login==null||$scope.pass==null){
 			$state.go("login")
 		}
@@ -31,13 +29,50 @@
 	    };
 		
 		
-		var i=0;
+			var i=0;
 			$scope.start=function(){
-					var promise = homeService.queryWarehouseInfoList({});
-					promise.then(function (result) { 	
-			        	console.log(result)
-//			        	$scope.listUrl=result.list
-			       });	
+//				var n= layer.open({
+//				    type: 2
+//				    ,content: '加载中'
+//				  });
+				var promise = homeService.queryWarehouseInfoList();
+				promise.then(function (result) { 	
+		        	console.log(result)
+		        	if(result.code==200){
+//		        		layer.close(n);
+		        		$scope.listUrl=result.data;
+			        	$scope.result = [];
+						$scope.listUrlOne=[];
+						for(var i=0;i<$scope.listUrl.length;i+=5){
+						   $scope.result.push($scope.listUrl.slice(i,i+5));
+						}
+						
+						$scope.listUrlOne=$scope.result[0]
+		        	}else{
+		        		layer.close(n);
+		        		layer.open({
+						    content: "查询失败！"
+						    ,skin: 'msg'
+						    ,time: 2 //2秒后自动关闭
+						  });
+						return;
+		        	}
+		        	
+		       });	
+			       
+//			    var promise = homeService.queryWarehouseInfoByStockGuid();
+//					promise.then(function (result) { 	
+//			        	console.log(result)
+//			        	$scope.listUrl=result.data
+//						$scope.result = [];
+//						$scope.listUrlOne=[];
+//						for(var i=0;i<$scope.listUrl.length;i+=5){
+//						   $scope.result.push($scope.listUrl.slice(i,i+5));
+//						}
+//						
+//						$scope.listUrlOne=$scope.result[0]
+//						console.log($scope.listUrlOne)
+//			       });	   
 			    
 			}    
 				
@@ -45,17 +80,17 @@
 		    	$timeout(function(){
 		    		 $scope.start()
 	                $scope.$broadcast('scroll.refreshComplete');
-	             
+	             	
 	            },3000);
 		    }
 			
 		    $scope.loadMore=function(){
 		    	$scope.loading=true;
 		    	$timeout(function(){
-		    	  i+=5;
-		    	  $scope.listUrl.push({id:$scope.listUrl.length+1,name:'item '+($scope.listUrl.length+1)});
+		    	  i++;
+		    	  $scope.listUrlOne= $scope.listUrlOne.concat($scope.result[i])
 		    	  $scope.$broadcast('scroll.infiniteScrollComplete');
-		    	  console.log(i)
+		    	  
 		    	  $scope.loading=false;
 		    	  
 		    	},1000);

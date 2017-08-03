@@ -15,7 +15,7 @@
             controller: 'homeControl',
             cache: false,
             data: {
-                pageTitle: '活动'
+                pageTitle: '交大红娘'
             },
             resolve: {
                 loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
