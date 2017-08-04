@@ -1,9 +1,12 @@
 <div style="height: 100%;width: 100%;background: #F2F2F2;">
 	<div class="bar bar-header padding0">
-		<button class="button button-clear icon-left ion-star" style="color: #EF705D;" ui-sref="activityScreening">往期活动</button>
-		<a class="button button-icon icon ion-ios-search-strong" style="color: #EF705D;" ui-sref="search"></a>
+		<img class="history" src="img/lishi.png" ui-sref="activityScreening" />
+		<button class="button button-clear" style="color: #EF705D;" ui-sref="activityScreening">往期活动</button>
+		
+		<img class="search" src="img/search.png"  ui-sref="search" />
+		<!--<a class="button button-icon icon ion-ios-search-strong" ></a>-->
 	</div>
-	<ion-content class="has-header has-footer">
+	<ion-content class="has-header has-footer" style="margin-bottom: 10px;">
 			   <ion-slide-box does-continue="true" auto-play="true" style="width:100%;margin-bottom:-5px;">
 		            <ion-slide ng-repeat="item in vo.slides track by $index">
 		                <img style="width:100%;" ng-src="{{item.lbpicUrl}}">
@@ -14,7 +17,7 @@
 			      <ion-list  show-delete="data.showDelete" show-reorder="data.showReorder">               
 			        <ion-item  class="item item-thumbnail-left mt10" ng-repeat="item in listUrlOne"  ui-sref="detalis">			 
 				     <img ng-src="{{item.imgurl}}">
-				     <div class="read">{{item.read}}阅读</div>
+				     <div class="read"><img class="message" src="img/aixin.png"/>{{item.read}}阅读</div>
 				      <h2 class="c000 font14 font-w">{{item.title}}</h2>
 				      <div class="huo-list">
 				      	<div>品牌活动</div>
@@ -36,8 +39,8 @@
 				      	<label class="font12 c666"><label class="font12">不限</label>( <label class="c2C">{{item.numberapplicants}}</label>人申请|<label class="cFF"> {{item.throughnumber}}</label>人通过 )</label>
 				      </div>
 				      <div class="information">
-				      	<div>{{item.numberapplicants}}人报名</div>
-				      	<div>7留言</div>
+				      	<div><img class="message" src="img/my.png"/>{{item.numberapplicants}}人报名</div>
+				      	<div><img class="message" src="img/message.png"/>7留言</div>
 				      </div>
 			        </ion-item>
 			      </ion-list>

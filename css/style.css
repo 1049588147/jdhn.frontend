@@ -112,7 +112,7 @@ html,body{width: 100%;height: 100%;}
 .cf1{color: #3a91f1;}
 .cbc{color: #e2c1bc;}
 .bff{background: #FFFFFF;}
-.item-complex .item-content, .item-radio .item-content{padding: 8px 9px 16px 106px;}
+.item-complex .item-content, .item-radio .item-content{padding: 8px 9px 16px 92px;}
 /*/////swiper/////*/
 .device{height: 156px;width: 100%;position: relative;
 background: -webkit-linear-gradient(#56AFF3, #75C3FF); /* Safari 5.1 - 6.0 */
@@ -146,9 +146,11 @@ max-width: 70px; max-height: 70px;width: 100%;height: 100%;}
 .times,.place,.numberOf{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 .place,.numberOf{margin-top: -2px;}
 .read{position: absolute;    position: absolute;  left: 10px;width: 70px;top: 116px; font-size: 12px; text-align: center;}
-.information{width: 100%;display: -moz-box;display: -webkit-box;-moz-box-pack: justify;-webkit-box-pack: justify;font-size: 12px;margin-top: 5px;padding: 0px 21%;}
+.information{width: 100%;display: -moz-box;display: -webkit-box;-moz-box-pack: justify;-webkit-box-pack: justify;font-size: 12px;margin-top: 5px;padding: 0px 17%;}
 .tab-item{color: #a9a7a7;}
-
+.history {width: 22px; height: 20px; margin-top: 11px; margin-left: 7px;}
+.search{ width: 33px; height: 32px;position: absolute; right: 6px;top: 6px;}
+.message{width: 16px;float: left;margin-top: 2px;}
 /*新闻页*/
 .news_header{display: -moz-box;display: -webkit-box;text-align: center;line-height: 44px;font-size: 16px;}
 .news_header>div{-webkit-box-flex:1; -moz-box-flex:1; -o-box-flex:1; -ms-box-flex:1;}
@@ -253,12 +255,12 @@ transform:translate(0%,-50%); -webkit-transform:translate(0%,-50%); -moz-transfo
 
 /*关于小鹿*/
 .jiaotong-center{background: #F8F8F8;padding: 10px;}
-.logo{width: 137px;margin:10px auto;display: block;}
+.logo{width: 137px;margin:20px auto;display: block;}
 .introduce{text-indent: 2em;color: #333333;line-height: 22px;}
 .corporateName{color: #b7b2b2;}
 
 /*联系客服*/
-.hao{font-weight: normal;padding-left: 80px;}
+.hao{font-weight: normal;}
 
 @media screen and (max-width: 320px) {
 

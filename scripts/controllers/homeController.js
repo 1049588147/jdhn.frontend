@@ -8,11 +8,21 @@
 
     function homeCtrl($scope, $rootScope, $state, $timeout, $window, $stateParams,homeService,$http) {
 		$rootScope.title = $state.$current.data.pageTitle;
+		
 	    $scope.login=$window.localStorage.getItem("login")
 		$scope.pass=$window.localStorage.getItem("pass")
 		
 		if($scope.login==null||$scope.pass==null){
-			$state.go("login")
+		 var index =	layer.open({
+			  content: '请先登录',
+			  btn: '确定',
+			  shadeClose: false,
+			  yes: function(){
+			  	layer.close(index)
+			    $state.go("login")
+			  }
+			});
+			
 		}
 
 		$scope.vo = {
@@ -31,15 +41,15 @@
 		
 			var i=0;
 			$scope.start=function(){
-//				var n= layer.open({
-//				    type: 2
-//				    ,content: '加载中'
-//				  });
+				var n= layer.open({
+				    type: 2
+				    ,content: '加载中'
+				  });
 				var promise = homeService.queryWarehouseInfoList();
 				promise.then(function (result) { 	
 		        	console.log(result)
 		        	if(result.code==200){
-//		        		layer.close(n);
+		        		layer.close(n);
 		        		$scope.listUrl=result.data;
 			        	$scope.result = [];
 						$scope.listUrlOne=[];

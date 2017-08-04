@@ -1,11 +1,42 @@
 <div style="height: 100%;width: 100%;background: #F2F2F2;">
 	<div class="bar bar-header item-input-inset">
 	  <label class="item-input-wrapper">
-	    <i class="icon ion-ios-search placeholder-icon"></i>
-	    <input type="search" placeholder="Search">
+	    <i class="icon ion-ios-search placeholder-icon" style="font-size: 22px;padding: 0px;"></i>
+	    <input type="search" placeholder="请输入活动关键字">
 	  </label>
 	  <button class="button button-clear">
 	    搜索
 	  </button>
     </div>
+    
+    <div class="list">
+		    <a class="item item-thumbnail-left mt10">
+		     	<img  src="img/beike.png">
+			    <div class="read"><img class="message" src="img/aixin.png"/>{{item.read}}阅读</div>
+			    <h2 class="c000 font14 font-w">KTV青春交友派对，报名啦！</h2>
+			    <div class="huo-list">
+			      	<div>品牌活动</div>
+			      	<div>互动交友</div>
+			      	<div>轻松快乐</div>
+			    </div>
+			    <div class="times mt5">
+			      	<label class="font12 c666">时间:</label>
+			      	<label class="font12 c666">07月19 18:30</label>
+			      	<label class="font12 c666">~</label>
+			      	<label class="font12 c666">07月19 18:30</label>
+			    </div>
+			     <div class="place">
+			      	<label class="font12 c666">地点:</label>
+			      	<label class="font12 c666">交大美女贼多交大美女贼多交大美女贼多交大美女贼多交大美女贼</label>
+			    </div>
+			    <div class="numberOf">
+			      	<label class="font12 c666">人数:</label>
+			      	<label class="font12 c666"><label class="font12">不限</label>( <label class="c2C">{{item.numberapplicants}}</label>人申请|<label class="cFF"> {{item.throughnumber}}</label>人通过 )</label>
+			    </div>
+			    <div class="information">
+			      	<div><img class="message" src="img/my.png"/>{{item.numberapplicants}}人报名</div>
+			      	<div><img class="message" src="img/message.png"/>7留言</div>
+			    </div>
+		    </a>
+	    </div>
 </div>
