@@ -10,7 +10,7 @@
         	   queryWarehouseInfoList: function (param) {
 //				   var url="https://saas.sunjoypai.com/data/initUser.do?callback=JSON_CALLBACK&id="+param
 //				   var url="https://passport.sunjoypai.com/passport/loginMobie.do?callback=JSON_CALLBACK&id="+param
-                  var url="http://api.deerlove.top/v1/activitys?callback=JSON_CALLBACK" 
+                  var url="http://api.deerlove.top/v1/activitys/active-list?callback=JSON_CALLBACK" 
                   var deferred = $q.defer();
                    $http.jsonp(url).success(function(result){
 						deferred.resolve(result)

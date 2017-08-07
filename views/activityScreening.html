@@ -6,31 +6,31 @@
 	<ion-content class="has-header">
 			     <ion-list  show-delete="data.showDelete" show-reorder="data.showReorder">
 			        <ion-item  class="item item-thumbnail-left mt10" ng-repeat="item in listUrl" ui-sref="detalis">			 
-				     <img src="img/beike.png">
-				     <div class="read">613阅读</div>
-				      <h2 class="c000 font14 font-w">KTV青春交友派对，报名啦！</h2>
+				     <img ng-src="{{item.imgurl}}">
+				     <div class="read"><img class="message" src="img/aixin.png"/>{{item.read}}阅读</div>
+				      <h2 class="c000 font14 font-w">{{item.title}}</h2>
 				      <div class="huo-list">
 				      	<div>品牌活动</div>
 				      	<div>互动交友</div>
 				      	<div>轻松快乐</div>
 				      </div>
 				      <div class="times mt5">
-				      	<label class="font12">时间：</label>
-				      	<label class="font12">07月19 18:30</label>
-				      	<label class="font12">~</label>
-				      	<label class="font12">07月19 18:30</label>
+				      	<label class="font12 c666">时间:</label>
+				      	<label class="font12 c666">{{item.starttime}}</label>
+				      	<label class="font12 c666">~</label>
+				      	<label class="font12 c666">{{item.endtime}}</label>
 				      </div>
 				      <div class="place">
-				      	<label class="font12">地点：</label>
-				      	<label class="font12">上海市南京东路479号.6f.好乐迪</label>
+				      	<label class="font12 c666">地点:</label>
+				      	<label class="font12 c666">{{item.place}}</label>
 				      </div>
 				      <div class="numberOf">
-				      	<label class="font12">人数：</label>
-				      	<label class="font12"><label class="font12">不限</label>( <label class="c2C">22</label>人申请|<label class="cFF"> 22</label>人通过 )</label>
+				      	<label class="font12 c666">人数:</label>
+				      	<label class="font12 c666"><label class="font12">不限</label>( <label class="c2C">{{item.numberapplicants}}</label>人申请|<label class="cFF"> {{item.throughnumber}}</label>人通过 )</label>
 				      </div>
 				      <div class="information">
-				      	<div>17人报名</div>
-				      	<div>7留言</div>
+				      	<div><img class="message" src="img/my.png"/>{{item.numberapplicants}}人报名</div>
+				      	<div><img class="message" src="img/message.png"/>7留言</div>
 				      </div>
 			        </ion-item>
 			      </ion-list>

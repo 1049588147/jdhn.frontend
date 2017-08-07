@@ -8,29 +8,22 @@
 
     function activityScreeningControl($scope, $rootScope, $state, $timeout, $window, $location, $http,activityScreeningService) {
 		$rootScope.title = $state.$current.data.pageTitle;
-      	var i=0;
-      	
-//    初始加载函数接口
-		$scope.start=function(){
-				var promise = activityScreeningService.queryWarehouseInfoList({});
-				promise.then(function (result) { 	
-		        	console.log(result)
-		        	$scope.listUrl=result.list
-		       });	
-		    
-		}    
+      	var i=0; 
 		
-//		上啦加载
+		//上啦加载
 		$scope.loadMore=function(){
 	    	$scope.loading=true;
-	    	$timeout(function(){
-	    	  i++;
-	    	  $scope.listUrl.push({id:$scope.listUrl.length+1,name:'item '+($scope.listUrl.length+1)});
-	    	  $scope.$broadcast('scroll.infiniteScrollComplete');
-	    	  console.log(i)
-	    	  $scope.loading=false;
-	    	  
-	    	},1000);
+	    	  i+=5;
+	    	 	var promise = activityScreeningService.activeList(i);
+				promise.then(function (result) { 
+					if(result.code==200){
+						$scope.listUrl=result.data;
+						$timeout(function(){
+				    	  $scope.$broadcast('scroll.infiniteScrollComplete');
+				    	  $scope.loading=false;
+				    	},1000);
+					}
+		    });	
 		}
 		
 		
@@ -152,7 +145,6 @@
 			}
 		})
 
-		$scope.start()
    }
 })();
 
