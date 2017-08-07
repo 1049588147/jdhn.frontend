@@ -124,8 +124,16 @@
 		}
 		
 //		打开筛选点击事件
+		var isSelact=false;
 		$(".screen").on("click",function(){
-			$(".screen_motai").toggle("slow");
+			if(!isSelact){
+				$(".screen_motai").show();
+				isSelact=true;
+			}else{
+				$(".screen_motai").hide();
+				isSelact=false;
+			}
+			
 		});
 		
 //		阻止冒泡
@@ -135,8 +143,13 @@
 		
 //		关闭模态框
 		$(".screen_motai").on("click",function(){
-			
-			$(".screen_motai").toggle("slow");
+			if(!isSelact){
+				$(".screen_motai").show();
+				isSelact=true;
+			}else{
+				$(".screen_motai").hide();
+				isSelact=false;
+			}
 		})
 
 		$scope.start()
