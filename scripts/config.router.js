@@ -176,6 +176,20 @@
                 }]
             }
         })
+      	.state('eventRegistration', {
+            url: '/eventRegistration',
+            templateUrl: 'views/eventRegistration.html',
+            controller: 'eventRegistrationControl',
+            cache: false,
+            data: {
+                pageTitle: '活动报名'
+            },
+            resolve: {
+                loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                    return $ocLazyLoad.load(['scripts/controllers/eventRegistrationContorller.js']);
+                }]
+            }
+        })
       	.state('JiaotongUniversityMatchmaker', {
             url: '/JiaotongUniversityMatchmaker',
             templateUrl: 'views/JiaotongUniversityMatchmaker.html',

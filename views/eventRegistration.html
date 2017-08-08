@@ -1,0 +1,62 @@
+<div style="height: 100%;width: 100%;background: #F2F2F2;">
+	<div class="content overflow-scroll">
+
+			<div class="new-list mt10">
+				<p>魔都交友派对·配对情侣,报名啦！</p>
+				<div class="huo-list">
+			      	<div>品牌活动</div>
+			      	<div>互动交友</div>
+			      	<div>轻松快乐</div>
+			     </div>
+			</div>
+			<div class="personalInformation mt20">
+				个人信息
+			</div>
+			<div class="my-conter-list mt0" >
+			 	<div class="list-data" >
+				    <span>昵称:</span>
+				    <input  type="text" />
+				</div>
+
+				<div class="list-data">
+					<span>性别:</span>
+				   <select ng-model="myColor" ng-options="sexName.name for sexName in sexNames" ng-change="can(myColor)">
+				   		<option value="">--请选择--</option>
+				   </select>
+				</div>
+				<div class="list-data">
+					<span>出生年月:</span>
+				    <input  type="text" id="start_date" />
+				</div>
+				<div class="list-data">
+					<span>毕业院校:</span>
+				    <input  type="text" />
+				</div>
+				<div class="list-data">
+					<span>工作单位:</span>
+				    <input  type="text" />
+				</div>
+				<div class="list-data bn">
+					<span>身高:</span>
+				    <input  type="number" />
+				</div>
+            </div>
+			<div class="personalInformation mt20">
+				活动需求
+			</div>
+			<div class="activityDemand">
+				<div class="activityDemand-list mb10" ng-repeat="a in eventRegistration ">
+					<div class="c666 font-w mb5">{{a.title}}</div>
+					<div class="activityDemand-input" ng-if="a.type=='Text'">
+						<input type="text"  ng-model="a.information" />
+					</div>
+					<select class="activityDemand-select"   ng-model="a.information" ng-if="a.type=='Radio'" ng-options="op for op in a.options">
+						<option value="">请选择</option>
+					</select>
+				</div>
+				
+			</div>
+			
+			 <div class="submit-input" ng-click="submit_input()">提交</div>
+	</div>
+</div>
