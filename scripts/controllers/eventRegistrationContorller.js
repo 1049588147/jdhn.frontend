@@ -19,6 +19,9 @@
 				'minDate': (new Date().getFullYear()-100) + '-' + 1 + '-' + 1, //最小日期
 				'maxDate': (new Date().getFullYear()+100) + '-' + 12 + '-' + 31 //最大日期
 			});
+	      	
+	      
+	      	
 	      		
       		$scope.eventRegistration = [
 			    {"type":"Text","title":"姓名"},
@@ -34,19 +37,30 @@
 			    {"type":"Text","title":"微信号（绝对保密，仅作为后台联系）"}
 			]
       		
-//    		$scope.sexNames=[
-//	      		{name:"男"},
-//	      		{name:"女"}
-//    		]
-      		
-      		$scope.can=function(o){
-      			console.log(o)
-      		}
-      		
-      		
+			for(var i=0;i<$scope.eventRegistration.length;i++){
+				$scope.eventRegistration[i].information=''
+				
+			}
+			var n=1;
       		$scope.submit_input=function(){
-      			console.log($scope.eventRegistration)
+      			for(var j=0;j<$scope.eventRegistration.length;j++){
+					if($scope.eventRegistration[j].information==""){
+	      				layer.open({
+						    content: "请输入"+ $scope.eventRegistration[j].title+"！"
+						    ,skin: 'msg'
+						    ,time: 2 //2秒后自动关闭
+						});
+					    return;
+	      		 	}	
+				}	
+				console.log(1)
       		}
+      		
+      		$scope.key= function (i,t){
+      			if(i.keyCode==13){
+      				$(i.target).parents().parents().next().children(".dan").children("input").focus()
+      			}
+			}
     }
 	
 	

@@ -28,13 +28,13 @@
 		$scope.vo = {
 	        slides:[{
 	            lbpicNum:1,
-	            lbpicUrl:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2728159135,4130384536&fm=15&gp=0.jpg'
+	            lbpicUrl:'img/jdhn1.jpg'
 	        },{
 	            lbpicNum:2,
-	            lbpicUrl:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2728159135,4130384536&fm=15&gp=0.jpg'
+	            lbpicUrl:'img/jdhn2.jpg'
 	        },{
 	            lbpicNum:3,
-	            lbpicUrl:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1484459979379&di=baaaa8808fb1da266db58b415cac2119&imgtype=0&src=http%3A%2F%2Ffile.desktx.com%2Fpc%2Fwallpaper%2Fplant%2F20090622%2FBlue-flowers-320-240.jpg'
+	            lbpicUrl:'img/jdhn3.jpg'
 	        }]
 	    };
 		

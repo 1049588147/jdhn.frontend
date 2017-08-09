@@ -20,7 +20,7 @@
 
 				<div class="list-data">
 					<span>性别:</span>
-				   <select ng-model="myColor" ng-options="sexName.name for sexName in sexNames" ng-change="can(myColor)">
+				   <select ng-model="myColor" ng-options="sexName.name for sexName in sexNames">
 				   		<option value="">--请选择--</option>
 				   </select>
 				</div>
@@ -46,13 +46,15 @@
 			</div>
 			<div class="activityDemand">
 				<div class="activityDemand-list mb10" ng-repeat="a in eventRegistration ">
-					<div class="c666 font-w mb5">{{a.title}}</div>
-					<div class="activityDemand-input" ng-if="a.type=='Text'">
-						<input type="text"  ng-model="a.information" />
+					<div class="c666  mb5">{{a.title}}</div>
+					<div class="activityDemand-input dan" ng-if="a.type=='Text'" >
+						<input class="input-t" type="text"  ng-model="a.information" ng-keyup="key($event,$index)"/>
 					</div>
-					<select class="activityDemand-select"   ng-model="a.information" ng-if="a.type=='Radio'" ng-options="op for op in a.options">
-						<option value="">请选择</option>
-					</select>
+					<div class="dan" ng-if="a.type=='Radio'">
+						<select  class="activityDemand-select"   ng-model="a.information"  ng-options="op for op in a.options">
+							<option value="">请选择</option>
+						</select>
+					</div>
 				</div>
 				
 			</div>

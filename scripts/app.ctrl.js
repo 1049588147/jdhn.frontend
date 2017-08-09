@@ -15,5 +15,5 @@ app.controller("appCtr",['$scope','$state','$timeout','$rootScope',function ($sc
 		$state.go("my");
 	}
 	
-	console.log(111)
+//	console.log(111)
 }]);
