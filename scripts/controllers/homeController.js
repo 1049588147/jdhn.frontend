@@ -47,7 +47,6 @@
 				  });
 				var promise = homeService.queryWarehouseInfoList();
 				promise.then(function (result) { 	
-		        	console.log(result)
 		        	if(result.code==200){
 		        		layer.close(n);
 		        		$scope.listUrl=result.data;

@@ -19,10 +19,7 @@
 				'minDate': (new Date().getFullYear()-100) + '-' + 1 + '-' + 1, //最小日期
 				'maxDate': (new Date().getFullYear()+100) + '-' + 12 + '-' + 31 //最大日期
 			});
-	      	
-	      
-	      	
-	      		
+
       		$scope.eventRegistration = [
 			    {"type":"Text","title":"姓名"},
 			    {"type":"Radio","title":"性别","options":["男", "女"]},
@@ -53,7 +50,7 @@
 					    return;
 	      		 	}	
 				}	
-				console.log(1)
+				console.log($scope.eventRegistration)
       		}
       		
       		$scope.key= function (i,t){

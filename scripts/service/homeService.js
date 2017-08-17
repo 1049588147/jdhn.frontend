@@ -5,12 +5,12 @@
    'use strict';
    angular
        .module('makeFriends')
-       .factory('homeService', ['$http', '$q', function ($http, $q) {
+       .factory('homeService', ['$http', '$q', '$rootScope',function ($http, $q,$rootScope) {
            return {
         	   queryWarehouseInfoList: function (param) {
 //				   var url="https://saas.sunjoypai.com/data/initUser.do?callback=JSON_CALLBACK&id="+param
 //				   var url="https://passport.sunjoypai.com/passport/loginMobie.do?callback=JSON_CALLBACK&id="+param
-                  var url="http://api.deerlove.top/v1/activitys/active-list?callback=JSON_CALLBACK" 
+                  var url=$rootScope.$host+"v1/activitys/active-list?callback=JSON_CALLBACK" 
                   var deferred = $q.defer();
                    $http.jsonp(url).success(function(result){
 						deferred.resolve(result)

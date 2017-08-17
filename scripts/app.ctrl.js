@@ -16,4 +16,8 @@ app.controller("appCtr",['$scope','$state','$timeout','$rootScope',function ($sc
 	}
 	
 //	console.log(111)
-}]);
+}]).run(['$rootScope',
+    	function ($rootScope) {
+	$rootScope.$host = "http://api.deerlove.top/";
+    }
+]);

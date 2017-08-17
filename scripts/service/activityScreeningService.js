@@ -5,11 +5,11 @@
    'use strict';
    angular
        .module('makeFriends')
-       .factory('activityScreeningService', ['$http', '$q', function ($http, $q) {
+       .factory('activityScreeningService', ['$http', '$q','$rootScope', function ($http, $q,$rootScope) {
            return {
 
 				activeList: function (param) {
-                  var url="http://api.deerlove.top/v1/activitys/inactive-list?limit="+param+"&offset=0&callback=JSON_CALLBACK" 
+                  var url=$rootScope.$host+"v1/activitys/inactive-list?limit="+param+"&offset=0&callback=JSON_CALLBACK" 
                   var deferred = $q.defer();
                    $http.jsonp(url).success(function(result){
 						deferred.resolve(result)
