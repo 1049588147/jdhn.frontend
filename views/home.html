@@ -1,3 +1,16 @@
+<style>
+	.slider-pager{
+		    position: absolute;
+		    bottom: 12px;
+		    z-index: 1;
+		    width: 100%;
+		    height: 15px;
+		    text-align: center;
+	}
+	.slider-pager .slider-pager-page{
+	-o-transform: scale(0.6);transform: scale(0.6);-webkit-transform: scale(0.6);-moz-transform: scale(0.6);-ms-transform: scale(0.6);width: 7px;
+	}
+</style>
 <div style="height: 100%;width: 100%;background: #F2F2F2;">
 	<div class="bar bar-header padding0">
 		<img class="history" src="img/lishi.png" ui-sref="activityScreening" />
@@ -8,59 +21,67 @@
 	</div>
 	<ion-content class="has-header has-footer" style="margin-bottom: 10px;">
 			   <ion-slide-box does-continue="true" auto-play="true" style="width:100%;margin-bottom:-5px;">
-		            <ion-slide ng-repeat="item in vo.slides track by $index">
-		                <img style="width:100%;" ng-src="{{item.lbpicUrl}}">
+		            <ion-slide ng-repeat="item in vo.slides track by $index" >
+		                <img style="width:100%;" ng-click="goU($index)" ng-src="{{item.lbpicUrl}}">
 		            </ion-slide>
 		        </ion-slide-box>
 			  <ion-refresher   pulling-text="下拉刷新" refreshing-text="刷新中"   on-refresh="doRefresh()" spinner>		
 			  </ion-refresher>
-			      <ion-list  show-delete="data.showDelete" show-reorder="data.showReorder">               
-			        <ion-item  class="item item-thumbnail-left mt10" ng-repeat="item in listUrlOne"  ui-sref="detalis">			 
-				     <img ng-src="{{item.imgurl}}">
-				     <div class="read"><img class="message" src="img/aixin.png"/>{{item.read}}阅读</div>
-				      <h2 class="c000 font14 font-w">{{item.title}}</h2>
-				      <div class="huo-list">
-				      	<div>品牌活动</div>
-				      	<div>互动交友</div>
-				      	<div>轻松快乐</div>
-				      </div>
-				      <div class="times mt5">
-				      	<label class="font12 c666">时间:</label>
-				      	<label class="font12 c666">{{item.starttime}}</label>
-				      	<label class="font12 c666">~</label>
-				      	<label class="font12 c666">{{item.endtime}}</label>
-				      </div>
-				      <div class="place">
-				      	<label class="font12 c666">地点:</label>
-				      	<label class="font12 c666">{{item.place}}</label>
-				      </div>
-				      <div class="numberOf">
-				      	<label class="font12 c666">人数:</label>
-				      	<label class="font12 c666"><label class="font12">不限</label>( <label class="c2C">{{item.numberapplicants}}</label>人申请|<label class="cFF"> {{item.throughnumber}}</label>人通过 )</label>
-				      </div>
-				      <div class="information">
-				      	<div><img class="message" src="img/my.png"/>{{item.numberapplicants}}人报名</div>
-				      	<div><img class="message" src="img/message.png"/>7留言</div>
-				      </div>
-			        </ion-item>
+			      <ion-list  show-delete="data.showDelete" show-reorder="data.showReorder">
+               		<div class="mt10" ng-repeat="item in listUrl" ng-click="detalisclick(item.act_id)" style="background: #FFFFFF;overflow: hidden;clear: both;padding-bottom: 5px;">
+				        <ion-item  class="item item-thumbnail-left " >	
+				        
+						     <img ng-src="{{item.thumb}}">
+						     <!--<div class="read"><img class="message" src="img/aixin.png"/>{{item.readCount}}阅读</div>-->
+						      <h2 class="c000 font14 font-w fm">{{item.title}}</h2>
+						      <div class="huo-list">
+						      	<div ng-repeat="t in item.tags" ng-style="{'background-color':'{{t.tag_color}}'}">{{t.title}}</div>
+						      	<!--<div>互动交友</div>
+						      	<div>轻松快乐</div>-->
+						      </div>
+						      <div class="times mt5">
+						      	<label class="font12 c666">时间:</label>
+						      	<label class="font12 c666">{{item.beginTime.split(":")[0]+":"+item.beginTime.split(":")[1]}}</label>
+						      	<label class="font12 c666">~</label>
+						      	<label class="font12 c666">{{item.endTime.split(":")[0]+":"+item.endTime.split(":")[1]}}</label>
+						      </div>
+						      <div class="place">
+						      	<label class="font12 c666">地点:</label>
+						      	<label class="font12 c666">{{item.address}}</label>
+						      </div>
+						    
+					      
+					      <!--<div class="information">
+					      	<div><img class="message" src="img/my.png"/>{{item.passCount}}人报名</div>
+					      	<div><img class="message" src="img/message.png"/>{{item.commentCount}}留言</div>
+					      </div>-->
+				        </ion-item>
+				        <div class="information">
+				        	<div><img class="message" style="margin-right: 3px;" src="img/aixin.png"/>{{item.readCount}}阅读</div>
+					      	<div><img class="message" src="img/my.png"/>{{item.passCount}}人报名</div>
+					      	<div><img class="message" src="img/message.png"/>{{item.commentCount}}留言</div>
+					      </div>
+			        </div>
 			      </ion-list>
-			<!--<div ng-show="loading" style="position:static;font-size:16px;z-index:9999;margin:30px 0 -70px 0;padding-bottom:10px;text-align:center;">加载中</div>
-			<ion-infinite-scroll on-infinite="loadMore()" spinner>
-		    </ion-infinite-scroll>-->
+			<div ng-show="loading" style="position:static;font-size:16px;z-index:9999;margin:30px 0 -70px 0;padding-bottom:10px;text-align:center;">加载中</div>
+			<ion-infinite-scroll ng-if="loadMoresss" on-infinite="loadMore()" spinner>
+		    </ion-infinite-scroll>
+			<img src="img/activity.png" ng-show="activity" style="width: 100%;margin-top: 30px;"/>
 		</ion-content>
 		<div class="tabs tabs-icon-top">
-		  <a class="tab-item active"    ng-click="home()">		  				
+		  <a class="tab-item active "    ng-click="home()">		  				
 		    <i class="icon ion-ios-home-outline"></i>
-		   <!--<span></span>-->
+		   
 		   活动
 		  </a>
-		  <a class="tab-item"   ng-click="news()">
+		  <a class="tab-item positive-relative"   ng-click="news()">
+		  	<span ng-show="numstotal" class="news-nums" >{{numtotal}}</span>
 		    <i class="icon ion-ios-chatbubble-outline"></i>
 		  消息
 		  </a>
 		  <a class="tab-item" ng-click="my()">
 		    <i class="icon ion-ios-person-outline"></i>
-		    我
+		    我的
 		  </a>
         </div>
 </div>

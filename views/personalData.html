@@ -2,48 +2,84 @@
 		<div class="content overflow-scroll">
 			<div class="my-conter-list" style="margin-top: 10px;">
 			 	<div class="list-data" >
-				    <span>昵称:</span>
-				    <input  type="text" ng-model="personalData.nickname"/>
+				    <span style="position: absolute;left: 0;"><span class="color-red">* </span>您的昵称:</span>
+				    <input  type="text" ng-model="personalData.nickName"/>
 				</div>
 				<div class="list-data">
-					<span>姓名:</span>
-				    <input  type="text" ng-model="personalData.fullName"/>
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>性别:</span>
+				    <select ng-model="personalData.gender" ng-options="sex.id as sex.name for sex in sexNames">
+				   </select>
 				</div>
 				<div class="list-data">
-					<span>性别:</span>
-				   <input  type="text" ng-model="personalData.Gender"/>
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>出生年月日:</span>
+				    <input  type="text" id="start_date" ng-model="personalData.birthday"/>
+				</div>
+				<div class="list-data" >
+				    <span style="position: absolute;left: ;"><span class="color-red">* </span>就读或毕业高校:</span>
+				    <!-- <input oninput="value=value.replace(/[a-zA-Z\u4e00-\u9fa5]/ig,'')" onafterpaste="value=value.replace(/[a-zA-Z\u4e00-\u9fa5]/ig,'')"  type="text" ng-model="personalData.school"/> -->
+					<input  type="text" ng-model="personalData.school"/>
 				</div>
 				<div class="list-data">
-					<span>出生年月:</span>
-				    <input  type="text" id="start_date" ng-model="personalData.Birth"/>
+					<span  style="position: absolute;left: 0;"><span class="color-red">* </span>工作单位:</span>
+				    <input  type="text"  ng-model="personalData.work"/>
 				</div>
+				<div class="list-data">
+					<span  style="position: absolute;"><span class="color-red">* </span>学位:</span>
+				    <select ng-model="personalData.academic" ng-options="e.id as e.name for e in education">
+				   </select>
+				</div>
+				<div class="list-data">
+					<span style="position: absolute;left: 0 ;"><span class="color-red">* </span>籍贯(家乡):</span>
+				    <!--<input type="text"  ng-model="personalData.hometown" />-->
+				     <select ng-model="personalData.hometown"  ng-options="p for p in positions">
+				   </select>
+				</div>
+				
+				<div class="list-data">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>身高(cm):</span>
+				    <input  type="text" ng-model="personalData.height"/>
+				</div>
+				
+				<div class="list-data">
+					<span  style="position: absolute;left: 0;"><span class="color-red">* </span>真实姓名:</span>
+				    <input  type="text" ng-model="personalData.realName"/>
+				</div>
+				<div class="list-data ">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>手机号:</span>
+				    <input type="text" ng-model="personalData.mobile"/>
+				</div>
+				
 				<div class="list-data bn">
-					<span>身高:</span>
-				    <input  type="number" ng-model="personalData.height"/>
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>微信号:</span>
+				    <input  type="text" ng-model="personalData.wechat_num"  onkeyup="value=value.replace(/[\W]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"/>
+				</div>
+				
+            </div>
+            <div style="padding-left: 9px; margin-top: 5px; color: #666;">微信号用于建群，请务必填写正确！</div>
+            <div class="my-conter-list" style="margin-top: 10px;">
+            	<div class="list-data">
+					<span style="position: absolute;left: 0;">年收入水平:</span>
+				    <select ng-model="personalData.salary" ng-options="i.id as i.name for i in incomelevel">
+				    </select>
+				    
+				</div>
+				<div class="list-data">
+					<span style="position: absolute;left: 0;">购房情况:</span>
+				    <select ng-model="personalData.ishouse" ng-options="i.id as i.name for i in room">
+				    </select>
+				</div>
+				
+				<div class="list-data bn">
+					<span style="position: absolute;left: 0;">购车情况:</span>
+				    <select ng-model="personalData.iscar" ng-options="i.id as i.name for i in vehicle">
+				    </select>
 				</div>
             </div>
-            <div class="my-conter-list" style="margin-top: 30px;">
-			 	<div class="list-data" >
-				    <span>毕业院校:</span>
-				    <input  type="text" ng-model="personalData.school"/>
-				</div>
-				<div class="list-data">
-					<span>工作单位:</span>
-				    <input  type="text" placeholder="在校生可不填" ng-model="personalData.company"/>
-				</div>
-				<div class="list-data">
-					<span>学历:</span>
-				    <input  type="text" ng-model="personalData.education"/>
-				</div>
-				<div class="list-data">
-					<span>年收入水平:</span>
-				    <input  type="text" ng-model="personalData.annualincomeLevel"/>
-				</div>
-				<div class="list-data bn">
-					<span>居住城市:</span>
-				    <input  type="text" ng-model="personalData.city"/>
-				</div>
-            </div>
+            <div style="padding-left: 9px;  padding-top: 10px; color: #666;">以上信息绝对保密，仅用于工作人员联系</div>
             <div class="submit-input" ng-click="submit_input()">提交</div>
     </div>
+</div>
+
+<div class="confirm_motai">
+	<div class="confirm_motai_cen"></div>
 </div>

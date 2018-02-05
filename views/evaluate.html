@@ -1,0 +1,69 @@
+<style>
+	.slider{position: relative;top: 50%;transform: translate(0,-50%);-moz-transform: translate(0,-50%);-webkit-transform: translate(0,-50%);-ms-transform: translate(0,-50%);-o-transform: translate(0,-50%);}
+	.slider-pager .slider-pager-page { display: inline-block;margin: 0px 3px;  width: 15px;  color: #F5F5F5; text-decoration: none; opacity: 0.8; }
+</style>
+<div style="height: 100%;width: 100%;background: #fff;">
+	<div class="content  overflow-scroll padding">
+		<div class="comment mb10">
+			<div class="custome">客服服务评价</div>
+			<div class="custome-right">
+				<img class="starreview" ng-src="{{star_customer>0?'img/xin1.png':'img/xin0.png'}}" ng-click="starreview(1)"/>
+				<img class="starreview" ng-src="{{star_customer>1?'img/xin1.png':'img/xin0.png'}}" ng-click="starreview(2)"/>
+				<img class="starreview" ng-src="{{star_customer>2?'img/xin1.png':'img/xin0.png'}}" ng-click="starreview(3)"/>
+				<img class="starreview" ng-src="{{star_customer>3?'img/xin1.png':'img/xin0.png'}}" ng-click="starreview(4)"/>
+				<img class="starreview" ng-src="{{star_customer>4?'img/xin1.png':'img/xin0.png'}}" ng-click="starreview(5)"/>
+				
+			</div>
+			<div class="commenttext">{{commenttext}}</div>
+		</div>
+		
+		<div class="comment mb10">
+			<div class="custome">活动场地评价</div>
+			<div class="custome-right">
+				<img class="starreview" ng-src="{{star_field>0?'img/xin1.png':'img/xin0.png'}}" ng-click="field(1)"/>
+				<img class="starreview" ng-src="{{star_field>1?'img/xin1.png':'img/xin0.png'}}" ng-click="field(2)"/>
+				<img class="starreview" ng-src="{{star_field>2?'img/xin1.png':'img/xin0.png'}}" ng-click="field(3)"/>
+				<img class="starreview" ng-src="{{star_field>3?'img/xin1.png':'img/xin0.png'}}" ng-click="field(4)"/>
+				<img class="starreview" ng-src="{{star_field>4?'img/xin1.png':'img/xin0.png'}}" ng-click="field(5)"/>
+				
+			</div>
+			<div class="commenttext">{{starreviewtext}}</div>
+		</div>
+		<div class="comment">
+			<div class="custome">活动总监评价</div>
+			<div class="custome-right">
+				<img class="starreview" ng-src="{{star_dire>0?'img/xin1.png':'img/xin0.png'}}" ng-click="chiefinspector(1)"/>
+                <img class="starreview" ng-src="{{star_dire>1?'img/xin1.png':'img/xin0.png'}}" ng-click="chiefinspector(2)"/>
+				<img class="starreview" ng-src="{{star_dire>2?'img/xin1.png':'img/xin0.png'}}" ng-click="chiefinspector(3)"/>
+				<img class="starreview" ng-src="{{star_dire>3?'img/xin1.png':'img/xin0.png'}}" ng-click="chiefinspector(4)"/>
+				<img class="starreview" ng-src="{{star_dire>4?'img/xin1.png':'img/xin0.png'}}" ng-click="chiefinspector(5)"/>
+			</div>
+			<div class="commenttext">{{chiefinspectortext}}</div>
+		</div>
+		<div class="commentmessage">
+			<textarea class="" placeholder="说说您想对我们的评价吧！" ng-model="txt"></textarea>
+		</div>
+		<div class="images-conter">
+			<div class="images-list" ng-repeat="m in imgae" ng-style="{'background-image':'url({{m}})'}" ng-click="imagesList($index)">
+				<img class="close" src="img/close.png" ng-click="close($index)"/>
+			</div>
+			<div class="images-uplode">
+				<input type="file" class="images-uplode-file" name="file" ng-file-select="saveImg($files)"/>
+				<div class="input-size">{{imglength}}/2</div>
+			</div>
+			
+		</div>
+		
+    </div>
+    <div class="bar bar-footer signup text-center" ng-click="release()">
+		 <h1 class="title">发布</h1>
+	</div>
+</div>
+<div class="" style="position: fixed; top: 0;margin: 0px;height: 100%; background: #0e0e0e;width: 100%;z-index: 22;" ng-if="isfixed" ng-click="close1()">
+	 
+	  <ion-slide-box does-continue="true"   style="" active-slide="indexs">
+            <ion-slide ng-repeat="m in imgae track by $index" >
+                <img class="thumbnail" ng-src="{{m}}">
+            </ion-slide>
+        </ion-slide-box>
+</div>

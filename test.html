@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="dist/cropper/cropper.min.css">
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="dist/cropper/cropper.min.js"></script>
+</head>
+
+<body>
+   <div class="container" style="width: 960px;height: 960px;background: #4cae4c">
+       <img class="xxx" src="img/zgr.jpg" style="height: 100%;width: 100%">
+       <input type="text">
+
+
+   </div>
+
+
+   <script>
+       $(' .xxx').cropper({
+           aspectRatio: 16 / 9,
+           crop: function(data) {
+               // Output the result data for cropping image.
+           }
+       });
+
+   </script>
+
+
+
+</body>
+</html>

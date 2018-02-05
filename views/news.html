@@ -1,29 +1,104 @@
-<div style="height: 100%;width: 100%;background: #F2F2F2;">
+ <div style="height: 100%;width: 100%;background: #F2F2F2;">
 	<div class="bar bar-header padding0 news_header">
-		<div ng-click="systemMessage()"  ng-class="{active:message==0}">系统消息</div><label class="c999">|</label>
-		<div ng-click="myMessage()" ng-class="{active:message==1}">我的消息</div>
+		<div ng-click="myMessage()" ng-class="{active:message==1}">我的消息<span ng-show="numsuser">({{newcode.user}})</span></div><label class="c999">|</label>
+		<div ng-click="systemMessage()"  ng-class="{active:message==0}">系统消息<span ng-show="numssys">({{newcode.sys}})</span></div>
 	</div>
+
+
 	<div class="content has-header has-footer overflow-scroll">
-		<div class="news-center padding">
-			<div class="new-list">
-				<p>魔都交友派对·配对情侣,报名啦！</p>
-				<p class="c999">魔都交友派对·配对情侣,报名啦！魔都交友派对·配对情侣,报名啦！魔都交友派对·配对情侣,报名啦！魔都交友派对·配对情侣,报名啦！魔都交友派对·配对情侣,报名啦！魔都交友派对·配对情侣,报名啦！魔都交友派对·配对情侣,报名啦！</p>
-				<div class="ccc">07月19 18:30</div>
+		
+
+		<ion-content>
+				<!--系统消息-->
+		<!-- <div class="news-center padding" ng-if="system"> -->
+			<!-- <div class="new-list" ng-repeat="n in systemMessagelist" ng-click="newsClickone(n.mdetail,n)"> -->
+				<!-- <div class="news-rudio" ng-show="n.mstate==292"></div> -->
+				<!-- <div class="radius" ng-show="radius"></div> -->
+				<!-- <p>{{n.mtitle}}</p> -->
+				<!-- <p class="c999"> {{n.mdetail}}</p> -->
+				<!-- <div class="ccc">{{n.mtime}}</div> -->
+			<!-- </div> -->
+		<!-- </div> -->
+		<!--我的消息-->
+		
+		<div class="news-center padding" ng-if="system">
+			<div class="new-list-read" ng-repeat="n in systemMessagelist" ng-click="newsClickone(n.mdetail,n)">
+				<div class="news-rudio" ng-show="n.mstate==292"></div>
+				<div class="radius" ng-show="radius"></div>
+				<p>{{n.mtitle}}</p>
+				<p class="c999"> {{n.mdetail}}</p>
+				<div class="ccc">{{n.mtime}}</div>
 			</div>
 		</div>
+		
+		
+				<div class="news-center padding"  ng-if="myNews">
+
+					<div ng-click="gochatDetails(msg)" class="{{msg.myNewsClass}}" ng-repeat="msg in msgList">
+						<div style="color:#9AD8FE;margin-top: 0.1rem ">优库</div>
+						<div style="color:#9C9899;margin-top: 0.3rem ">优库会员：<span style="color: #545454;letter-spacing: 0.03rem;font-weight: 600 ">{{msg.u_nickName}}</span>{{msg.say}}快来看看吧！</div>
+						<div style="color: #D9D9D9;margin-top: 0.3rem">{{msg.add_time}}</div>
+						<div style="position: absolute;right: 0.3rem;bottom: 0.15rem;color: #FE97AE">{{msg.num}}</div>
+
+					</div>
+
+				</div>
+			<ion-infinite-scroll  on-infinite="loadMore()"  ng-show="loadMoresss" spinner>
+			</ion-infinite-scroll>
+
+
+
+			</ion-content>
+
 	</div>
+
+
+
+
+
+
+
+
+
+
+
+	<!--<div class="content has-header has-footer overflow-scroll">-->
+		<!--/*系统消息*/-->
+		<!--<div class="news-center padding" ng-if="system">-->
+			<!--<div class="new-list" ng-repeat="n in systemMessagelist" ng-click="newsClickone(n.mdetail,n)">-->
+				<!--<div class="news-rudio" ng-show="n.mstate==292"></div>-->
+				<!--<div class="radius" ng-show="radius"></div>-->
+				<!--<p>{{n.mtitle}}</p>-->
+				<!--<p class="c999"> {{n.mdetail}}</p>-->
+				<!--<div class="ccc">{{n.mtime}}</div>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--&lt;!&ndash;我的消息&ndash;&gt;-->
+		<!--<div class="news-center padding"  ng-if="myNews">-->
+			<!--<div class="new-list" ng-repeat="l in list"  ng-click="newsClick(l.mdetail,l)">-->
+				<!--<div class="news-rudio" ng-show="l.mstate==292"></div>-->
+				<!--<div class="radius" ng-show="radiusone"></div>-->
+				<!--<p>{{l.mtitle}}</p>-->
+				<!--<p class="c999"> {{l.mdetail}}</p>-->
+				<!--<div class="ccc">{{l.mtime}}</div>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+	<!--页面底部-->
 	<div class="tabs tabs-icon-top">
 	  <a class="tab-item"  ng-click="home()">		  				
 	    <i class="icon ion-ios-home-outline"></i>
 	   活动
 	  </a>
-	  <a class="tab-item active"  ng-click="news()">
+	  <a class="tab-item active positive-relative"  ng-click="news()">
+	  	<span ng-show="numstotal" class="news-nums">{{numtotal}}</span>
 	     <i class="icon ion-ios-chatbubble-outline"></i>
 	  消息
 	  </a>
 	  <a class="tab-item"  ng-click="my()">
 	    <i class="icon ion-ios-person-outline"></i>
-	    我
+	    我的
 	  </a>
     </div>
 </div>
+

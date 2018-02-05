@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html ng-app="jdhnshare">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<title>交大红娘-个人主页</title>
+		<link rel="stylesheet" type="text/css" href="libs/ionic-v1.3.3/css/ionic.min.css"/>
+		<link rel="stylesheet" type="text/css" href="libs/need/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/LCalendar.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style>
+			.slider{position: relative;top: 50%;transform: translate(0,-50%);-moz-transform: translate(0,-50%);-webkit-transform: translate(0,-50%);-ms-transform: translate(0,-50%);-o-transform: translate(0,-50%);}
+			.slider-pager .slider-pager-page { display: inline-block;margin: 0px 3px;  width: 15px;  color: #F5F5F5; text-decoration: none; opacity: 0.8; }
+			.album_center_list { display: -moz-box;   display: -webkit-box;padding: 0px 20px;  height: 26px;}
+		</style>
+		<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+		<script src="libs/layer.js"></script>
+		<script src="dist/LCalendar.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/ionic/1.3.2/js/ionic.bundle.min.js" ></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script>
+			var jdhnshare=angular.module("jdhnshare",['ionic']);
+			jdhnshare.controller("jdhnshareCtr",['$scope','$http','$ionicSlideBoxDelegate','$window',function($scope,$http,$ionicSlideBoxDelegate,$window){
+				var getPops = function(name){
+				    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+				     var r = $window.location.search.substr(1).match(reg);
+				    if(r!=null)return  unescape(r[2]); return null; 
+				}
+				$scope.uid=getPops("u_id")
+				$scope.imgae=[];
+		      	var myinfourl='http://api.jdhn.top/home/share/personInfo?u_id='+$scope.uid
+				$http.get(myinfourl).success(function(data,status,headers,config){
+					if(data.code==1){
+				    	$scope.datalist=data.data;
+				    	$scope.imgae=$scope.datalist.u_personImg.split(",")
+				    	if($scope.datalist.u_personImg==""||$scope.datalist.u_personImg==null){
+							$scope.imgae=[]
+						}else{
+							$scope.imgae=$scope.datalist.u_personImg.split(",")
+						}
+				    	
+						if($scope.datalist.state1==343){	
+							$(".shiming").css("background","#EF705D")
+						}else{
+							$(".shiming").css("background","#acada3")
+						}
+						if($scope.datalist.state2==342){
+							$(".gongz").css("background","#c2cc89")
+						}else{
+							$(".gongz").css("background","#acada3")
+						}
+						
+						if($scope.datalist.state3==344){		
+							$(".xueli").css("background","#71C8E7")
+						}else{
+							$(".xueli").css("background","#acada3")
+						}
+					}else{
+						layer.open({
+						    content: data.message
+						    ,skin: 'msg'
+						    ,time: 2 //2秒后自动关闭
+						  });
+					}
+				}).error(function(data,status,headers,config){
+					
+				})
+
+		  	    $scope.isfixed=false;
+		  	    $scope.imagesList=function(arr,i){
+		  	    	$scope.imgaes=arr;
+		  	    	$scope.indexs=i;
+		  	    	$scope.isfixed=true;
+		  	    }
+		  	    
+		  	    $scope.close1=function(){
+		  	    	$scope.isfixed=false;
+		  	    }
+		  	    
+		  	    $scope.education=function(v){
+		  	    	if(v=="11"){
+		  	    		return "未填写"
+		  	    	}else if(v=="15"){
+		  	    		return "学士"
+		  	    	}else if(v=="16"){
+		  	    		return "硕士"
+		  	    	}else if(v=="17"){
+		  	    		return "博士"
+		  	    	}
+		  	    }
+		  	    
+		  	    
+		  	  	$scope.nims=function(v){
+		  	    	if(v==""){
+		  	    		return "未填写"
+		  	    	}else{
+		  	    		return v
+		  	    	}
+		  	    }
+		  	    
+		  	    $scope.room=function(v){
+		  	    	if(v=='1'){
+		  	    		return "已购房";
+		  	    	}else{
+		  	    		return "未购房";
+		  	    	}
+		  	  	}
+		  	    
+		  	    $scope.vehicle=function(v){
+		  	    	if(v=='1'){
+		  	    		return "已购车";
+		  	    	}else{
+		  	    		return "未购车";
+		  	    	}
+		  	  	}
+		      	
+		      	$scope.incomelevel=function(v){
+		      		if(v=="31"){
+		      			return "未填写";
+		      		}else if(v=="32"){
+		      			return "10万以下";
+		      		}else if(v=="33"){
+		      			return "10万-20万";
+		      		}else if(v=="34"){
+		      			return "20万-30万";
+		      		}else if(v=="35"){
+		      			return "30万以上";
+		      		}
+		      	}
+  	    
+				$scope.sexNames=function(v){
+		  	   		 if(v=='2'){
+		  	    		return "男";
+		  	    	}else{
+		  	    		return "女";
+		  	    	}
+		  	  	}
+				
+				$scope.marriagelist=function(v){
+			    	if(v=='0'){
+			    		return "未填写";
+			    	}else if(v=='1'){
+			    		return "未婚(单身)";
+			    	}else if(v=="2"){
+			    		return "离异(单身)";
+			    	}else if(v=="3"){
+			    		return "丧偶(单身)";
+			    	}else if(v=="4"){
+			    		return "恋爱中";
+			    	}else if(v=="5"){
+			    		return "已婚";
+			    	}
+			    }
+		  	    
+		  	    
+		  	    $scope.childrenlist=function(v){
+			    	if(v=='0'){
+			    		return "未填写";
+			    	}else if(v=='1'){
+			    		return "有（归自己）";
+			    	}else if(v=="2"){
+			    		return "有（归对方）";
+			    	}else if(v=="3"){
+			    		return "无子女";
+			    	}else if(v=="4"){
+			    		return "有";
+			    	}
+		  	    }
+		  	    
+		  	    $scope.religion=function(v){
+		  	    	if(v==""){
+		  	    		return "无宗教";
+		  	    	}else{
+		  	    		return v;
+		  	    	}
+		  	    }
+		  	    
+		  	$scope.riqi=function(v){
+		  	   		if(v==''||v==null){
+			    		return "未填写";
+			    	}else {
+			    		
+			    		return v.split("-")[0]
+			    	}
+		  	   }    
+		  	    
+		  	    
+			/*根据出生日期算出年龄*/
+			 $scope.jsGetAge=function(strBirthday){   
+			 	if(strBirthday==""||strBirthday==null){
+			 		return
+			 	}
+			    var returnAge;
+			    var strBirthdayArr=strBirthday.split('-');
+			    var birthYear = strBirthdayArr[0];
+			    var birthMonth = strBirthdayArr[1];
+			    var birthDay = strBirthdayArr[2];
+			    d = new Date();
+			    var nowYear = d.getFullYear();
+			    var nowMonth = d.getMonth() + 1;
+			    var nowDay = d.getDate();
+			    
+			    if(nowYear == birthYear){
+			        returnAge = 0;//同年 则为0岁
+			    }
+			    else{
+			        var ageDiff = nowYear - birthYear ; //年之差
+			        if(ageDiff > 0){
+			            if(nowMonth == birthMonth) {
+			                var dayDiff = nowDay - birthDay;//日之差
+			                if(dayDiff < 0)
+			                {
+			                    returnAge = ageDiff - 1;
+			                }
+			                else
+			                {
+			                    returnAge = ageDiff ;
+			                }
+			            }
+			            else
+			            {
+			                var monthDiff = nowMonth - birthMonth;//月之差
+			                if(monthDiff < 0)
+			                {
+			                    returnAge = ageDiff - 1;
+			                }
+			                else
+			                {
+			                    returnAge = ageDiff ;
+			                }
+			            }
+			        }
+			        else
+			        {
+			            returnAge = -1;//返回-1 表示出生日期输入错误 晚于今天
+			        }
+			    }
+			    
+			    return returnAge;//返回周岁年龄
+			    
+			}
+		  	    
+			}])
+			
+			
+		</script>
+	</head>
+	<body ng-controller="jdhnshareCtr">
+			<div style="height: 100%;width: 100%;background: #fff;">
+				<div class="content  overflow-scroll">
+					<div class="homepage">
+						<img class="homepageImg" src="img/homepage.png" />
+						<div class="homepage-rudio">
+							<div class="homepage-rudio-center">
+								<img class="photo" ng-src="{{datalist.u_portrait}}" />
+								<input class="btn_file" type="file" name="file" ng-file-select="saveImg($files)"/>
+								<img class="homepage-member" ng-if="datalist.u_vip=='1'"  src="img/member.png" />
+							</div>
+						</div>
+					</div>
+					<div class="nike">
+						<div class="nike-title">{{datalist.nickName}} <img ng-if="datalist.gender=='3'" src="img/nv.png"/><img style="width: 23px;" ng-if="datalist.gender=='2'" src="img/nan.png"/></div>
+						<div class="home-txt">
+							<div class="home-txt-div">{{datalist.u_intro}}</div>
+						</div>
+						<div class="mt10"><img class="position" src="img/position.png"/>{{nims(datalist.hometown)}}</div>
+						<div class="nav-txt">
+							<div class="shiming"  >实名认证</div> <!--ng-if="a"-->
+							<div class=" gongz" >工作认证</div> <!--ng-if="l"-->
+							<div class=" xueli">学历认证</div>   <!--ng-if="s"-->
+						</div>
+					</div>
+					<div class="album">个人相册</div>
+					<div class="images-conter">
+						<div class="images-list" ng-repeat="m in imgae" ng-style="{'background-image':'url({{m}})'}" ng-click="imagesList(imgae,$index)">
+							
+						</div>
+						
+					</div>
+					
+					<div class="album">个人资料</div>
+					
+					<div class="album_center">
+						<div class="album_center_list">
+							<div><label class="font12 c8c">年龄:</label></div>
+							<div><label class="font12" ng-bind="riqi(datalist.birthday)"></label></div>
+						</div>
+						<div class="album_center_list">
+							<div><label class="font12 c8c">身高(cm):</label></div>
+							<div><label class="font12">{{nims(datalist.height)}}</label></div>
+						</div>
+						<div class="album_center_list">
+							<div><label class="font12 c8c">婚姻状况:</label></div>
+							<div><label class="font12">{{marriagelist(datalist.u_marriage)}}</label></div>
+						</div>
+						<div class="album_center_list">
+							<div><label class="font12 c8c">有无子女:</label></div>
+							<div><label class="font12">{{childrenlist(datalist.u_children)}}</label></div>
+						</div>
+						<div class="album_center_list">
+							<div><label class="font12 c8c">学位:</label></div>
+							<div><label class="font12">{{education(datalist.academic)}}</label></div>
+						</div>
+						<div class="album_center_list">
+							<div><label class="font12 c8c">毕业院校:</label></div>
+							<div><label class="font12">{{nims(datalist.school)}}</label></div>
+						</div>
+						<div class="album_center_list">
+							<div><label class="font12 c8c">居住地:</label></div>
+							<div><label class="font12">{{nims(datalist.city)}}</label></div>
+						</div>
+						<div class="album_center_list">
+							<div><label class="font12 c8c">家乡:</label></div>
+							<div><label class="font12 ">{{nims(datalist.hometown)}}</label></div>
+						</div>
+						<div class="album_center_list">
+							<div><label class="font12 c8c">工作单位:</label></div>
+							<div><label class="font12">{{nims(datalist.work)}}</label></div>
+						</div>
+						<div class="album_center_list">
+							<div><label class="font12 c8c">年薪:</label></div>
+							<div><label class="font12">{{incomelevel(datalist.salary)}}</label></div>
+						</div>
+						
+						<div class="album_center_list">
+							<div><label class="font12 c8c">购房情况:</label></div>
+							<div><label class="font12">{{room(datalist.ishouse)}}</label></div>
+						</div>
+						<div class="album_center_list">
+							<div><label class="font12 c8c">购车情况:</label></div>
+							<div><label class="font12">{{vehicle(datalist.iscar)}}</label></div>
+						</div>
+						<div class="album_center_list">
+							<div><label class="font12 c8c">宗教信仰:</label></div>
+							<div><label class="font12">{{religion(datalist.u_religion) }}</label></div>
+						</div>
+					</div>
+			    </div>
+			</div>
+
+
+		<div class="" style="position: fixed; top: 0;margin: 0px;height: 100%; background: #0e0e0e;width: 100%;z-index: 22;" ng-if="isfixed" ng-click="close1()">
+			  <ion-slide-box does-continue="true"   style="" active-slide="indexs">
+		            <ion-slide ng-repeat="m in imgaes track by $index" >
+		                <img class="thumbnail" ng-src="{{m}}">
+		            </ion-slide>
+		        </ion-slide-box>
+		</div>
+	</body>
+</html>

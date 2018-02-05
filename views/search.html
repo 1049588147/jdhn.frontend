@@ -1,42 +1,44 @@
 <div style="height: 100%;width: 100%;background: #F2F2F2;">
 	<div class="bar bar-header item-input-inset">
 	  <label class="item-input-wrapper">
-	    <i class="icon ion-ios-search placeholder-icon" style="font-size: 22px;padding: 0px;"></i>
-	    <input type="search" placeholder="请输入活动关键字">
+	    <i class="icon ion-ios-search placeholder-icon" style="font-size: 22px;padding: 0px; "></i>
+	      <input type="search" placeholder="请输入活动关键字" ng-model="search" >
 	  </label>
-	  <button class="button button-clear">
+	  <button class="button button-clear" ng-click="searchClick()" style="color: #666;">
 	    搜索
 	  </button>
     </div>
-    
-    <div class="list">
-		    <a class="item item-thumbnail-left mt10">
-		     	<img  src="img/beike.png">
-			    <div class="read"><img class="message" src="img/aixin.png"/>{{item.read}}阅读</div>
-			    <h2 class="c000 font14 font-w">KTV青春交友派对，报名啦！</h2>
-			    <div class="huo-list">
-			      	<div>品牌活动</div>
-			      	<div>互动交友</div>
-			      	<div>轻松快乐</div>
-			    </div>
-			    <div class="times mt5">
-			      	<label class="font12 c666">时间:</label>
-			      	<label class="font12 c666">07月19 18:30</label>
-			      	<label class="font12 c666">~</label>
-			      	<label class="font12 c666">07月19 18:30</label>
-			    </div>
-			     <div class="place">
-			      	<label class="font12 c666">地点:</label>
-			      	<label class="font12 c666">交大美女贼多交大美女贼多交大美女贼多交大美女贼多交大美女贼</label>
-			    </div>
-			    <div class="numberOf">
-			      	<label class="font12 c666">人数:</label>
-			      	<label class="font12 c666"><label class="font12">不限</label>( <label class="c2C">{{item.numberapplicants}}</label>人申请|<label class="cFF"> {{item.throughnumber}}</label>人通过 )</label>
-			    </div>
-			    <div class="information">
-			      	<div><img class="message" src="img/my.png"/>{{item.numberapplicants}}人报名</div>
-			      	<div><img class="message" src="img/message.png"/>7留言</div>
-			    </div>
-		    </a>
-	    </div>
+    <ion-content class="has-header">
+	     <ion-list  show-delete="data.showDelete" show-reorder="data.showReorder">
+	        <ion-item  class="item item-thumbnail-left mt10" ng-repeat="item in listUrl" ng-click="detalisclick(item.act_id)">			 
+		      <img ng-src="{{item.thumb}}">
+		     <div class="read"><img class="message" src="img/aixin.png"/>{{item.readCount}}阅读</div>
+		      <h2 class="c000 font14 font-w">{{item.title}}</h2>
+		      <div class="huo-list">
+		      	<div ng-repeat="t in item.tags" ng-style="{'background-color':'{{t.tag_color}}'}">{{t.title}}</div>
+		      </div>
+		      <div class="times mt5">
+		      	<label class="font12 c666">时间:</label>
+		      	<label class="font12 c666">{{item.beginTime}}</label>
+		      	<label class="font12 c666">~</label>
+		      	<label class="font12 c666">{{item.endTime}}</label>
+		      </div>
+		      <div class="place">
+		      	<label class="font12 c666">地点:</label>
+		      	<label class="font12 c666">{{item.address}}</label>
+		      </div>
+		      <!--<div class="numberOf">
+		      	<label class="font12 c666">人数:</label>
+		      	<label class="font12 c666"><label class="font12">不限</label>( <label class="c2C">{{item.passCount}}</label>人申请|<label class="cFF"> {{item.enrollCount}}</label>人通过 )</label>
+		      </div>-->
+		      <div class="information">
+		      	<div><img class="message" src="img/my.png"/>{{item.passCount}}人报名</div>
+		      	<div><img class="message" src="img/message.png"/>{{item.commentCount}}留言</div>
+		      </div>
+	        </ion-item>
+	      </ion-list>
+	<div ng-show="loading" style="position:static;font-size:16px;z-index:9999;margin:30px 0 -70px 0;padding-bottom:10px;text-align:center;">加载中</div>
+	<ion-infinite-scroll ng-if="loadMoresss" on-infinite="loadMore()" ng-if="loadMoresss" spinner>
+    </ion-infinite-scroll>
+	</ion-content>
 </div>

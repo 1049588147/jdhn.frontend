@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html ng-app="echocardiography">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>交大红娘-心动编号</title>
+		<style>
+			*{margin: 0;padding: 0;font-family: "微软雅黑";}
+			html,body{height: 100%;width: 100%;}
+			.logo{position: absolute;top: 0px;left:50%;transform: translate(-50%,0);-webkit-transform: translate(-50%,0);-moz-transform: translate(-50%,0);-o-transform: translate(-50%,0);
+			-ms-transform: translate(-50%,0);width: 100%;}
+			.sign{width: 100%;height: 100%;position: relative;}
+			.bg{width: 100%;display: block;}
+			.conter{position: absolute;width: 71%;z-index: 3;top: 273px;left: 50%;
+			transform: translate(-50%,0);-webkit-transform: translate(-50%,0);-moz-transform: translate(-50%,0);-o-transform: translate(-50%,0);
+			-ms-transform: translate(-50%,0);padding: 30px;font-size: 24px;color:#111;padding: 10px;}		
+			.portrait{width: 70px;height: 70px;border-radius:50% ;overflow: hidden;margin:-50px auto 0px  auto;display: block;}
+			.title{font-family: "FZYaoti";font-size: 14px;letter-spacing: 3px;color: #5f5f5f;text-align: center;}
+			.viewnumber{background: #ff814f;width: 100px;text-align: center;color: #fff;padding: 5px 0px;border-radius:4px;font-size: 14px;margin: 30px auto 0px auto;}
+			.tagging{font-size:12px ;text-align: center;color: #5f5f5f;margin-top: 10px;}
+			.fon{color: #EF473A;font-size: 24px;}
+			.regret{font-size: 12px;letter-spacing: 3px;color: #5f5f5f;text-align: center;}
+			.nexttime{font-size: 12px;letter-spacing: 3px;color: #5f5f5f;text-align: center;margin-top: 10px;}
+			.fate{text-align: center;color: #ff814e;margin-top: 10px;}
+			.code{width: 100px;position: absolute;left: 50%;
+			transform: translate(-50%,0);-webkit-transform: translate(-50%,0);-moz-transform: translate(-50%,0);-o-transform: translate(-50%,0);
+			-ms-transform: translate(-50%,0);top: 422px;display: none;}
+			@media screen and (max-width:800px) {
+				.conter{top: 555px;padding: 12px;height: 210px;}
+				.portrait{width: 120px;height: 120px;border-radius:50% ;overflow: hidden;margin:-50px auto 24px  auto;display: block;}
+				.title{font-size: 33px;}
+				.viewnumber {background: #ff814f; width: 222px;text-align: center;  color: #fff; padding: 5px 0px; border-radius: 4px;font-size: 39px; margin: 45px auto 0px auto;}
+				.tagging { font-size: 24px; text-align: center; color: #5f5f5f;margin-top: 50px;}
+				.fon{color: #EF473A;font-size: 54px;}
+			}
+			
+			@media screen and (max-width: 600px) {
+				.conter{top: 389px;padding: 12px;height: 210px;}
+				
+				.portrait{width: 100px;height: 100px;border-radius:50% ;overflow: hidden;margin:-50px auto 24px  auto;display: block;}
+				.title{font-size: 24px;}
+				.viewnumber {background: #ff814f; width: 174px;text-align: center;  color: #fff; padding: 5px 0px; border-radius: 4px;font-size: 27px; margin: 45px auto 0px auto;}
+				.tagging {font-size: 20px; text-align: center; color: #5f5f5f;margin-top: 20px;}
+				.fon{font-size: 43px;}
+				.code{top: 646px;width: 183px;}
+			}
+			
+			@media screen and (max-width: 480px) {
+				.conter{top: 306px;padding: 12px;height: 155px;font-size: 18px;}
+				.title {font-size: 19px;}
+				.fon{font-size: 28px;}
+				.code {top: 517px; width: 158px;}
+			}
+			
+			
+			@media screen and (max-width: 414px) {
+				.conter{top: 272px;}
+				.title { font-size: 15px;}
+				.tagging { font-size: 12px;}
+				.viewnumber {width: 128px;font-size: 21px;}
+				.code{top: 429px;}
+			}
+			
+			@media screen and (max-width: 412px) {
+				conter{top: 272px;}
+				.title { font-size: 15px;}
+				.tagging { font-size: 12px;}
+				.viewnumber {width: 128px;font-size: 21px;}
+				.code { top: 456px; width: 129px;}
+			}
+			
+			@media screen and (max-width: 384px) {
+				.conter{top: 248px;}
+				.fon { font-size: 24px;}
+				.title { font-size: 14px;}
+				
+			}
+			
+			@media screen and (max-width: 375px) {
+				.conter{top: 248px;}
+				.portrait{width: 70px;height: 70px;border-radius:50% ;overflow: hidden;margin:-50px auto 5px  auto;display: block;}
+                .viewnumber { width: 93px;font-size: 15px;}
+                  .code {top: 413px;width: 124px;}
+			}
+			
+			@media screen and (max-width: 360px) {
+				.portrait { width: 70px;height: 70px; border-radius: 50%; margin: -50px auto 14px auto; }
+				.conter { top: 234px;}
+				.title {font-size: 13px;}
+				.code { top: 406px;width: 112px;}
+			}
+			
+			@media screen and (max-width: 320px) {
+				.conter{font-size: 12px; top: 214px; padding: 6px;height: 146px;}
+				.viewnumber { width: 84px;font-size: 14px;}
+				.title{letter-spacing: 2px;font-size:12px ;}
+				.code { top: 337px; width: 116px;}
+			}
+			
+			
+		</style>
+		<link rel="stylesheet" type="text/css" href="libs/ionic-v1.3.3/css/ionic.min.css"/>
+		<link rel="stylesheet" type="text/css" href="libs/need/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/LCalendar.css"/>
+		<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+		<script src="libs/layer.js"></script>
+		<script src="dist/LCalendar.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/ionic/1.3.2/js/ionic.bundle.min.js" ></script>
+		<script>
+			var ech=angular.module("echocardiography",[])
+			ech.controller("echocardiographyCtr",["$scope","$window","$http",function($scope,$window,$http){
+
+				$scope.token=$window.localStorage.getItem("token");
+				$scope.uid=$window.localStorage.getItem("uid");
+				$scope.activity_id=$window.localStorage.getItem("activity_id");
+				$scope.enroll_id=$window.localStorage.getItem("enroll_id");
+				var url='http://api.jdhn.top/home/election/getResNum?act_id='+$scope.activity_id+"&token="+$scope.token+"&u_id="+$scope.uid;
+				var w=layer.open({
+					type: 2
+					,content: '加载中'
+				});
+				$http.get(url).success(function(data,status,headers,config){
+					if(data.code==1){
+						layer.close(w)
+						$scope.photo=data.photo;
+						$scope.num=data.num
+						if($scope.num==0){
+					    		$scope.no=true;
+								$scope.yes=false;
+						}else{
+							$scope.no=false;
+							$scope.yes=true;
+						}
+					}else if(data.code==510){
+						layer.close(w)
+						$window.localStorage.setItem("token","");	
+					    $window.localStorage.setItem("uid","");	
+						$window.location.href="index.html"
+					}else if(data.code==400){
+						layer.close(w)
+						layer.open({
+						    content:"您还不是会员哦，扫描下方二维码！"
+						    ,skin: 'msg'
+						    ,time: 2 //2秒后自动关闭
+						});	
+						$(".code").css("display","block");
+					}else if(data.code==404){
+						layer.close(w)
+						layer.open({
+						    content:"您没有报名本场活动哦！"
+						    ,skin: 'msg'
+						    ,time: 2 //2秒后自动关闭
+						});	
+						$(".code").css("display","block");
+					}else if(data.code==401){
+						layer.close(w);
+						layer.open({
+						    content:"您没签到本场活动！"
+						    ,skin: 'msg'
+						    ,time: 2 //2秒后自动关闭
+						});	
+					}else if(data.code==403){
+						layer.close(w);
+						layer.open({
+						    content:"互选已过期！"
+						    ,skin: 'msg'
+						    ,time: 2 //2秒后自动关闭
+						});	
+						$window.location.href="404.html"
+					}else{
+						layer.open({
+						    content:data.message
+						    ,skin: 'msg'
+						    ,time: 2 //2秒后自动关闭
+						});	
+						$window.location.href="404.html"
+					}
+
+				}).error(function(data,status,headers,config){
+					
+				})
+
+				// 支付
+				var wxpay='';
+		       $scope.payment=function (){
+		       		var w=layer.open({
+						type: 5
+						,content: '加载中'
+					});
+					<!-- console.log($scope.list.enroll_id); -->
+					<!-- console.log($scope.enroll_id); -->
+		        	$.ajax({
+							type:"POST",
+							data:{"uid":$scope.uid,"activity_id":$scope.activity_id,"token":$scope.token,'enroll_id':$scope.enroll_id},
+							url:"http://api.jdhn.top/home/elepay",/*url写异域的请求地址*/
+								success:function(result){
+								
+									var data = JSON.parse(result);
+									if(data.code==1){
+										wxpay = data.data;
+										layer.close(w)
+										$scope.callpay();
+									}else if(data.code==510){
+										 layer.close(w)
+										$window.localStorage.setItem("token","");	
+									    $window.localStorage.setItem("uid","");	
+										$window.location.href="index.html"
+										
+									}else if(data.code==200){
+										layer.close(w)
+										layer.open({
+										    content:data.message
+										    ,skin: 'msg'
+										    ,time: 2 //2秒后自动关闭
+										});
+										$window.location.href="listsounds.html"
+									}else{
+										 layer.close(w)
+										layer.open({
+										    content:data.message
+										    ,skin: 'msg'
+										    ,time: 2 //2秒后自动关闭
+										});
+									}
+								}
+					});
+		        }
+		        
+		        
+		        $scope.jsApiCall=function()
+		        {
+		        	
+		            WeixinJSBridge.invoke(
+		                'getBrandWCPayRequest',
+		               {
+							'appId':wxpay.appId,
+							'nonceStr':wxpay.nonceStr,
+							'package':wxpay.package,
+							'paySign':wxpay.paySign,
+							'signType':wxpay.signType,
+							'timeStamp':wxpay.timeStamp,
+							//'total_fee':wxpay.total_fee,
+						},
+		                function(res){
+		                  
+		                   // alert(res.err_code+res.err_desc+res.err_msg);
+		                    if(res.err_msg == 'get_brand_wcpay_request:fail' || res.err_msg == 'get_brand_wcpay_request:cancel') {
+		                    		layer.open({
+									    content:"支付失败，请重新支付"
+									    ,skin: 'msg'
+									    ,time: 2 //2秒后自动关闭
+									});
+									return;
+							}else{
+								$.ajax({
+									url:'http://api.jdhn.top/home/elepay/getEleState',
+									data:{"uid":$scope.uid,"activity_id":$scope.activity_id,"token":$scope.token,'enroll_id':$scope.enroll_id},
+									type:'post',
+									success:function(res) {
+										var data = JSON.parse(res);
+										if(data.code == 1) {
+											layer.open({
+											    content:"支付成功"
+											    ,skin: 'msg'
+											    ,time: 2 //2秒后自动关闭
+											});
+											$window.location.href="listsounds.html"
+											
+										}else if(data.code==510){
+											 $window.localStorage.setItem("token","");	
+										     $window.localStorage.setItem("uid","");	
+											$window.location.href="index.html"
+										
+										}else{
+											layer.open({
+											    content:"支付失败，请重新支付"
+											    ,skin: 'msg'
+											    ,time: 2 //2秒后自动关闭
+											});
+										}
+									}
+								
+								});
+							}
+		
+		                }
+		            );
+		        }
+		
+		      $scope.callpay= function()
+		        {
+		            if (typeof WeixinJSBridge == "undefined"){
+		                if( document.addEventListener ){
+		                    document.addEventListener('WeixinJSBridgeReady', $scope.jsApiCall, false);
+		                }else if (document.attachEvent){
+		                    document.attachEvent('WeixinJSBridgeReady', $scope.jsApiCall); 
+		                    document.attachEvent('onWeixinJSBridgeReady', $scope.jsApiCall);
+		                }
+		            }else{
+		               $scope.jsApiCall();
+		            }
+		        }		
+			}])
+			
+
+		</script>
+	</head>
+	<body ng-controller="echocardiographyCtr">
+		<div class="content overflow-scroll">
+			<div class="sign">
+				<img class="bg" src="img/bg.jpg" />
+				<img class="logo" src="img/logo_b.png" />
+				<div class="conter" ng-if="yes">
+					<img class="portrait" ng-src="{{photo}}"/>
+					<div class="title">本次活动共有<label class="fon">{{num}}</label>位嘉宾选择了您哦~</div>
+					<div class="viewnumber" ng-click="payment()">查看编号</div>
+					<div class="tagging">(查看编号会产生&nbsp;1.99&nbsp;元费用)</div>
+				</div>
+				
+				<div class="conter"  ng-if="no">
+					<img class="portrait" src="img/aixin.png"/>
+					<div class="regret">很遗憾这次没有嘉宾选择，</div>
+					<div class="nexttime">下次继续加油</div>
+					<div class="fate">请相信，缘分就在前方~</div>
+				</div>
+				<img  class="code" src="img/erweima.jpg"/>
+			</div>
+		</div>
+	</body>
+</html>

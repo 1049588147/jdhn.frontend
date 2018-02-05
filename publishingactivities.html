@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html ng-app="jdhnone">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<title>交大红娘-活动详情</title>
+		<link rel="stylesheet" type="text/css" href="libs/ionic-v1.3.3/css/ionic.min.css"/>
+		<link rel="stylesheet" type="text/css" href="libs/need/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style>
+			.erwei{height: 148px;-moz-box-shadow:1px 2px 5px #333333; -webkit-box-shadow:1px 2px 5px #333333; box-shadow:1px 2px 5px #333333;
+			    padding: 5px;text-align: center;width: 60%;margin: 20px auto; color: #999;}
+			.erwei>img{width: 110px;}
+		</style>
+		<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+		<script src="libs/layer.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/ionic/1.3.2/js/ionic.bundle.min.js" ></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script>
+			var jdhnone=angular.module("jdhnone",['ionic']);
+			jdhnone.controller("jdhnCtr",['$scope','$http','$ionicSlideBoxDelegate','$window',function($scope,$http,$ionicSlideBoxDelegate,$window){
+				var getPops = function(name){
+			    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			     var r = $window.location.search.substr(1).match(reg);
+			    if(r!=null)return  unescape(r[2]); return null; 
+			}
+				
+			$scope.li= layer.open({
+			     type: 2
+			    ,content: '加载中'
+			});
+			
+		  	 $scope.act= getPops("activity_id");
+				var url='http://api.jdhn.top/home/share/activitydetail?callback=JSON_CALLBACK&activity_id='+ $scope.act
+				$http.jsonp(url).success(function(result){
+						if(result.code==1){
+							layer.close($scope.li);
+							$scope.list=result.data;
+							$scope.li = JSON.parse($scope.list.photos)
+			        	 	$ionicSlideBoxDelegate.update();
+			        	 	$ionicSlideBoxDelegate.loop(true);
+			        	 	$scope.enrollInfo=result.enrollInfo;
+			        	 	$scope.signup=result.enrollInfo;
+			        	 	$scope.open=result.actComment;
+			        	 	$scope.leavingMessage=result.actComment;
+			        	 	$scope.urlgo($scope.list.title);
+			        	 	$(".iframe_list").append(result.data.richTextHtml)
+						}else{
+							layer.close($scope.li);
+							  layer.open({
+							    content: '请重新分享！'
+							    ,skin: 'msg'
+							    ,time: 2 //2秒后自动关闭
+							  });
+						}
+				}).error(function (result) {
+					   layer.close($scope.li);
+                       layer.open({
+					    content: '请重新分享！'
+					    ,skin: 'msg'
+					    ,time: 2 //2秒后自动关闭
+					  });
+                });
+					
+					
+				$scope.loveImg=function(){
+
+				    $window.location.href="https://mp.weixin.qq.com/s?__biz=MzA3NzM5MzkwNQ==&mid=2650104069&idx=5&sn=9ab5a00bf6f94fe395e2fd5afbeefa8a&chksm=87537b9bb024f28d40135967551d9ccfee4806db604487c4815d061c0b2e92e4a43eb71271c9#rd"
+					
+				}
+				
+		var fenxiangurl=$window.location.href
+		$scope.urlgo=function(t){
+			$.ajax({  
+				type : "post",  
+				dataType : "json",  
+				url : "http://api.jdhn.top/home/share",
+				data : {  
+					url : fenxiangurl  
+				},  
+				complete : function() {  
+				},  
+				success : function(msg) {  
+					
+					 var  data=msg.data
+						if (msg.code==1) {  
+							wx.config({  
+								debug : false, //  
+								appId : data.appId, // 必填，公众号的唯一标识  
+								timestamp :data.timestamp, // 必填，生成签名的时间戳  
+								nonceStr : data.nonceStr, // 必填，生成签名的随机串  
+								signature : data.signature,// 必填，签名，见附录1  
+								jsApiList : [ 'onMenuShareTimeline',  
+										'onMenuShareAppMessage', 'showOptionMenu' ]  
+							// 必填，需要使用的JS接口列表，所有JS接口列表见附录2  
+							});  
+						}  
+				},  
+			});  
+				
+			var shareTitle = t;  
+			var shareDesc = t;  
+			var shareImg = "http://www.jdhn.top/img/sign.jpg";  
+			var url = "http://www.jdhn.top/publishingactivities.html?activity_id="+$scope.act;  
+				wx.ready(function() {  
+					share();  
+				});  
+			 function share() {  
+				wx.showOptionMenu();  
+				wx.onMenuShareTimeline({  
+					title : shareTitle, // 分享标题  
+					link : url, // 分享链接  
+					imgUrl : shareImg,  
+					desc : shareDesc, // 分享描述  
+					success : function() {  
+					}  
+				});  
+				wx.onMenuShareAppMessage({  
+					title : shareTitle, // 分享标题  
+					link : url, // 分享链接  
+					imgUrl : shareImg,  
+					desc : shareDesc, // 分享描述  
+					success : function() {  
+					}  
+				});  
+				
+				wx.onMenuShareQQ({
+					title: shareTitle, // 分享标题
+					desc: shareDesc, // 分享描述
+					link: url, // 分享链接
+					imgUrl: shareImg, // 分享图标
+					success: function () { 
+					   // 用户确认分享后执行的回调函数
+					},
+					cancel: function () { 
+					   // 用户取消分享后执行的回调函数
+					}
+				});
+			 }  	
+			}
+		}])
+		</script>
+	</head>
+	<body ng-controller="jdhnCtr">
+		<div style="height: 100%;width: 100%;background: #F2F2F2;">
+		<div class="content overflow-scroll">
+			<ion-slide-box does-continue="true" auto-play="true" style="width:100%;margin-bottom:-5px;">
+	            <ion-slide ng-repeat="ien in li track by $index">
+	                <img style="width:100%;height: 230px" ng-src="{{ien}}">
+	            </ion-slide>
+	        </ion-slide-box>
+		    <div class="padding bff">
+			    	<div class="detalis-title fm">{{list.title}}</div>
+			    	<div class="huo-list">
+				      	<div ng-repeat="t in list.tags" ng-style="{'background-color':'{{t.tag_color}}'}">{{t.tag_title}}</div>
+				    </div>
+				    <div class="detalis-information">
+						<div class="mt20"><label class="c5d">活动时间：</label> <label class="c333">{{list.beginTime.split(":")[0]+":"+list.beginTime.split(":")[1]}}</label> ~ <label>{{list.endTime.split(":")[0]+":"+list.endTime.split(":")[1]}}</label></div>
+						<div><label class="c5d">活动地点：</label> <label class="c333">{{list.address}}</label></div>
+						<div><label class="c5d">活动价格：</label> <label class="font16 ">{{list.price_show}}</label><label>元</label></div>
+						<div><label class="c5d">会员价格：</label> <label class="font16 cf1">{{list.act_lovePrice}}</label> <label>元</label><img class="love-img" ng-click="loveImg()" src="img/love.png"/></div>
+						<div><label class="c5d">活动人数：</label> <label class="c333">{{list.p_dLimit}}</label></div>
+						<div><label class="c5d">报名时间：</label> <label class="c333">{{list.signBeginTime.split("-")[1]+"-"+list.signBeginTime.split("-")[2].split(":")[0]+":"+list.signBeginTime.split("-")[2].split(":")[1]}}</label> ~ <label class="c333">{{list.signEndTime.split("-")[1]+"-"+list.signEndTime.split("-")[2].split(":")[0]+":"+list.signEndTime.split("-")[2].split(":")[1]}}</label></div>
+						<div class=""><label class="c5d">活动简介：</label></div>
+						<div class="iframe_list"></div>
+						<div class="erwei">
+							<img src="img/erweima.jpg" />
+							<div>如需报名长按关注交大红娘</div>
+							
+						</div>
+				    </div>
+			    </div>
+				<div class="padding bff mt10">
+					<div class="alreadysignup c5d">
+						已报名（{{list.enroll_num}}人）
+					</div>
+					<div class="signup-ionic">
+						<div class="" ng-repeat="n in signup">
+							<img   ng-src="{{ n.u_portrait}}"/> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

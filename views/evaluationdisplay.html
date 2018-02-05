@@ -1,0 +1,29 @@
+<style>
+	.slider{position: relative;top: 50%;transform: translate(0,-50%);-moz-transform: translate(0,-50%);-webkit-transform: translate(0,-50%);-ms-transform: translate(0,-50%);-o-transform: translate(0,-50%);}
+	.slider-pager .slider-pager-page { display: inline-block;margin: 0px 3px;  width: 15px;  color: #F5F5F5; text-decoration: none; opacity: 0.8; }
+</style>
+<div style="height: 100%;width: 100%;background: #F2F2F2;">
+	<div class="content  overflow-scroll">
+		<div class="evaluationdisplay" ng-repeat="i  in list">
+			<img class="evaluationdisplay-left" ng-src="{{i.u_portrait}}" />
+			<div class="evaluationdisplay-right">
+				<div class="evaluationdisplay-title">{{i.u_nickName}}</div>
+					<div class="" ng-if="i.ocm_custar>0"><label class="font12">客服服务评价</label>  <label class="font12"><!--{{ i.ocm_custar}}--><img class="ev-img" ng-if="i.ocm_custar>0" src="img/xin1.png"/><img class="ev-img" ng-if="i.ocm_custar>1"  src="img/xin1.png"/><img class="ev-img" ng-if="i.ocm_custar>2"  src="img/xin1.png"/><img class="ev-img" ng-if="i.ocm_custar>3"  src="img/xin1.png"/><img class="ev-img" ng-if="i.ocm_custar>4"  src="img/xin1.png"/></label><label></label></div>
+					<div class="" ng-if="i.ocm_fdstar>0"><label class="font12">活动场地评价</label>  <label class="font12"><!--{{ i.ocm_fdstar}}--><img class="ev-img" ng-if="i.ocm_fdstar>0" src="img/xin1.png"/><img class="ev-img"  ng-if="i.ocm_fdstar>1" src="img/xin1.png"/><img class="ev-img"  ng-if="i.ocm_fdstar>2" src="img/xin1.png"/><img class="ev-img"  ng-if="i.ocm_fdstar>3" src="img/xin1.png"/><img class="ev-img"  ng-if="i.ocm_fdstar>4" src="img/xin1.png"/></label> <label></label></div>
+					<div class="" ng-if="i.ocm_direstar>0"><label class="font12">活动总监评价</label>  <label class="font12"><!--{{i.ocm_direstar}}--><img class="ev-img" ng-if="i.ocm_direstar>0" src="img/xin1.png"/><img class="ev-img" ng-if="i.ocm_direstar>1" src="img/xin1.png"/><img class="ev-img" ng-if="i.ocm_direstar>2" src="img/xin1.png"/><img ng-if="i.ocm_direstar>3" class="ev-img" src="img/xin1.png"/><img class="ev-img" ng-if="i.ocm_direstar>4" src="img/xin1.png"/></label> <label></label></div>
+				<div class="evaluationdisplay-txt">{{i.ocm_text}}</div>
+				<div class="ov">
+					<div class="images-list" ng-repeat="m in i.arr track by $index" ng-style="{'background-image':'url({{m}})'}" ng-click="imagesList($index,i.arr)">
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>	
+</div>
+<div class="" style="position: fixed; top: 0;margin: 0px;height: 100%; background: #0e0e0e;width: 100%;z-index: 22;" ng-if="isfixed" ng-click="motai()">
+    <ion-slide-box does-continue="true"   style="" active-slide="indexs">
+        <ion-slide ng-repeat="a in motaiArr track by $index" >
+            <img class="thumbnail" ng-src="{{a}}">
+        </ion-slide>
+    </ion-slide-box>
+</div>

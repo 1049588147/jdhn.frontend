@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>微信支付</title>
+    <script src="jquery2.1.4.min.js"></script>
+</head>
+<body>
+<button class="button">去支付</button>
+</body>
+</html>
+<script>
+    var wxpay = '';
+    $(function () {
+        $(".button").click(function () {
+            $.ajax({
+                type :'post',
+                url :'./pay.php',
+                success:function (res) {
+//                    console.log(res);
+                }
+            });
+        });
+    });
+</script>

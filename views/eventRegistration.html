@@ -2,63 +2,81 @@
 	<div class="content overflow-scroll">
 
 			<div class="new-list mt10">
-				<p>魔都交友派对·配对情侣,报名啦！</p>
+				<p>{{result.title}}</p>
 				<div class="huo-list">
-			      	<div>品牌活动</div>
-			      	<div>互动交友</div>
-			      	<div>轻松快乐</div>
+			      	<div ng-repeat="t in result.tags" ng-style="{'background-color':'{{t.tag_color}}'}">{{t.title}}</div>
 			     </div>
 			</div>
 			<div class="personalInformation mt20">
-				个人信息
+				请填写报名信息<span class="font12">（如需修改请至个人资料）</span>
 			</div>
-			<div class="my-conter-list mt0" >
-			 	<div class="list-data" >
-				    <span>昵称:</span>
-				    <input  type="text" />
+			<div class="my-conter-list mt0 bn" style="position: relative;">
+				<div class="conter-even"></div>
+				<div class="list-data ">
+					<span style="position: absolute;left: 0;">真实姓名:</span>
+				    <input  type="text" ng-model="eventRegist.realName" />
 				</div>
-
 				<div class="list-data">
-					<span>性别:</span>
-				   <select ng-model="myColor" ng-options="sexName.name for sexName in sexNames">
-				   		<option value="">--请选择--</option>
+					<span style="position: absolute;left: 0;">性别:</span>
+				   <select ng-model="eventRegist.gender" ng-options="sexName.id as sexName.name for sexName in sexNames">
 				   </select>
 				</div>
 				<div class="list-data">
-					<span>出生年月:</span>
-				    <input  type="text" id="start_date" />
+					<span style="position: absolute;left: 0;">出生年月日:</span>
+				    <input  type="text" ng-model="eventRegist.birthday "  />
 				</div>
 				<div class="list-data">
-					<span>毕业院校:</span>
-				    <input  type="text" />
-				</div>
-				<div class="list-data">
-					<span>工作单位:</span>
-				    <input  type="text" />
-				</div>
-				<div class="list-data bn">
-					<span>身高:</span>
-				    <input  type="number" />
-				</div>
-            </div>
-			<div class="personalInformation mt20">
-				活动需求
-			</div>
-			<div class="activityDemand">
-				<div class="activityDemand-list mb10" ng-repeat="a in eventRegistration ">
-					<div class="c666  mb5">{{a.title}}</div>
-					<div class="activityDemand-input dan" ng-if="a.type=='Text'" >
-						<input class="input-t" type="text"  ng-model="a.information" ng-keyup="key($event,$index)"/>
-					</div>
-					<div class="dan" ng-if="a.type=='Radio'">
-						<select  class="activityDemand-select"   ng-model="a.information"  ng-options="op for op in a.options">
-							<option value="">请选择</option>
-						</select>
-					</div>
+					<span style="position: absolute;left: 0;">籍贯(家乡):</span>
+				    <input  type="text" ng-model="eventRegist.hometown " />
 				</div>
 				
-			</div>
+				<div class="list-data">
+					<span style="position: absolute;left: 0;">手机号:</span>
+				    <input  type="text"   ng-model="eventRegist.mobile "/>
+				</div>
+				<div class="list-data bn">
+					<span style="position: absolute;left: 0;">身高:</span>
+				    <input  type="text" ng-model="eventRegist.height"/>
+				</div>				
+            </div>
 			
-			 <div class="submit-input" ng-click="submit_input()">提交</div>
+			<div class="activityDemand">
+				<div class="activityDemand-list mb10" >
+					<div class="c666  mb5"><span class="color-red">* </span>你的昵称</div>
+					<div class="activityDemand-input dan">
+						<input class="input-t" type="text"  ng-model="eventRegist.nickname " maxlength="8" />
+					</div>
+					
+				</div>
+				<div class="activityDemand-list mb10" ng-repeat="a in eventRegistration ">
+					<div class="c666 mb5"><span class="color-red">* </span>{{a.title}}<span ng-if="a.type=='1'">(多选)</span><span ng-if="a.type=='2'">(单选)</span></div>
+					<div class="activityDemand-input" ng-if="a.type=='0'">
+						<input type="text"  ng-model="a.value"  maxlength="8"/>
+					</div>
+					<div class="activityDemand-input dan" ng-if="a.type=='1'" ng-click="motai()" style="min-height: 34px;height: auto;">
+						<div class="isselet" style="position: fixed;top: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.4);left: 0px;z-index: 10;" ng-show="isselet">
+							<div class="options-center" >
+						      <div  class="options-list" ng-repeat="i in a.options"  style="" ng-model="a.value" ng-click="selects(i,a.information,a,$index)">
+						      	<img class="options-img" style="width: 19px;margin-top: 5px;"  src="img/duo.png" />
+						      	<span>{{i.optionText}}</span>
+						      </div>
+						      <div class="confirm" ng-click="confirmClick($event)">确认</div>
+					    	</div>
+						</div>
+						<div style="color: #111;padding-top: 5px;">{{even}}</div>
+					</div>
+					<select class="activityDemand-select"   ng-model="a.value" ng-if="a.type=='2'" ng-options="op for op in eventRegistration[$index].s">
+						<option value="">请选择</option>
+					</select>
+					
+					<div class="" ng-if="a.type=='3'">
+						<input type="file"   />
+					</div>
+					<!--<div class="" >
+						<input type="file"   />
+					</div>-->
+				</div>
+			</div>
+			<div class="submit-input" ng-click="submit_input()">提交</div>
 	</div>
 </div>

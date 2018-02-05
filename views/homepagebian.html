@@ -1,0 +1,146 @@
+
+<div style="height: 100%;width: 100%;background: #F2F2F2;">
+		<div class="content overflow-scroll">
+			<div class="my-conter-list" style="margin-top: 10px;">
+			 	<div class="list-data" >
+				    <span style="position: absolute;left: 0;"><span class="color-red">* </span>您的昵称:</span>
+						<input  type="text" ng-model="personalData.nickName"/>
+				</div>
+				<div class="list-data">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>性别:</span>
+				    <select ng-model="personalData.gender" ng-options="sex.id as sex.name for sex in sexNames">
+				   </select>
+				</div>
+				<div class="list-data">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>出生年月日:</span>
+				    <input  type="text" id="start_date" ng-model="personalData.birthday"/>
+				</div>
+				<div class="list-data" >
+				    <span style="position: absolute;left: ;"><span class="color-red">* </span>就读或毕业高校:</span>
+				    <input  type="text" ng-model="personalData.school"/>
+				</div>
+				<div class="list-data">
+					<span  style="position: absolute;left: 0;"><span class="color-red">* </span>工作单位:</span>
+				    <input  type="text"  ng-model="personalData.work"/>
+				</div>
+				<div class="list-data">
+					<span  style="position: absolute;"><span class="color-red">* </span>学位:</span>
+				    <select ng-model="personalData.academic" ng-options="e.id as e.name for e in education">
+				   </select>
+				</div>
+				<div class="list-data">
+					<span style="position: absolute;left: 0 ;"><span class="color-red">* </span>家乡:</span>
+				    <select ng-model="personalData.hometown" ng-options="l for l in positions">
+				   </select>
+				</div>
+				<div class="list-data">
+					<span style="position: absolute;left: 0 ;"><span class="color-red">* </span>居住地:</span>
+				    <select ng-model="personalData.city" ng-options="p for p in positions">
+				   </select>
+				</div>
+				<div class="list-data">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>身高(cm):</span>
+				    <input  type="text" ng-model="personalData.height"/>
+				</div>
+				
+				<div class="list-data">
+					<span  style="position: absolute;left: 0;"><span class="color-red">* </span>真实姓名:</span>
+				    <input  type="text" ng-model="personalData.realName"/>
+				</div>
+				<div class="list-data ">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>手机号:</span>
+				    <input type="text" ng-model="personalData.mobile"/>
+				</div>
+				
+				<div class="list-data ">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>微信号:</span>
+				    <input  type="text" ng-model="personalData.wechat_num"  />
+				</div>
+				<div class="list-data ">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>婚姻状况:</span>
+				     <select ng-model="personalData.u_marriage" ng-options="m.id as m.name for m in marriagelist">
+				   </select>
+				</div>
+				<div class="list-data ">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>有无子女:</span>
+				     <select ng-model="personalData.u_children" ng-options="c.id as c.name for c in childrenlist">
+				   </select>
+				</div>
+				
+				<div class="list-data" >
+				    <span  style="position: absolute;left: 0;"><span class="color-red">* </span>身份证号码:</span>
+				    <input  type="text" style="width: 74%;" ng-model="personalData.u_idCardNo"/>
+				</div>
+				<div class="list-data ">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>宗教信仰:</span>
+				     <select ng-model="personalData.u_religion" ng-options="e for e in religionList">
+				   </select>
+				</div>
+				<div class="list-data">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>年收入水平:</span>
+				    <select ng-model="personalData.salary" ng-options="i.id as i.name for i in incomelevel">
+				    </select>
+				    
+				</div>
+				<div class="list-data">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>购房情况:</span>
+				    <select ng-model="personalData.ishouse" ng-options="i.id as i.name for i in room">
+				    </select>
+				</div>
+				
+				<div class="list-data bn">
+					<span style="position: absolute;left: 0;"><span class="color-red">* </span>购车情况:</span>
+				    <select ng-model="personalData.iscar" ng-options="i.id as i.name for i in vehicle">
+				    </select>
+				</div>
+            </div>
+            <div style="padding-left: 9px; margin-top: 5px; color: #666;">微信号用于建群，请务必填写正确！</div>
+           	<div class="photo-center text-center">
+            	<div class="add-photo">
+            		<div class="">
+            			<div class="identity">
+          					<img  ng-src="{{resultName.idCardImg0}}" ng-show="resultName.idCardImg0!=''"  style="width: 100%;height:100% ;"/>
+          					<input class="btn_file" type="file" name="file" ng-file-select="saveImg($files,1)" />
+            			</div>
+            			<div class="c666 mt5">身份证正面(必选)</div>
+            		</div>
+            		<div class="">
+            			<div class="identity">
+            				<img ng-src="{{resultName.idCardImg1}}"  ng-show="resultName.idCardImg1!=''"   style="width: 100%;height:100% ;"/>
+          					<input class="btn_file" type="file" name="file" ng-file-select="saveImg($files,2)"/>
+            			</div>
+            			<div class="c666 mt5">身份证反面(必选)</div>
+            		</div>
+            	</div>
+            	
+            	<div class="add-photo mt20">
+            		<div class="">
+            			<div class="identity">
+            				<img ng-src="{{resultName.academicImg}}" ng-show="resultName.academicImg!=''"   style="width: 100%;height:100% ;"/>
+          					<input class="btn_file" type="file" name="file" ng-file-select="saveImg($files,3)" ng-model="imageUrl2"/>
+            			</div>
+            			<div class="c666 mt5">学历证书照片(选填)</div>
+            		</div>
+            		<div class="">
+            			<div class="identity">
+            				<img ng-src="{{resultName.workImg}}" ng-show="resultName.workImg!=''"  style="width: 100%;height:100% ;"/>
+          					<input class="btn_file" type="file" name="file"  ng-file-select="saveImg($files,4)" ng-model="imageUrl3"/>
+            			</div>
+            			<div class="c666 mt5">工作证明照片(选填)</div>
+            		</div>
+            	</div>
+            </div>
+           	
+           <div class="personalprofile">
+           		<div class="c666">个人简介</div>
+           		<textarea name="" rows="" cols="" ng-model="personalData.u_intro"></textarea>
+           </div>	
+           
+           <div style="padding-left: 9px;  padding-top: 10px; color: #666;">以上信息绝对保密，仅用于工作人员联系</div>
+           <div class="submit-input" ng-click="submit_input()">提交</div>
+    </div>
+</div>
+
+<div class="confirm_motai">
+	<div class="confirm_motai_cen"></div>
+</div>

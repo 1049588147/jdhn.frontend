@@ -2,55 +2,75 @@
 		<div class="content has-footer overflow-scroll">
 			<div class="my-center text-center">
 				<div class="my-center-portrait">
-					<img  src="img/beike.png" />
+					<img  ng-src="{{photo(code.photo)}}" />
+					<input class="btn_file" type="file" name="file" ng-file-select="saveImg($files)"/>
 				</div>
-				<div class="mt15">交大红娘</div>
-				<div class="authentication ">未认证</div>
+				<div class="positive mt15" ng-if="code.gender==2" style="display: -moz-box;display: -webkit-box;-webkit-box-pack: center;-moz-box-pack: center;">
+					
+					<div style="font-size: 18px;">{{code.nickName}}</div>
+					<img class="sex" ng-if="code.u_vip=='1'" src="img/member.png" />
+				</div>
+				<div class="positive mt15" ng-if="code.gender==3" style="color: #e69ff5;display: -moz-box;display: -webkit-box;-webkit-box-pack: center;-moz-box-pack: center" >
+					<div  style="font-size: 18px;">{{code.nickName}}</div>
+					<img class="sex" ng-if="code.u_vip=='1'" src="img/member.png" />
+				</div>
+				<div style="display: -moz-box;display: -webkit-box;-webkit-box-pack: center;-moz-box-pack: center;-o-box-pack: center;">
+					<div class="authentication " ng-if="f" style="background: rgb(169, 167, 167);">未认证</div>
+					<div class="authentication " style="background: rgb(247, 106, 99);" ng-if="a">身份认证</div>
+					<div class="authentication" style="background: rgb(72, 168, 255);" ng-if="l">学历认证</div>
+					<div class="authentication " style="background: rgb(255, 205, 94);" ng-if="s">工作认证</div>
+				</div>
 			</div>
 			<div class="my-list" ui-sref="myActivities">
 				<div class="myactivity">
-					<!--<img src="img/wode.png" />-->
 				</div>
 				我的活动
 				<i class="icon ion-ios-arrow-right"></i>
 			</div>
 			<div class="my-conter-list">
-			 	<div class="personaldata" ui-sref="personalData">
-				个人资料
+			 	<div class="personaldata" ui-sref="homepage">
+				 	<div class="personaldata-bg" style="left: 15px;">
+					</div>
+					个人主页
 					<i class="icon ion-ios-arrow-right"></i>
 				</div>
-				<div class="personaldata" ui-sref="realNameAuthentication" >
-				实名认证
-					<i class="icon ion-ios-arrow-right"></i>
+				<div class="personaldata bn" ui-sref="modifyPassword({uid:uid,token:token})">
+				<div class="setup-bg" style="left: 15px;">
 				</div>
-				<div class="personaldata bn" ui-sref="accountSettings">
 				账号设置
 					<i class="icon ion-ios-arrow-right"></i>
 				</div>
 			 </div>
 			 <div class="my-conter-list">
 			 	<div class="personaldata" ui-sref="JiaotongUniversityMatchmaker">
-				关于小鹿
+			 	<div class="jdhn" style="left: 15px;">
+				</div>
+				关于交大红娘
 					<i class="icon ion-ios-arrow-right"></i>
 				</div>
 				<div class="personaldata bn" ui-sref="customerService">
+				<div class="customerservice" style="left: 15px;">
+				</div>
 				联系客服
 					<i class="icon ion-ios-arrow-right"></i>
 				</div>
+				
 			 </div>
+			 <div class="signout" ng-click="logout()">退出当前账号</div>
 		</div>
 		<div class="tabs tabs-icon-top">
 		  <a class="tab-item"  ng-click="home()">		  				
 		    <i class="icon ion-ios-home-outline"></i>
 		   活动
 		  </a>
-		  <a class="tab-item "  ng-click="news()">
+		  <a class="tab-item positive-relative"  ng-click="news()">
+		  	<span ng-show="numstotal" class="news-nums">{{numtotal}}</span>
 		    <i class="icon ion-ios-chatbubble-outline"></i>
 		  消息
 		  </a>
 		  <a class="tab-item active"  ng-click="my()">
 		    <i class="icon ion-ios-person-outline"></i>
-		    我
+		    我的
 		  </a>
         </div>
 </div>

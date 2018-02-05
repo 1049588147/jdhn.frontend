@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试获得code</title>
+</head>
+<body>
+<a onclick='getsess()'>点击</a>
+</body>
+<script type="text/javascript" src="/jquery.js"></script>
+</html>
+<script type="text/javascript" >
+function getsess()
+{
+	$.ajax({
+		url:'http://api.jdhn.top/home/demo/sessions',
+		dataType:'json',
+		success:function()
+		{
+			
+		}
+	});
+}
+</script>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>交大红娘-互选时间</title>
+		<link rel="stylesheet" type="text/css" href="libs/need/layer.css"/>
+		<script type="text/javascript" src="dist/jquery-2.1.3.min.js" ></script>
+		<!--<script src="libs/mobiscroll/js/mobiscroll.core-2.5.2.js" type="text/javascript"></script>
+		<script src="libs/mobiscroll/js/mobiscroll.core-2.5.2-zh.js" type="text/javascript"></script>
+
+		<link href="libs/mobiscroll/css/mobiscroll.core-2.5.2.css" rel="stylesheet" type="text/css" />
+		<link href="libs/mobiscroll/css/mobiscroll.animation-2.5.2.css" rel="stylesheet" type="text/css" />
+		<script src="libs/mobiscroll/js/mobiscroll.datetime-2.5.1.js" type="text/javascript"></script>
+		<script src="libs/mobiscroll/js/mobiscroll.datetime-2.5.1-zh.js" type="text/javascript"></script>-->
+		<script src="libs/layer.js"></script>
+		<!-- S 可根据自己喜好引入样式风格文件 -->
+		<!--<script src="libs/mobiscroll/js/mobiscroll.android-ics-2.5.2.js" type="text/javascript"></script>
+		<link href="libs/mobiscroll/css/mobiscroll.android-ics-2.5.2.css" rel="stylesheet" type="text/css" />-->
+		<style>
+			body {
+				padding: 0;
+				margin: 0;
+				font-family: arial, verdana, sans-serif;
+				font-size: 12px;
+				background: #fff;
+				
+			}
+			input,select {width: 100%;padding: 11px 5px;
+				margin: 5px 0;border: 1px solid #aaa;box-sizing: border-box;
+				border-radius: 5px;-moz-box-sizing: border-box;	-webkit-box-sizing: border-box;-webkit-border-radius: 5px;
+			}
+			.header {
+				border: 1px solid #333;background: #111;
+				color: white;font-weight: bold;text-shadow: 0 -1px 1px black;
+				background-image: linear-gradient(#3C3C3C, #111);
+				background-image: -webkit-gradient(linear, left top, left bottom, from(#3C3C3C), to(#111));
+				background-image: -moz-linear-gradient(#3C3C3C, #111);
+			}
+			.header h1 {
+				text-align: center;font-size: 16px;margin: .6em 0;
+				padding: 0;text-overflow: ellipsis;overflow: hidden;
+				white-space: nowrap;
+			}
+			.content {
+				padding: 15px;
+				
+			}
+			.mt30{margin-top: 20px;}
+			.submit{width: 90%;border: 1px solid #333;
+				background: #111;color: white;
+				font-weight: bold;text-shadow: 0 -1px 1px black;
+				background-image: linear-gradient(#3C3C3C, #111);
+				background-image: -webkit-gradient(linear, left top, left bottom, from(#3C3C3C), to(#111));
+				background-image: -moz-linear-gradient(#3C3C3C, #111);border-radius: 2px;
+				text-align: center;height: 40px;line-height: 40px;
+				position: fixed;bottom: 30px;font-size: 20px;
+			}
+			.btn{background: blue; border: none; padding: 6px 15px; color: #fff; border-radius: 3px;}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<h1>交大红娘互选时间选择</h1>
+		</div>
+
+		<div class="content">
+
+			<div class="demos">
+				<label for="appDate">开始时间</label>
+				<input type="text" name="start" id="start" />
+			</div>
+			<button class="btn">停止</button>
+			<div class="submit">提交</div>
+		</div>
+		
+		
+		<script>
+			$(function(){
+				
+				var getPops = function(name){
+				    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+				    var r = window.location.search.substr(1).match(reg);
+				    if(r!=null)return  unescape(r[2]); return null; 
+				}
+				var act_id = getPops("id");
+				var today=new Date();
+			    var y=today.getFullYear();
+			    var mon=today.getMonth()+1;
+			        mon=changNum(mon);
+			    var d=today.getDate();
+			        d=changNum(d);
+			    var h=today.getHours();
+			    var m=today.getMinutes();
+			        m=changNum(m);
+			    var s=today.getSeconds();
+			        s=changNum(s);
+				var start=y+'-'+mon+'-'+d+' '+h+':'+m+':'+s
+				var oldTime = (new Date(start)).getTime(); //得到毫秒数
+				
+				var time=setInterval(function(){
+			     	startTime ()
+			     },1000)
+
+				var eldTime;
+				$(".btn").on("click",function(){
+					clearInterval(time);
+					var end= $("#start").val();
+					eldTime = (new Date(end)).getTime(); //得到毫秒数
+				})
+				
+				
+				$(".submit").on("click",function(){
+					$.get("http://api.jdhn.top/home/election/setEle", { act_id :act_id, start:oldTime,end: eldTime},function(data){
+						var data=JSON.parse(data);
+						if(data.code==1){
+							layer.open({
+							    content:data.message
+							    ,skin: 'msg'
+							    ,time: 2 //2秒后自动关闭
+							});
+							window.location.href="monitor.html?id"+act_id;
+						}else if(data.code==500){
+							layer.open({
+							    content:"您已经提交过了！"
+							    ,skin: 'msg'
+							    ,time: 2 //2秒后自动关闭
+							});
+						}else{
+							layer.open({
+							    content:"信息错误"
+							    ,skin: 'msg'
+							    ,time: 2 //2秒后自动关闭
+							});
+						}
+						
+					});
+				})
+			})
+			
+			
+				//时钟
+			function startTime () {
+			    var today=new Date();
+			    var y=today.getFullYear();
+			    var mon=today.getMonth()+1;
+			        mon=changNum(mon);
+			    var d=today.getDate();
+			        d=changNum(d);
+			    var h=today.getHours();
+			    var m=today.getMinutes();
+			        m=changNum(m);
+			    var s=today.getSeconds();
+			        s=changNum(s);
+					
+					
+				 $("#start").val(y+'-'+mon+'-'+d+' '+h+':'+m+':'+s)	
+				 
+//				 console.log()
+			   }
+			   function changNum(i){   //月、日、秒如果小于10数字前加0
+			       if(i<10){
+			          return "0"+i;
+			       }
+			       return i;
+			   }
+			     
+		</script>
+		
+	</body>
+</html>

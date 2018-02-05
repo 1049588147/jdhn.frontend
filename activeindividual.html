@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html ng-app="jdhnthree">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<title>交大红娘-个人资料</title>
+		<link rel="stylesheet" type="text/css" href="libs/ionic-v1.3.3/css/ionic.min.css"/>
+		<link rel="stylesheet" type="text/css" href="libs/need/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/LCalendar.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+		<script src="libs/layer.js"></script>
+		<script src="dist/LCalendar.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/ionic/1.3.2/js/ionic.bundle.min.js" ></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script>
+			var jdhnthree=angular.module("jdhnthree",['ionic']);
+			jdhnthree.controller("jdhnCtr",['$scope','$http','$ionicSlideBoxDelegate','$window',function($scope,$http,$ionicSlideBoxDelegate,$window){
+			var getPops = function(name){
+			    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			     var r = $window.location.search.substr(1).match(reg);
+			    if(r!=null)return  unescape(r[2]); return null; 
+			}
+			 $scope.personalData={}	
+			 $scope.isarr=[]
+			if(!$window.name){
+					$scope.code=getPops("code");
+					$scope.activity_id=getPops("id");	
+					$window.localStorage.setItem("act_id",$scope.activity_id);	
+					$scope.u_id=$window.localStorage.getItem("uid")
+					
+				var urlsrc='http://api.jdhn.top/home/enlist/wechatLoginBack?act_id='+$scope.activity_id+"&code="+$scope.code;
+				$http.get(urlsrc).success(function(data,status,headers,config){
+				
+					if(data.code==200){
+						$scope.portrait=data.data.portrait;
+						$scope.nickname=data.data.nickname;
+						$scope.personalData.realName=data.data.u_realName
+						$window.localStorage.setItem("uid",data.data.uid);	
+						$scope.personalData.gender=data.data.u_gender
+						$scope.personalData.birthday=data.data.u_birthday
+						$scope.personalData.mobile=data.data.u_mobile
+						$scope.personalData.hometown=data.data.u_hometown
+						$scope.personalData.height=data.data.u_height
+						$scope.personalData.work=data.data.u_work
+						$scope.eventRegistration=JSON.parse(data.customerForm.act_customForm)
+				         if($scope.eventRegistration==null){
+				         	$scope.eventRegistration=[];
+				         }
+				        for(var i=0;i<$scope.eventRegistration.length;i++){
+							$scope.eventRegistration[i].value='';
+							if($scope.eventRegistration[i].type=="1"){
+								for(var j=0; j<$scope.eventRegistration[i].options.length;j++){
+									$scope.eventRegistration[i].options[j].flag=false;
+								}
+							}
+							if($scope.eventRegistration[i].type=="2"){
+								$scope.eventRegistration[i].s=[]
+								for(var j=0; j<$scope.eventRegistration[i].options.length;j++){
+									$scope.eventRegistration[i].s.push($scope.eventRegistration[i].options[j].optionText);
+								}
+							}
+						}
+					}else if(data.code==400){
+						
+						
+					}
+					
+				}).error(function(data,status,headers,config){
+				})
+				$window.name = 'jdhn';  
+				
+			}else{
+				var urlsrcone='http://api.jdhn.top/home/enlist/reloads?u_id='+$window.localStorage.getItem("uid")+"&act_id="+$window.localStorage.getItem("act_id");
+				$http.get(urlsrcone).success(function(data,status,headers,config){
+					
+					if(data.code==1){
+						$scope.portrait=data.data.portrait;
+						$scope.nickname=data.data.nickname;
+						$scope.personalData.realName=data.data.u_realName
+						$scope.personalData.gender=data.data.u_gender
+						$scope.personalData.birthday=data.data.u_birthday
+						$scope.personalData.mobile=data.data.u_mobile
+						$scope.personalData.hometown=data.data.u_hometown
+						$scope.personalData.height=data.data.u_height
+						$scope.personalData.work=data.data.u_work
+						$scope.eventRegistration=JSON.parse(data.customerForm.act_customForm)
+					
+				         if($scope.eventRegistration==null){
+				         	$scope.eventRegistration=[];
+				         }
+				        for(var i=0;i<$scope.eventRegistration.length;i++){
+							$scope.eventRegistration[i].value='';
+							
+							if($scope.eventRegistration[i].type=="1"){
+								for(var j=0; j<$scope.eventRegistration[i].options.length;j++){
+									$scope.eventRegistration[i].options[j].flag=false;
+								}
+							}
+							if($scope.eventRegistration[i].type=="2"){
+								$scope.eventRegistration[i].s=[]
+								for(var j=0; j<$scope.eventRegistration[i].options.length;j++){
+									$scope.eventRegistration[i].s.push($scope.eventRegistration[i].options[j].optionText);
+								}
+							}
+						}
+					}else if(data.code==400){
+						
+						
+					}
+					
+				}).error(function(data,status,headers,config){
+				})
+					
+			}
+
+				$("#start_date").focus(function(){
+			        document.activeElement.blur();
+			    });
+				//时钟
+			    var t='';
+				$scope.startTime=function() {
+				    var today=new Date();
+				    var y=today.getFullYear();
+				    var mon=today.getMonth()+1;
+				        mon=$scope.changNum(mon);
+				    var d=today.getDate();
+				        d=$scope.changNum(d);
+				    var h=today.getHours();
+				    var m=today.getMinutes();
+				        m=$scope.changNum(m);
+				    var s=today.getSeconds();
+				        s=$scope.changNum(s);
+					t=y+'-'+mon+'-'+d
+				   }    
+				   $scope.changNum=function(i){   //月、日、秒如果小于10数字前加0
+				       if(i<10){
+				          return "0"+i;
+				       }
+				       return i;
+				   }
+			    $scope.startTime ()
+				var calendar = new LCalendar();
+				calendar.init({
+					'trigger': '#start_date', //标签id
+					'type': 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+					'minDate':'1900-1-1',//最小日期 注意：该值会覆盖标签内定义的日期范围
+		    		'maxDate':t//最大日期 注意：该值会覆盖标签内定义的日期范围
+				});
+				
+				
+					$scope.sexNames=[
+			      		{"id":"1","name":"--请选择--"},
+					    {"id":"2","name":"男"},
+					    {"id":"3","name":"女"}
+					]
+				$scope.positions=['北京','上海','天津','重庆','广东','福建','湖北','湖南','河北','河南','山西','陕西','江苏','浙江','安徽','江西','山东','辽宁','吉林','黑龙江',
+      			'四川','贵州','云南','西藏','甘肃','青海','宁夏','新疆','内蒙古','广西','海南','香港','澳门','台湾']
+		var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+      	$scope.submit_input=function(){
+			
+      		if($scope.personalData.realName==null||$scope.personalData.realName==""||pattern.test($scope.personalData.realName)){
+      			layer.open({
+				    content: '请输入真实姓名'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				});
+				return;
+      		}else if($scope.personalData.gender=='1'||$scope.personalData.gender==""||pattern.test($scope.personalData.gender||$scope.personalData.gender==null)){
+      			layer.open({
+				    content: '请输入性别'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				});
+				return;
+      		}else if($scope.personalData.birthday==null||$scope.personalData.birthday==""||pattern.test($scope.personalData.birthday)){
+      			layer.open({
+				    content: '请输入出生年月日'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				});
+				return;
+      		}else if($scope.personalData.work==null||$scope.personalData.work==""||pattern.test($scope.personalData.work)){
+      			layer.open({
+				    content: '请输入工作单位'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				});
+				return;
+      		}else if($scope.personalData.hometown==null||$scope.personalData.hometown==""||pattern.test($scope.personalData.hometown)){
+      			layer.open({
+				    content: '请输入户籍'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				});
+				return;
+      		}else if($scope.personalData.height==null||$scope.personalData.height==""||pattern.test($scope.personalData.height)||$scope.personalData.height<100 || $scope.personalData.height>200){
+      			layer.open({
+				    content: '请正确输入身高'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				});
+				return;
+      		}else if($scope.personalData.mobile==null||$scope.personalData.mobile==""||pattern.test($scope.personalData.mobile)){
+      			layer.open({
+				    content: '请输入手机号'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				});
+				return;
+      		}else if(!(/^1[34578]\d{9}$/.test($scope.personalData.mobile))){
+      			layer.open({
+				    content: '请输入正确的手机号'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				});
+				return;
+      		}
+      		
+      		for(var j=0;j<$scope.eventRegistration.length;j++){
+				if($scope.eventRegistration[j].value==""){
+      				layer.open({
+					    content: "请输入"+ $scope.eventRegistration[j].title+"！"
+					    ,skin: 'msg'
+					    ,time: 2 //2秒后自动关闭
+					});
+				    return;
+      		 	}	
+			}	
+			var  li= layer.open({
+				     type: 2
+				    ,content: '加载中'
+				  });
+			$scope.personalData.customerForm=$scope.eventRegistration;
+			$scope.personalData.activity_id=$window.localStorage.getItem("act_id");
+			$scope.personalData.u_id =$window.localStorage.getItem("uid");
+// 				console.log($scope.personalData)
+ 				$.ajax({
+					type:"POST",
+					url:"http://api.jdhn.top/home/enlist/enlist",/*url写异域的请求地址*/
+					data:$scope.personalData,
+						success:function(result){
+							var data=JSON.parse(result)
+//							console.log(data)
+							if(data.code==1){
+								layer.close(li);
+								layer.open({
+								    content: "报名成功"
+								    ,skin: 'msg'
+								    ,time: 2 //2秒后自动关闭
+								});
+								$window.localStorage.setItem("fee",data.fee);
+								$window.localStorage.setItem("id",$scope.activity_id);									
+								window.location.href="outofactivity.html"
+							}else if(data.code==404){
+								layer.close(li);
+								layer.open({
+								    content: "您以报名！"
+								    ,skin: 'msg'
+								    ,time: 2 //2秒后自动关闭
+								});
+								$window.localStorage.setItem("fee",data.fee);
+								$window.localStorage.setItem("id",$scope.activity_id);								
+								window.location.href="outofactivity.html"
+							}else{
+								layer.close(li);
+								layer.open({
+								    content: data.message
+								    ,skin: 'msg'
+								    ,time: 2 //2秒后自动关闭
+								});
+								
+							}
+						}
+				});
+      		}
+		}])
+		</script>
+	</head>
+	<body ng-controller="jdhnCtr">
+		
+		<div style="height: 100%;width: 100%;background: #F2F2F2;">
+			
+				<div class="content overflow-scroll">
+					<div class="ss"></div>
+					<div class="register-uplode">
+			   			<img ng-src="{{portrait}}" />
+			  		 </div>
+			   <div class="register-name">{{nickname}}</div>
+				<div class="my-conter-list" style="margin-top: 10px;border-bottom:none ;">
+					<div class="list-data">
+						<span  style="position: absolute;left: 0;"><span class="color-red">* </span>真实姓名:</span>
+					    <input  type="text" ng-model="personalData.realName"/>
+					</div>
+					<div class="list-data">
+						<span style="position: absolute;left: 0;"><span class="color-red">* </span>性别:</span>
+					    <select ng-model="personalData.gender" ng-options="sex.id as sex.name for sex in sexNames">
+					   </select>
+					</div>
+					<div class="list-data">
+						<span style="position: absolute;left: 0;"><span class="color-red">* </span>出生年月日:</span>
+					    <input  type="text" id="start_date" ng-model="personalData.birthday"/>
+					</div>
+					<div class="list-data">
+						<span style="position: absolute;left: 0 ;"><span class="color-red">* </span>籍贯(家乡):</span>
+					     <select ng-model="personalData.hometown"  ng-options="p for p in positions">
+					   </select>
+					</div>
+					<div class="list-data ">
+						<span style="position: absolute;left: 0;"><span class="color-red">* </span>手机号:</span>
+					    <input type="text" ng-model="personalData.mobile"/>
+					</div>
+					<div class="list-data">
+						<span style="position: absolute;left: 0;"><span class="color-red">* </span>身高(cm):</span>
+					    <input  type="text" ng-model="personalData.height"/>
+					</div>
+					<div class="list-data">
+						<span  style="position: absolute;left: 0;"><span class="color-red">* </span>工作单位:</span>
+					    <input  type="text"  ng-model="personalData.work"/>
+					</div>
+	            </div>
+	            <div class="activityDemand" style="border: none;">
+				<div class="activityDemand-list mb10" >
+					<div class="c666  mb5"><span class="color-red">* </span>你的昵称</div>
+					<div class="activityDemand-input dan">
+						<input class="input-t" type="text"  ng-model="nickname " maxlength="8" />
+					</div>
+				</div>
+				<div class="activityDemand-list mb10"  ng-repeat="a in eventRegistration ">
+					<div class="c666 mb5"><span class="color-red">* </span>{{a.title}}<span ng-if="a.type=='1'">(多选)</span><span ng-if="a.type=='2'">(单选)</span></div>
+						<div class="activityDemand-input" ng-if="a.type=='0'">
+							<input type="text"  ng-model="a.value"  maxlength="8"/>
+						</div>
+						<div class="activityDemand-input dan" ng-if="a.type=='1'" ng-click="motai()" style="min-height: 34px;height: auto;">
+							<div class="isselet" style="position: fixed;top: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.4);left: 0px;z-index: 10;" ng-show="isselet">
+								<div class="options-center" >
+							      <div  class="options-list" ng-repeat="i in a.options"  style="" ng-model="a.value" ng-click="selects(i,a.information,a,$index)">
+							      	<img class="options-img" style="width: 19px;margin-top: 5px;"  src="img/duo.png" />
+							      	<span>{{i.optionText}}</span>
+							      </div>
+							      <div class="confirm" ng-click="confirmClick($event)">确认</div>
+						    	</div>
+							</div>
+							<div style="color: #111;padding-top: 5px;">{{even}}</div>
+						</div>
+						<select class="activityDemand-select"   ng-model="a.value" ng-if="a.type=='2'" ng-options="op for op in eventRegistration[$index].s">
+							<option value="">请选择</option>
+						</select>
+						
+						<div class="" ng-if="a.type=='3'">
+							<input type="file"   />
+						</div>
+					</div>
+				</div>
+	            <div style="padding-left: 9px;  padding-top: 10px; color: #666;">以上信息绝对保密，仅用于工作人员联系</div>
+	            <div class="submit-input" ng-click="submit_input()">提交</div>
+	    </div>
+	</div>
+	</body>
+</html>

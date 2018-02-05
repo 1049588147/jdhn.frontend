@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<style>
+			*{margin: 0;padding: 0;}
+			html,body{height: 100%;width: 100%;}
+			.head{height: 60px;margin-left: 10px;padding-top: 10px;}
+			.head>input{height: 40px;padding-left: 10px;background: #ccc;border: none;border-radius: 4px;outline: none;}
+			.btn{width: 90%;background: #007AFF;height: 40px;color: #FFFFFF;margin: auto;border-radius: 5px;border:none;display: block;}
+		</style>
+		<script src="dist/jquery-2.1.3.min.js"></script>
+
+	</head>
+	<body>
+		<div class="head">
+			<label>金额</label>
+			<input class="input" type="text" />
+		</div>
+		<button class="btn" type="button" onclick="payment()">确认</button>
+		
+		<script>
+		//      支付
+				var wxpay='';
+				var id=''
+		        function payment(){
+		        var v=$(".input").val();
+		        	$.ajax({
+							type:"get",
+							url:"http://api.jdhn.top/home/demo",/*url写异域的请求地址*/
+								success:function(result){
+//								console.log(JSON.parse(result))
+									var data = JSON.parse(result);
+									if(data.code==1){
+										wxpay = data.data;
+										id=data.id
+										callpay();
+									}
+								}
+					});
+		        }
+		        
+		        
+		        function jsApiCall()
+		        {
+		        	
+		            WeixinJSBridge.invoke(
+		                'getBrandWCPayRequest',
+		               {
+							'appId':wxpay.appId,
+							'nonceStr':wxpay.nonceStr,
+							'package':wxpay.package,
+							'paySign':wxpay.paySign,
+							'signType':wxpay.signType,
+							'timeStamp':wxpay.timeStamp,
+							//'total_fee':wxpay.total_fee,
+						},
+		                function(res){
+		                  
+		                   // alert(res.err_code+res.err_desc+res.err_msg);
+		                    if(res.err_msg == 'get_brand_wcpay_request:fail' || res.err_msg == 'get_brand_wcpay_request:cancel') {
+		                    		layer.open({
+									    content:"支付失败，请重新支付"
+									    ,skin: 'msg'
+									    ,time: 2 //2秒后自动关闭
+									});
+									return;
+							}else{
+								$.ajax({
+									url:'http://api.jdhn.top/homt/demo/getState?id='+id,
+									type:'get',
+									success:function(res) {
+
+										var data = JSON.parse(res);
+										if(data.code == 1) {
+											if(data.data.ord_state=="1"){
+												
+											}
+											
+										}
+									}
+								
+								});
+							}
+		
+		                }
+		            );
+		        }
+		
+		        function callpay()
+		        {
+		            if (typeof WeixinJSBridge == "undefined"){
+		                if( document.addEventListener ){
+		                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+		                }else if (document.attachEvent){
+		                    document.attachEvent('WeixinJSBridgeReady', jsApiCall); 
+		                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+		                }
+		            }else{
+		               jsApiCall();
+		            }
+		        }
+
+		</script>
+	</body>
+</html>

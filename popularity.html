@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html ng-app="jdhnelscted">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<title>交大红娘-人气嘉宾</title>
+		<link rel="stylesheet" type="text/css" href="libs/ionic-v1.3.3/css/ionic.min.css"/>
+		<link rel="stylesheet" type="text/css" href="libs/need/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/LCalendar.css"/>
+		<style>
+			.isselect{ height: 30px; border-radius: 5px; width: 51px; width: 100%;}
+			label{font-size: 18px!important;}
+			select {
+		  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+		  border: solid 1px #ccc;
+		  /*很关键：将默认的select选择框样式清除*/
+		  appearance:none;
+		  -moz-appearance:none;
+		  -webkit-appearance:none;
+		  /*在选择框的最右侧中间显示小箭头图片*/
+		  background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+		  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+		  padding-right: 14px;
+        } 
+
+
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand { display: none; }
+		</style>
+		<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+		<script src="libs/layer.js"></script>
+		<script src="dist/LCalendar.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/ionic/1.3.2/js/ionic.bundle.min.js" ></script>
+		<script>
+			var jdhnreg=angular.module("jdhnelscted",['ionic']);
+			jdhnreg.controller("jdhnCtrconter",['$scope','$http','$ionicSlideBoxDelegate','$window',function($scope,$http,$ionicSlideBoxDelegate,$window){
+			
+			var getPops = function(name){
+			    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			     var r = window.location.search.substr(1).match(reg);
+			    if(r!=null)return  unescape(r[2]); return null; 
+			}
+			
+			var w=layer.open({
+				type: 2
+				,content: '加载中'
+			});
+				$scope.act_id = getPops("id");
+				$scope.init=function(){
+					var url='http://api.jdhn.top/home/election/getFavorite?activity_id='+$scope.act_id;
+					$http.get(url).success(function(data,status,headers,config){
+						if(data.code==1){
+							layer.close(w)
+					    	$scope.chiefinarr=data.data
+							if($scope.chiefinarr.length==0){
+								layer.open({
+									content:"当前活动没有互选人员！"
+									,skin: 'msg'
+									,time: 2 //2秒后自动关闭
+								});
+							}
+						}else if(data.code==403){
+
+							layer.close(w)
+							layer.open({
+								content:"互选已过期！"
+								,skin: 'msg'
+								,time: 2 //2秒后自动关闭
+							});
+							$window.location.href="404.html"
+						}else{
+							layer.close(w)
+							layer.open({
+							    content:"查询失败"
+							    ,skin: 'msg'
+							    ,time: 2 //2秒后自动关闭
+							});
+						}
+					}).error(function(data,status,headers,config){
+						layer.close(w)
+						layer.open({
+						    content:"查询失败"
+						    ,skin: 'msg'
+						    ,time: 2 //2秒后自动关闭
+						});
+					})
+				}
+				
+				$scope.list=function(){
+					
+					if($scope.gender=="1"){
+						
+						$scope.init()
+					}else{
+						var urlone='http://api.jdhn.top/home/election/getFavorite?activity_id='+$scope.act_id+"&choice="+$scope.gender;
+						$http.get(urlone).success(function(data,status,headers,config){
+							if(data.code==1){
+						    	$scope.chiefinarr=data.data
+							}else{
+								layer.open({
+								    content:"查询失败"
+								    ,skin: 'msg'
+								    ,time: 2 //2秒后自动关闭
+								});
+							}
+						}).error(function(data,status,headers,config){
+							layer.open({
+							    content:"查询失败"
+							    ,skin: 'msg'
+							    ,time: 2 //2秒后自动关闭
+							});
+						})
+					}
+					
+				}
+				
+				$scope.gender="1"
+				$scope.sexNames=[
+					{"id":"1","name":"请选择"},
+				    {"id":"2","name":"男"},
+				    {"id":"3","name":"女"}
+				]
+				
+				$scope.sex=function(v){
+					if(v=="2"){
+						return "男"
+					}else if(v=="3"){
+						return "女"
+					}
+				}
+				
+				$scope.init();
+			}])
+		</script>
+	</head>
+	<body ng-controller="jdhnCtrconter">
+			<div class="" style="height: 100%;width: 100%;background: #F5F5F5;">
+				<div class="bar bar-header item-input-inset">
+				  <select class="isselect" ng-model="gender" ng-options="sex.id as sex.name for sex in sexNames" ng-change="list()"> </select>
+				</div>
+				<div class="content has-header overflow-scroll">
+					<div class="list list-inset">
+					     <div class="item" ng-repeat="c in chiefinarr">
+					     	<label>{{sex(c.enroll_gender)}}&nbsp;&nbsp;&nbsp;</label><label>{{c.enroll_num}}号被选择了</label><label>{{c.nums}}次</label>
+					    </div>
+					</div>
+				</div>
+			</div>
+	</body>
+</html>

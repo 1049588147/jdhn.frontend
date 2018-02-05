@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html ng-app="jdhntwo">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<title>交大红娘-活动详情</title>
+		<link rel="stylesheet" type="text/css" href="libs/ionic-v1.3.3/css/ionic.min.css"/>
+		<link rel="stylesheet" type="text/css" href="libs/need/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+		<script src="libs/layer.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/ionic/1.3.2/js/ionic.bundle.min.js" ></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script>
+			var jdhntwo=angular.module("jdhntwo",['ionic']);
+			jdhntwo.controller("jdhnCtr",['$scope','$http','$ionicSlideBoxDelegate','$window',function($scope,$http,$ionicSlideBoxDelegate,$window){
+			
+//			alert(+"-"+$window.localStorage.getItem("uid")+"-"+$window.localStorage.getItem("fee"))
+			$scope.activity_id=$window.localStorage.getItem("act_id");
+			$scope.uid=$window.localStorage.getItem("uid");
+			$scope.fee=$window.localStorage.getItem("fee");
+			$scope.init=function(){
+				var url='http://api.jdhn.top/home/enlist/activitydetail?callback=JSON_CALLBACK&activity_id='+ $scope.activity_id+"&u_id="+$scope.uid
+				$http.jsonp(url).success(function(result){
+						if(result.code==1){
+							layer.close($scope.li);
+							$scope.res=result.enroll_state;
+							$scope.list=result.data;
+						
+							$scope.li = JSON.parse($scope.list.photos)
+			        	 	$ionicSlideBoxDelegate.update();
+			        	 	$ionicSlideBoxDelegate.loop(true);
+			        	 	$scope.enrollInfo=result.enrollInfo;
+			        	 	$scope.signup=result.enrollInfo;
+			        	 	$scope.open=result.actComment;
+			        	 	$scope.leavingMessage=result.actComment;
+			        	
+			        	 	$(".iframe_list").append(result.data.richTextHtml)
+						}else{
+							layer.close($scope.li);
+							 
+						}
+				}).error(function (result) {
+					   layer.close($scope.li);
+                      
+                });
+			}
+
+			//      支付
+		var wxpay='';
+        $scope.payment=function(){
+        	var w=layer.open({
+				type: 5
+				,content: '加载中'
+			});
+        	$.ajax({
+					type:"POST",
+					url:"http://api.jdhn.top/home/pay/index",/*url写异域的请求地址*/
+					data:{"uid":$scope.uid,"activity_id":$scope.activity_id,"fee":$scope.fee,'enroll_id':$scope.res.enroll_id},
+						success:function(result){
+						
+							var data = JSON.parse(result);
+							if(data.code==1){
+								wxpay = data.data;
+								layer.close(w)
+								$scope.callpay();
+							}else{
+								layer.close(w)
+								layer.open({
+								    content:data.message
+								    ,skin: 'msg'
+								    ,time: 2 //2秒后自动关闭
+								});
+							}
+						}
+				});
+        }
+        
+        
+        $scope.jsApiCall=function()
+        {
+        	
+            WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',
+               {
+					'appId':wxpay.appId,
+					'nonceStr':wxpay.nonceStr,
+					'package':wxpay.package,
+					'paySign':wxpay.paySign,
+					'signType':wxpay.signType,
+					'timeStamp':wxpay.timeStamp,
+					//'total_fee':wxpay.total_fee,
+				},
+                function(res){
+                  
+                    //alert(res.err_code+res.err_desc+res.err_msg);
+                    if(res.err_msg == 'get_brand_wcpay_request:fail' || res.err_msg == 'get_brand_wcpay_request:cancel') {
+                    		layer.open({
+							    content:"支付失败，请重新支付"
+							    ,skin: 'msg'
+							    ,time: 2 //2秒后自动关闭
+							});
+							return;
+					}else{
+						$.ajax({
+							url:'http://api.jdhn.top/home/pay/getordstate',
+							data:{"uid":$scope.uid,"activity_id":$scope.activity_id,'enroll_id':$scope.res.enroll_id},
+							type:'post',
+							success:function(res) {
+								var data = JSON.parse(res);
+								if(data.code == 1) {
+									layer.open({
+									    content:"支付成功"
+									    ,skin: 'msg'
+									    ,time: 2 //2秒后自动关闭
+									});
+									window.location="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx23062c6be91741d3&redirect_uri=http://www.jdhn.top/sign/sign.html?id="+$scope.activity_id+"&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"
+								}else{
+									layer.open({
+									    content:"支付失败，请重新支付"
+									    ,skin: 'msg'
+									    ,time: 2 //2秒后自动关闭
+									});
+								}
+							}
+						
+						});
+					}
+
+                }
+            );
+        }
+
+         $scope.callpay=function()
+        {
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', $scope.jsApiCall, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', $scope.jsApiCall); 
+                    document.attachEvent('onWeixinJSBridgeReady', $scope.jsApiCall);
+                }
+            }else{
+                $scope.jsApiCall();
+            }
+        }
+		
+		$scope.loveImg=function(){
+		
+			$window.location.href="https://mp.weixin.qq.com/s?__biz=MzA3NzM5MzkwNQ==&mid=2650104069&idx=5&sn=9ab5a00bf6f94fe395e2fd5afbeefa8a&chksm=87537b9bb024f28d40135967551d9ccfee4806db604487c4815d061c0b2e92e4a43eb71271c9#rd"
+		}
+		
+		$scope.eventRegistrationClick=function(){
+			window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx23062c6be91741d3&redirect_uri=http://www.jdhn.top/activeindividual.html?id="+$scope.activity_id+"&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"
+		}
+		
+        $scope.init()
+		}])
+		</script>
+	</head>
+	<body ng-controller="jdhnCtr">
+		<div style="height: 100%;width: 100%;background: #F2F2F2;">
+		<div class="content has-footer overflow-scroll">
+			<ion-slide-box does-continue="true" auto-play="true" style="width:100%;margin-bottom:-5px;">
+	            <ion-slide ng-repeat="ien in li track by $index">
+	                <img style="width:100%;height: 230px" ng-src="{{ien}}">
+	            </ion-slide>
+	        </ion-slide-box>
+		    <div class="padding bff">
+			    	<div class="detalis-title fm">{{list.title}}</div>
+			    	<div class="huo-list">
+				      	<div ng-repeat="t in list.tags" ng-style="{'background-color':'{{t.tag_color}}'}">{{t.tag_title}}</div>
+				    </div>
+				    <div class="detalis-information">
+						<div class="mt20"><label class="c5d">活动时间：</label> <label class="c333">{{list.beginTime.split(":")[0]+":"+list.beginTime.split(":")[1]}}</label> ~ <label>{{list.endTime.split(":")[0]+":"+list.endTime.split(":")[1]}}</label></div>
+						<div><label class="c5d">活动地点：</label> <label class="c333">{{list.address}}</label></div>
+						<div><label class="c5d">活动价格：</label> <label class="font16 ">{{list.price_show}}</label><label>元</label></div>
+						<div><label class="c5d">会员价格：</label> <label class="font16 cf1">{{list.act_lovePrice}}</label> <label>元</label><img class="love-img" ng-click="loveImg()" src="img/love.png"/></div>
+						<div><label class="c5d">活动人数：</label> <label class="c333">{{list.p_dLimit}}</label></div>
+						<div><label class="c5d">报名时间：</label> <label class="c333">{{list.signBeginTime.split("-")[1]+"-"+list.signBeginTime.split("-")[2].split(":")[0]+":"+list.signBeginTime.split("-")[2].split(":")[1]}}</label> ~ <label class="c333">{{list.signEndTime.split("-")[1]+"-"+list.signEndTime.split("-")[2].split(":")[0]+":"+list.signEndTime.split("-")[2].split(":")[1]}}</label></div>
+						<div class=""><label class="c5d">活动简介：</label></div>
+						<div class="iframe_list"></div>
+				    </div>
+			    </div>
+				<div class="padding bff mt10">
+					<div class="alreadysignup c5d">
+						已报名（{{list.enroll_num}}人）
+					</div>
+					<div class="signup-ionic">
+						<div class="" ng-repeat="n in signup">
+							<img   ng-src="{{ n.u_portrait}}"/> 
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bar bar-footer signup text-center" ng-click="eventRegistrationClick()" ng-if="res.state==null"  >
+				 <h1 class="title">我要去报名</h1>
+			</div>
+			<div class="bar bar-footer signup text-center"  ng-click="payment()"  ng-if="res.state=='271'">
+				 <h1 class="title">去支付</h1>
+			</div>
+			<div class="bar bar-footer signup"  ng-if="res.state==272" style="background: rgb(255, 255, 255);border-top:1px solid #CCCCCC ;">
+				 <button class="button button-clear " style="color: #000000;">已支付(待审核)</button>
+			</div>
+			<div class="bar bar-footer signup text-center"  ng-if="res.state=='273'" style="background: rgb(255, 255, 255);border-top:1px solid #CCCCCC ;">
+				 <button class="button button-clear " style="color: #000000;">报名成功(已通过)</button>
+			</div>
+			<div class="bar bar-footer signup text-center" ng-click="eventRegistrationClick()" ng-if="res.state==275"  >
+				 <h1 class="title">退款成功(再次报名)</h1>
+			</div>
+			<div class="bar bar-footer signup text-center"  ng-if="res.state=='276'" style="background: rgb(255, 255, 255);border-top:1px solid #CCCCCC ;">
+				 <button class="button button-clear " style="color: #000000;">报名已完成</button>
+			</div>
+		</div>
+	
+	</body>
+</html>

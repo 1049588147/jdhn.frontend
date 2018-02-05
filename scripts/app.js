@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular
-        .module('makeFriends', ['ionic','oc.lazyLoad']);
+        .module('makeFriends', ['ionic','oc.lazyLoad','angularFileUpload']);
 })();
 
 /**

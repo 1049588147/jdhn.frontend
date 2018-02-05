@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>交大红娘-签到</title>
+		<style>
+			*{margin: 0;padding: 0;font-family: "微软雅黑";}
+			html,body{height: 100%;width: 100%;}
+			.logo{position: absolute;top: 0px;left:50%;transform: translate(-50%,0);-webkit-transform: translate(-50%,0);-moz-transform: translate(-50%,0);-o-transform: translate(-50%,0);
+			-ms-transform: translate(-50%,0);width: 100%;}
+			.sign{width: 100%;height: 100%;position: relative;}
+			.bg{width: 100%;display: block;}
+			.conter{position: absolute;width: 71%;z-index: 3;top: 273px;left: 50%;
+			transform: translate(-50%,0);-webkit-transform: translate(-50%,0);-moz-transform: translate(-50%,0);-o-transform: translate(-50%,0);
+			-ms-transform: translate(-50%,0);padding: 30px;font-size: 24px;color:#111;padding: 10px;}		
+			.sign-div{display:none;color: #c29090;font-size: 30px; text-align: center;margin-top: 20px;}
+			.no-sign{display:none;color: #c29090;font-size: 20px; text-align: center;margin-top: 10px;}
+			.vipsign{display:none;color: #c29090;font-size: 20px; text-align: center;margin-top: 10px;}
+			.user{display:none ;color: #c29090;font-size: 20px; text-align: center;margin-top: 10px;}
+			.portrait{width: 70px;height: 70px;border-radius:50% ;overflow: hidden;margin:-50px auto 0px  auto;display: block;}
+			.conter-size{color: #333;font-size: 20px; margin-top: 10px;display: none;}
+			.code{width: 100px;position: absolute;left: 50%;
+			transform: translate(-50%,0);-webkit-transform: translate(-50%,0);-moz-transform: translate(-50%,0);-o-transform: translate(-50%,0);
+			-ms-transform: translate(-50%,0);top: 422px;display: none;}
+			.follow{ color: #c29090; font-size: 12px;  text-align: center;margin-top: 5px;display: none;}
+			.number{font-size:40px;text-align:center;margin-top:10px;color:#EF705D;font-weight:700;display:none;}
+			@media screen and (max-width: 600px) {
+				.conter{top: 389px;padding: 12px;height: 210px;}
+				.sign-btn{top: 638px;}
+				.code{top: 646px;width: 183px;}
+			    
+			}
+			
+			@media screen and (max-width: 480px) {
+				.conter{top: 306px;padding: 12px;height: 155px;font-size: 18px;}
+				.code {top: 517px; width: 158px;}
+				
+			}
+			
+			
+			@media screen and (max-width: 414px) {
+				.conter{top: 272px;}
+				.conter-size{font-size: 16px;}
+                                      .code{top: 429px;}
+			}
+			
+			@media screen and (max-width: 412px) {
+				
+				.code { top: 456px; width: 129px;}
+				
+			}
+			
+			@media screen and (max-width: 384px) {
+				.conter{top: 248px;}
+				.sign-btn{top: 407px;}
+				
+			}
+			
+			@media screen and (max-width: 375px) {
+				.conter-size{font-size: 16px;}
+                .code {top: 413px;width: 124px;}
+			}
+			
+			@media screen and (max-width: 360px) {
+				.code { top: 406px;width: 112px;}
+				
+			}
+			
+			@media screen and (max-width: 320px) {
+				.conter{font-size: 12px; top: 214px; padding: 6px;height: 146px;}
+				.sign-btn{font-size: 12px;top: 340px; width: 84px; height: 30px;line-height: 30px;}
+				.user{font-size: 18px;}
+				.sign-div{font-size: 18px;}
+				.no-sign{font-size: 18px; }
+				.vipsign{;font-size: 18px; }
+				.code {
+				    top: 337px;
+				    width: 116px;
+				}
+			}
+			
+			
+		</style>
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+		<script>
+			$(function(){
+				var getPops = function(name){
+				    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+				     var r = window.location.search.substr(1).match(reg);
+				    if(r!=null)return  unescape(r[2]); return null; 
+				}
+				
+				if(!window.name){
+				    window.localStorage.id = "";
+					var code=getPops("code");
+					var activity_id=getPops("id");
+					window.localStorage.id = activity_id;
+					 $.ajax({
+						type:"get",
+						url:"http://api.jdhn.top/home/sign/wechatLoginBack?code="+code+"&activity_id="+activity_id,/*url写异域的请求地址*/
+						success:function(result){
+						    var data=JSON.parse(result);
+//							console.log(data)
+						   if(data.code==1){
+								$(".portrait").attr("src",data.data.u_portrait)
+								$(".conter-size").show().html(data.data.act_title);
+								$(".sign-div").css("display","block");
+								$(".number").show().html("您的编号是"+data.data.enroll_num)
+								$(".follow").hide()
+						   }else if(data.code==404){
+									$(".no-sign").css("display","block")
+									$(".portrait").attr("src",data.data.u_portrait);
+									$(".code").show();
+									$(".follow").show();
+						   }else if(data.code==400){
+									$(".portrait").attr("src",data.data.u_portrait)
+									$(".vipsign").css("display","block")
+									$(".code").show();
+									$(".portrait").hide();
+									$(".follow").show()
+						   }else{
+								$(".user").css("display","block");
+								$(".code").show();
+								$(".portrait").hide();
+								$(".follow").show()
+						   }
+						}
+					});
+					window.name = 'jdhn';  
+				}else{
+					window.name = '';  
+					window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx23062c6be91741d3&redirect_uri=http://www.jdhn.top/sign/sign.html?id="+window.localStorage.id+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+				}
+			})
+
+		</script>
+	</head>
+	<body>
+		<div class="sign">
+			<img class="bg" src="img/bg.jpg" />
+			<img class="logo" src="img/logo.png" />
+			<div class="conter">
+				<img class="portrait" src=""/>
+				<div class="conter-size"></div>
+				<div class="number"></div>
+				<div class="sign-div">已签到</div>
+				<div class="no-sign">很抱歉，您未报名本次活动！</div>
+				<div class="vipsign">很抱歉，您还不是会员！</div>
+				<div class="user">没有您的用户信息！</div>
+				<div class="follow">如需参加活动，请扫码下方二维码！</div>
+			</div>
+			<img  class="code" src="img/code.jpg"/>
+		</div>
+		
+	</body>
+</html>

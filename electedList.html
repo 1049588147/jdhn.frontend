@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html ng-app="jdhnelscted">
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<title>交大红娘-心动互选</title>
+		<link rel="stylesheet" type="text/css" href="libs/ionic-v1.3.3/css/ionic.min.css"/>
+		<link rel="stylesheet" type="text/css" href="libs/need/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="css/LCalendar.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style>
+			.logo{width: 90%;margin-top: 15px;}
+			.logo>img{width: 100%;}
+			.el-title{width: 100%;height: 30px;background: #f8f8f8;}
+			.el-title>div{float: left;font-size: 12px;line-height: 30px;color: #616161;}
+			.el-title-center{width: 100%;height: 50px;border-bottom:1px solid #f8f8f8;}
+			.el-title-center>div{float: left;font-size: 12px;line-height: 50px;color: #616161;height:100%;}
+			.number,.realName,.data,.hometown{width: 14%;overflow-x: auto;white-space: nowrap;    overflow-y: hidden;}
+			.data{width: 14%;}
+			.work,.schloo{width: 20%;overflow-x: auto;white-space: nowrap;    overflow-y: hidden;}
+			.schloo{margin-left:10px ;}
+			.fiexd{height: 178px;position: fixed;bottom:0;width: 100%;}
+			.fiexd-list{background:#ffdcdc;color: #616161;
+				height: 40px;display: -moz-box;display: -webkit-box;
+				padding: 0px 24px;border-bottom: 1px solid #044d74;
+			}
+			.fiexd-list>div{ -webkit-box-flex:1;line-height: 40px;}
+			
+			.delete{width: 23px;margin-top: 10px;}
+			/*.col{padding: 2px;}*/
+			.submit{height: 58px;background: #04597d;color: #fff;font-size: 24px;line-height: 58px;text-align: center;}
+			.btn-danger{background: #fbefef;}
+			.motai-el{width:100%;height:100%;background:rgba(0,0,0,0.4); z-index:20;top:0;    position: fixed;}
+			.elect-motai{position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.3);top:0;}
+			.elect-center{ width: 90%; 
+    background: #fff;  position: absolute;  left: 50%;
+    top: 50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%); -moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);
+		-o-transform: translate(-50%,-50%);	border-radius:5px;
+	}
+	.elect-title{border-bottom:1px solid #ccc;padding:10px;color:#62b7f5;}
+	.xuanz{line-height:45px;}
+	.electe-bottom{width:100%;height:45px;display:-webkit-box;display:-moz-box;border-top:1px solid #ccc;}
+	.electe-bottom>div{width:50%;text-align:center;line-height:45px;font-size:18px;}
+		</style>
+		<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+		<script src="dist/jquery.fly.min.js"></script>
+		<script src="libs/layer.js"></script>
+		<script src="dist/LCalendar.js"></script>
+		<script type="text/javascript" src="https://cdn.bootcss.com/ionic/1.3.2/js/ionic.bundle.min.js" ></script>
+		<script>
+			var jdhnreg=angular.module("jdhnelscted",['ionic']);
+			jdhnreg.controller("jdhnCtrconter",['$scope','$http','$ionicSlideBoxDelegate','$window',function($scope,$http,$ionicSlideBoxDelegate,$window){
+				var getPops = function(name){
+					var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+					 var r = $window.location.search.substr(1).match(reg);
+					if(r!=null)return  unescape(r[2]); return null; 
+				}
+				var  li= layer.open({
+				     type: 2
+				    ,content: '加载中'
+				 });
+				if(!window.name){
+						$scope.code=getPops("code");
+						$scope.activity_id=getPops("id");	
+						$scope.conter=false;
+						var urlsrc='http://api.jdhn.top/home/election/index?activity_id='+$scope.activity_id+"&code="+$scope.code;
+						$http.get(urlsrc).success(function(data,status,headers,config){
+//							console.log(data)
+							$scope.uid=data.uid;
+							$scope.num=data.num;
+							switch(data.code){
+								case "1":
+									$scope.conter=true;
+									layer.close(li);
+									$scope.arr=data.data;
+									for(var i=0;i<$scope.arr.length;i++){
+										$scope.arr[i].flag=false;
+										$scope.arr[i].index=i;
+									}
+									
+								  break;
+								case "200":
+									layer.close(li);
+									$scope.arr=data.data;
+									layer.open({
+										content: "您已参加过互选！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									});
+									
+									$window.location.href="ok.html"
+								  break;
+								case "400":
+									layer.close(li);
+									$window.location.href="index.html"
+								  break;
+								case "404":
+									layer.close(li);
+									layer.open({
+										content: "您没有报名本场活动！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									});
+									$window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx23062c6be91741d3&redirect_uri=http://www.jdhn.top/go.html?id="+$scope.activity_id+"&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"
+									
+								   break;
+								case "203":
+									layer.close(li);
+									layer.open({
+										content: "当前没有人签到！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									});
+									break;
+								case "401":
+									layer.close(li);
+									layer.open({
+										content: "您没签到本场活动！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									});
+									$window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx23062c6be91741d3&redirect_uri=http://www.jdhn.top/go.html?id="+$scope.activity_id+"&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"
+									break;
+									
+								case "404":
+									layer.close(li);
+									layer.open({
+										content: "当前活动不存在！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									});
+									break;
+								case "403":
+									layer.close(li);
+									layer.open({
+										content: "当前互选已过期！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									});
+									$window.location.href="404.html"
+									break;
+								case "300":
+									layer.close(li);
+									layer.open({
+										content: "信息错误！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									});
+									$window.location.href="404.html"
+									break;
+								case "500":
+									layer.close(li);
+									layer.open({
+										content: "互选已结束"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									});
+									$window.location.href="end.html"
+									break;
+								default:
+					 
+				            }
+							
+						}).error(function(data,status,headers,config){
+							
+							
+						})
+					window.name = 'jdhn';  
+				}else{	
+					window.name = '';  
+					$scope.activity_id=getPops("id");	
+					window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx23062c6be91741d3&redirect_uri=http://www.jdhn.top/electedList.html?id="+$scope.activity_id+"&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"
+				}	
+				
+				$scope.o="";
+				$scope.b="";
+				$scope.j="";
+				
+				$scope.nums=0;
+				$scope.bianhao="";
+				$scope.addcar=function(event,l,a){	
+					if(!$scope.arr[l].flag){	
+						
+						if($scope.nums<3){
+							$scope.nums++
+							var offset = $("#end").offset();  //结束的地方的元素
+							var flyer = $('<img src="img/ai-xin.png" style="width: 15px;" />');
+							flyer.fly({
+								start: {
+									left: event.pageX,
+									top: event.pageY
+								},
+								end: {
+									left: offset.left+150,
+									top: offset.top+100,
+									width: 0,
+									height: 0
+								},
+								onEnd: function(){
+									
+									this.destory();
+								}
+							});
+						$scope.arr[l].flag=true;
+							if($scope.o==""){
+							      $scope.o=a;
+								  $scope.bianhao="编号";
+							}else{
+								if($scope.b==""){
+									$scope.b=a;
+									$scope.bianhao1="编号";
+								}else{
+									if($scope.j==""){
+										$scope.j=a;
+										$scope.bianhao2="编号";
+									}
+								}
+							}
+						
+						}else{
+							
+							layer.open({
+								content: "您已经选择3位嘉宾！"
+								,skin: 'msg'
+								,time: 2 //2秒后自动关闭
+							  });
+							return;
+						}
+
+						
+					}else{
+							layer.open({
+								content: "这位嘉宾您已选择！"
+								,skin: 'msg'
+								,time: 2 //2秒后自动关闭
+							 });
+							return;
+					}
+				}
+				
+				
+				$scope.dele=function(){
+					if($scope.o==""){
+						return;
+					}
+					$scope.arr[$scope.o.index].flag=false;
+					$scope.o="";
+					$scope.nums--;
+					$scope.bianhao="";
+				}
+				
+				$scope.deleone=function(){
+					if($scope.b==""){
+						return;
+					}
+					$scope.arr[$scope.b.index].flag=false;
+					$scope.b=""
+					$scope.nums--;
+					$scope.bianhao1="";
+				}
+				
+				$scope.deletwo=function(){
+					if($scope.j==""){
+						return;
+					}
+					$scope.arr[$scope.j.index].flag=false
+					$scope.j="";
+					$scope.nums--;
+					$scope.bianhao2="";
+				}
+				
+				
+				$scope.btn=function(){
+				
+					var  w= layer.open({
+						 type: 2
+						,content: '加载中'
+					 });
+					
+					$.ajax({
+						type:"POST",
+						url:"http://api.jdhn.top/home/election/subRes",/*url写异域的请求地址*/
+						data:$scope.objstr,
+						dataType:'json',
+						success:function(result){
+							$scope.elect=false;
+							switch(result.code){
+								case "1":
+								$window.location.href="ok.html"
+								layer.close(w);
+								layer.open({
+									content: result.message
+									,skin: 'msg'
+									,time: 2 //2秒后自动关闭
+								});
+								break;
+								case "200":
+								layer.close(w);
+								layer.open({
+									content: "您已参加过互选！"
+									,skin: 'msg'
+									,time: 2 //2秒后自动关闭
+								});
+								break;
+								case "300":
+									layer.close(w);
+									layer.open({
+										content: "信息错误！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									  });
+									$window.location.href="404.html"
+								  break;
+								case "301":
+									layer.close(w);
+									layer.open({
+										content: "请选择第一心动"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									  });
+									
+								  break;
+								case "400":
+									layer.close(w);
+									layer.open({
+										content: "您不是会员哦！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									  });
+								   break;
+								case "401":
+									layer.close(w);
+									layer.open({
+										content: "您没签到本场活动哦！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									  });
+								   break;
+								case "403":
+									layer.close(w);
+									layer.open({
+										content: "互选已过期！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									  });
+									 $window.location.href="404.html"
+								   break;
+								case "404":
+									layer.close(w);
+									layer.open({
+										content: "您没报名本场活动！"
+										,skin: 'msg'
+										,time: 2 //2秒后自动关闭
+									  });
+								   break;
+								default:
+								 
+							}
+						}
+					});
+					
+				}
+				
+				$scope.elect=false;
+				
+				$scope.edit=function(){
+					
+					if($scope.o==""){
+						layer.open({
+							content: "请选择第一心动"
+							,skin: 'msg'
+							,time: 2 //2秒后自动关闭
+						});
+						return;
+					}
+					$scope.elect=true;
+					$scope.objstr={"u_id":$scope.uid,"first":$scope.o.u_id,"second":$scope.b.u_id,"three":$scope.j.u_id,"activity_id":$scope.activity_id}
+					if(typeof($scope.objstr.second)=="undefined"){
+						$scope.objstr.second="0";
+						
+					}
+					if(typeof($scope.objstr.three )=="undefined"){
+						$scope.objstr.three ="0";
+					}
+					
+					$scope.xuan1=$scope.o.num+$scope.o.number;
+					$scope.xuan2=$scope.b.num+$scope.b.number;
+					$scope.xuan3=$scope.j.num+$scope.j.number;
+					
+					if($scope.b==""){
+						$scope.xuan2=0
+					}
+					
+					if($scope.j==""){
+						$scope.xuan3=0
+					}
+					
+					
+				}
+				
+				$scope.close=function(){
+					$scope.elect=false;
+				}
+				
+			}])
+		</script>
+	</head>
+	<body ng-controller="jdhnCtrconter">
+			<div class="" style="height: 100%;width: 100%;background: #fff;" ng-show="conter">
+				<div  class="logo"><img src="img/el_03.png" /></div>
+				<div class="el-title text-center">
+					<div class="number">编号</div>
+					<div class="realName">昵称</div>
+					<div class="data">出生年</div>
+					<div class="hometown">家乡</div>
+					<div class="work">工作情况</div>
+					<div class="schloo">毕业院校</div>
+				</div>
+				
+				<div class="content  overflow-scroll" style="top: 80px;bottom: 180px;">
+					<div class="el-title-center text-center" ng-repeat="a in arr" ng-click="addcar($event,$index,a)" ng-class="{ 'btn-danger': a.flag, }" >
+						<div class="number">{{a.num}}{{a.number}}</div>
+						<div class="realName">{{a.realName}}</div>
+						<div class="data">{{a.birth.split("-")[0]}}</div>
+						<div class="hometown">{{a.hometown}}</div>
+						<div class="work">{{a.company}}</div>
+						<div class="schloo">{{a.school}}</div>
+					</div>
+				</div>
+				<div class="fiexd">
+					<div class="fiexd-list">
+					  <div class="">第一选择</div>
+					  <div class="">{{bianhao}}{{o.number}}</div>
+					  <div class=" text-right" ><img class="delete" ng-click="dele()" src="img/delete.png" /></div>
+					</div>
+					<div class=" fiexd-list">
+					  <div class="">第二选择</div>
+					  <div class="">{{bianhao1}}{{b.number}}</div>
+					  <div class=" text-right" ><img class="delete" ng-click="deleone()" src="img/delete.png"/></div>
+					</div>
+					<div class=" fiexd-list" style="border: none;">
+					  <div class="">第三选择</div>
+					  <div class="">{{bianhao2}}{{j.number}}</div>
+					  <div class=" text-right" ><img  class="delete" ng-click="deletwo()" src="img/delete.png"/></div>
+					</div>
+					<div class="submit" id="end" ng-click="edit()">提交</div>
+				</div>
+			</div>
+			<div class="elect-motai" ng-show="elect">
+				<div class="elect-center">
+					<div class="elect-title">
+						您的编号{{num}}
+					</div>
+					<div style="padding:10px;">
+						<div class="xuanz">
+							第一选择&nbsp;&nbsp;{{xuan1}}
+						</div>
+						<div class="xuanz">
+							第二选择&nbsp;&nbsp;{{xuan2}}
+						</div>
+						<div class="xuanz">
+							第三选择&nbsp;&nbsp;{{xuan3}}
+						</div>
+					</div>
+					<div class="electe-bottom">
+						<div style="border-right:1px solid #ccc" ng-click="close()">关闭</div>
+						<div style="color:#62b7f5;" ng-click="btn()">确定</div>
+					</div>
+				</div>
+			</div>
+	</body>
+</html>

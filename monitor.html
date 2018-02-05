@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>交大红娘活动管理</title>
+		<link rel="stylesheet" type="text/css" href="libs/need/layer.css"/>
+		<style>
+			*{margin: 0;padding: 0;}
+			.header {
+				border: 1px solid #333;background: #111;
+				color: white;font-weight: bold;text-shadow: 0 -1px 1px black;
+				background-image: linear-gradient(#3C3C3C, #111);
+				background-image: -webkit-gradient(linear, left top, left bottom, from(#3C3C3C), to(#111));
+				background-image: -moz-linear-gradient(#3C3C3C, #111);
+			}
+			.header h1 {
+				text-align: center;font-size: 16px;margin: .6em 0;
+				padding: 0;text-overflow: ellipsis;overflow: hidden;
+				white-space: nowrap;
+			}
+			.box{width: 300px;height:100px;background: #958795;margin:10px auto;text-align: center;line-height: 100px;
+				color: #FFFFFF;
+			}
+		</style>
+		<script type="text/javascript" src="dist/jquery-2.1.3.min.js" ></script>
+		<script src="libs/layer.js"></script>
+		<script>
+			$(function(){
+				var getPops = function(name){
+				    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+				     var r = window.location.search.substr(1).match(reg);
+				    if(r!=null)return  unescape(r[2]); return null; 
+				}
+				var act_id =getPops('id');
+				$(".sign").on("click",function(){
+					window.location.href="sign/list.html?activity_id="+act_id;
+					
+				});
+				
+				$(".pair").on("click",function(){
+					var w=layer.open({
+						type: 2
+						,content: '加载中'
+					});
+					$.get("http://api.jdhn.top/home/election/getResult", { activity_id :act_id},function(data){
+						var data=JSON.parse(data);
+						if(data.code==1){
+							layer.close(w)
+							window.location.href="chiefinspector.html?id="+act_id;
+						}else if(data.code==500){
+							layer.close(w)
+							layer.open({
+							    content:"互选结果提交还未结束"
+							    ,skin: 'msg'
+							    ,time: 2 //2秒后自动关闭
+							});
+						}else if(data.code==403){
+							layer.close(w)
+							layer.open({
+							    content:"互选已过期"
+							    ,skin: 'msg'
+							    ,time: 2 //2秒后自动关闭
+							});
+						}
+						
+					});
+				});
+				
+				
+				$(".popularity").on("click",function(){
+					var n=layer.open({
+						type: 2
+						,content: '加载中'
+					});
+					$.get("http://api.jdhn.top/home/election/getFavorite", { activity_id :act_id},function(data){
+						var data=JSON.parse(data);
+						if(data.code==1){
+							layer.close(n)
+							window.location.href="popularity.html?id="+act_id;
+						}else if(data.code==500){
+							layer.close(n)
+							layer.open({
+							    content:"暂无人气嘉宾"
+							    ,skin: 'msg'
+							    ,time: 2 //2秒后自动关闭
+							});
+						}
+						
+					});
+				});
+				
+				$(".time").on("click",function(){
+					var s=layer.open({
+						type: 2
+						,content: '加载中'
+					});
+					$.get("http://api.jdhn.top/home/election/getEleState", { act_id :act_id},function(data){
+						var data=JSON.parse(data);
+						if(data.code==1){
+							layer.close(s)
+							window.location.href="time.html?id="+act_id;
+						}else if(data.code==500){
+							layer.close(s)
+							layer.open({
+							    content:"你已经提交过！"
+							    ,skin: 'msg'
+							    ,time: 2 //2秒后自动关闭
+							});
+						}
+						
+					});
+				});
+				
+			})
+			
+		</script>
+	</head>
+	<body>
+		<div class="box sign">查看签到情况</div>
+		<div class="box time">设置互选时间</div>
+		<div class="box pair">查看配对结果</div>
+		<div class="box popularity">查看人气嘉宾</div>
+
+	</body>
+</html>

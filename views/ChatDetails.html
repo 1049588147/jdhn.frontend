@@ -1,0 +1,63 @@
+
+<div ng-show="ispb"  style="width: 100%;height: 100%;position: absolute;z-index: 999">
+
+    <!-- <img src="img/chat-pbbg.png" style="width: 100%;margin-top: -0.042rem" alt=""/> -->
+	<img src="img/chat-pbbg.png" style="width:100%;margin-top: -0.0419rem" alt=""/>
+    <div ng-click="chatDetail_jb()" style="width: 0.9rem;height: 0.6rem;position: absolute;margin-top: -0.8rem;margin-left: 0.1rem"></div>
+    <div ng-click="changeispb()" style="width: 0.9rem;height: 0.6rem;position: absolute;margin-top: -0.8rem;margin-left:5.4rem"></div>
+
+
+</div>
+
+
+    <ion-content style="bottom:1.2rem;background: #f0f0f0 ">
+
+        <ion-refresher on-refresh="doRefresh()"  >
+        </ion-refresher>
+
+                <ion-list style="width: 100%;padding-top: 0.2rem;background:#f0f0f0;">
+
+                    <div ng-repeat="msg in msgs " style="margin-top: 0.5rem">
+                        <div class="{{msg.chats}}" >
+                            {{msg.msg}}
+                        </div>
+                        <div class="{{msg.chat_time}}">{{msg.add_time}}</div>
+                        <div ng-show="{{msg.isread}}" style="color: #d2d2d2;font-size: 0.2rem;position: absolute;left: 1.3rem;margin-top: -0.8rem">{{msg.msg_state}}</div>
+
+
+                        <img ng-click="previewInfo()" ng-src="{{msg.u_portrait}}" class="{{msg.img1}}" />
+                        <!-- <img ng-src="{{msg.arrow}}" class="{{msg.img2}}" /> -->
+
+                    </div>
+
+                </ion-list>
+
+
+
+
+        <div ng-show="chat_state1" style="background:white;width: 100%;margin-top: 0.7rem"><img src="img/chat_state1.jpg"  style="width: 100%;display: block"></div>
+        <div ng-show="chat_state2" style="background:white;width: 100%;margin-top: 0.7rem"><img src="img/chat_state2.gif" style="width: 100%;display: block"></div>
+
+
+        <ion-infinite-scroll ng-show="loadMoresss"  on-infinite="loadMore()" spinner>
+        </ion-infinite-scroll>
+
+
+
+
+    </ion-content>
+
+    <ion-footer-bar style="width: 100%;height: 1.3rem;background: #f0f0f0;background: url('img/chatDetailBottomBg.png') bottom;background-size: 100% 100%;" >
+        <div ng-click="changeispb()" style="height: 0.6rem;width: 0.9rem;margin-top: 0.5rem;border: none"></div>
+        <input id="myMsg" ng-model="myMsg" style="height: 0.5rem;position: absolute;left: 1.2rem;width:4rem;border: 1px solid #CCCCCC;margin-top: 0.55rem" />
+
+
+        <div  ng-click="myKeyup()" style="height: 0.6rem;width: 0.9rem;margin-top: 0.5rem;margin-left: 4.45rem;border: none"></div>
+
+
+    </ion-footer-bar>
+
+
+
+
+

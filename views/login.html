@@ -1,9 +1,13 @@
 <div class="content overflow-scroll">
-		<div class="login">
-			<input class="iphone" type="number" placeholder="手机号" ng-model="loginParameter.mobilePhone"/>
-			<input class="pass" type="password" placeholder="密码" ng-model="loginParameter.pass"/>
+		<img style="width: 100%;display: block;" src="img/34481786811028067.jpg"  />
+		<div class="login" style="z-index: 10;">
+			<input class="iphone" type="number" placeholder="手机号" ng-model="loginParameter.uname"/>
+			<input class="pass mt10" type="password" placeholder="密码" ng-model="loginParameter.upass"/>
+			<div class="forget" ui-sref='forgotpassword'>忘记密码？</div>
 		</div>
-		<div class="forget" ui-sref='modifyPassword({id:1})'>忘记密码？</div>
-		<div class="login-btn" ng-click="loginBtn()">登录</div>
-		<div class="register-btn" ui-sref='modifyPassword({id:2})'>注册</div>
+		<div class="foot-btn">
+			<div class="login-btn" ng-click="loginBtn()">登录</div>
+		    <a class="register-btn" style="text-decoration: none;color: #fff;display: block;" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx23062c6be91741d3&redirect_uri=http://www.jdhn.top/welcome.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect">注册</a>
+		</div>
 </div>
+

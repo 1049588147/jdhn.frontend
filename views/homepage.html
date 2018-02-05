@@ -1,0 +1,780 @@
+<style>
+	.slider{position: relative;top: 50%;transform: translate(0,-50%);-moz-transform: translate(0,-50%);-webkit-transform: translate(0,-50%);-ms-transform: translate(0,-50%);-o-transform: translate(0,-50%);}
+	.slider-pager .slider-pager-page { display: inline-block;margin: 0px 3px;  width: 15px;  color: #F5F5F5; text-decoration: none; opacity: 0.8; }
+</style>
+
+
+
+<!--多选爱好-->
+<div ng-show="showmyhobbyList" style="width: 100%;height: 10.29rem;background: rgba(0,0,0,0.3);z-index: 100;position: absolute">
+	<div ng-click="closeshowmyhobbyList()" style="width: 100%;height: 100%;background: url('img/hobbyBg.png');background-position: center ;background-size: contain;background-repeat: no-repeat;">
+		<div ng-click="doNothing()" id="myhobbyList" style="width: 94%;height:5rem;position: absolute;left: 3%;top: 2.5rem;">
+			<div style="width: 0.18rem;height: 0.18rem;background: #D2D2D2;border-radius: 50%;margin-top: 0.4rem;margin-left: 0.44rem;position: absolute">
+				<input name="hobbyList" value="阅读" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 0.4rem;margin-left: 1.9rem;position: absolute">
+				<input name="hobbyList" value="音乐" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 0.4rem;margin-left:3.35rem;position: absolute">
+				<input name="hobbyList" value="电影" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 0.4rem;margin-left: 4.8rem;position: absolute">
+				<input name="hobbyList" value="旅行" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+
+
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.03rem;margin-left: 0.44rem;position: absolute">
+				<input name="hobbyList" value="健身" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.03rem;margin-left: 1.9rem;position: absolute">
+				<input name="hobbyList" value="摄影" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.03rem;margin-left:3.35rem;position: absolute">
+				<input name="hobbyList" value="美食" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.03rem;margin-left: 4.8rem;position: absolute">
+				<input name="hobbyList" value="休闲" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+
+
+
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.66rem;margin-left: 0.44rem;position: absolute">
+				<input name="hobbyList" value="发呆" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.66rem;margin-left: 1.9rem;position: absolute">
+				<input name="hobbyList" value="购物" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.66rem;margin-left:3.35rem;position: absolute">
+				<input name="hobbyList" value="手工" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.66rem;margin-left: 4.8rem;position: absolute">
+				<input name="hobbyList" value="瑜伽" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+
+
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.29rem;margin-left: 0.44rem;position: absolute">
+				<input name="hobbyList" value="徒步" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.29rem;margin-left: 1.9rem;position: absolute">
+				<input name="hobbyList" value="烘焙" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.29rem;margin-left:3.35rem;position: absolute">
+				<input name="hobbyList" value="烹饪" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.29rem;margin-left: 4.8rem;position: absolute">
+				<input name="hobbyList" value="宠物" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+
+
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.92rem;margin-left: 0.44rem;position: absolute">
+				<input name="hobbyList" value="动漫" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.92rem;margin-left: 1.9rem;position: absolute">
+				<input name="hobbyList" value="游戏" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.92rem;margin-left:3.35rem;position: absolute">
+				<input name="hobbyList" value="展览" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.92rem;margin-left: 4.8rem;position: absolute">
+				<input name="hobbyList" value="话剧" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 3.61rem;margin-left: 0.44rem;position: absolute">
+				<input name="hobbyList" value="理财" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 3.61rem;margin-left: 1.9rem;position: absolute">
+				<input name="hobbyList" value="追剧" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 3.61rem;margin-left:3.35rem;position: absolute">
+				<input name="hobbyList" value="品茶" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 3.61rem;margin-left: 4.8rem;position: absolute">
+				<input name="hobbyList" value="花草" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+
+
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.24rem;margin-left: 0.44rem;position: absolute">
+				<input name="hobbyList" value="社交" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.24rem;margin-left: 1.9rem;position: absolute">
+				<input name="hobbyList" value="舞蹈" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.24rem;margin-left:3.35rem;position: absolute">
+				<input name="hobbyList" value="装饰" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.24rem;margin-left: 4.8rem;position: absolute">
+				<input name="hobbyList" value="羽毛球" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.88rem;margin-left: 0.44rem;position: absolute">
+				<input name="hobbyList" value="足球" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.88rem;margin-left: 1.9rem;position: absolute">
+				<input name="hobbyList" value="篮球" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.88rem;margin-left:3.35rem;position: absolute">
+				<input name="hobbyList" value="网球" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem"/>
+			</div>
+			<div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.88rem;margin-left: 4.8rem;position: absolute">
+				<input name="hobbyList" value="游泳" type="checkbox" style="opacity: 0;width:1.2rem;height: 0.3rem" />
+			</div>
+
+
+
+
+
+		</div>
+		<div ng-click="hobbyListChosed()" style="width: 1rem;height: 0.8rem;position: absolute;bottom: 1.5rem;left: 2.7rem;">
+
+		</div>
+
+	</div>
+
+
+
+</div>
+
+
+
+<!--多选爱好-->
+<!-- <div ng-show="showmyhobbyList" style="width: 100%;height: 10.29rem;background: rgba(0,0,0,0.3);z-index: 100;position: absolute"> -->
+	<!-- <div ng-click="closeshowmyhobbyList()" style="width: 100%;height: 100%;background: url('img/hobbyBg.png');background-position: center ;background-size: contain;background-repeat: no-repeat;"> -->
+		<!-- <div ng-click="doNothing()" id="myhobbyList" style="width: 94%;height:5rem;position: absolute;left: 3%;top: 2.5rem;"> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 0.4rem;margin-left: 0.44rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="阅读" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 0.4rem;margin-left: 1.9rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="音乐" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 0.4rem;margin-left:3.35rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="电影" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 0.4rem;margin-left: 4.8rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="旅行" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+
+
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.03rem;margin-left: 0.44rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="健身" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.03rem;margin-left: 1.9rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="摄影" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.03rem;margin-left:3.35rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="美食" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.03rem;margin-left: 4.8rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="休闲" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+
+
+
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.66rem;margin-left: 0.44rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="发呆" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.66rem;margin-left: 1.9rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="购物" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.66rem;margin-left:3.35rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="手工" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 1.66rem;margin-left: 4.8rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="瑜伽" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+
+
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.29rem;margin-left: 0.44rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="徒步" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.29rem;margin-left: 1.9rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="烘焙" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.29rem;margin-left:3.35rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="烹饪" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.29rem;margin-left: 4.8rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="宠物" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+
+
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.92rem;margin-left: 0.44rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="动漫" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.92rem;margin-left: 1.9rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="游戏" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.92rem;margin-left:3.35rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="展览" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 2.92rem;margin-left: 4.8rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="话剧" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 3.61rem;margin-left: 0.44rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="理财" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 3.61rem;margin-left: 1.9rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="追剧" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 3.61rem;margin-left:3.35rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="品茶" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 3.61rem;margin-left: 4.8rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="花草" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+
+
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.24rem;margin-left: 0.44rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="社交" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.24rem;margin-left: 1.9rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="舞蹈" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.24rem;margin-left:3.35rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="装饰" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.24rem;margin-left: 4.8rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="羽毛球" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.88rem;margin-left: 0.44rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="足球" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.88rem;margin-left: 1.9rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="篮球" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.88rem;margin-left:3.35rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="网球" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+			<!-- <div style="width: 0.18rem;height: 0.18rem;border-radius: 50%;background: #D2D2D2;margin-top: 4.88rem;margin-left: 4.8rem;position: absolute"> -->
+				<!-- <input name="hobbyList" value="游泳" type="checkbox" style="opacity: 0" /> -->
+			<!-- </div> -->
+
+
+
+
+
+		<!-- </div> -->
+		<!-- <div ng-click="hobbyListChosed()" style="width: 1rem;height: 0.8rem;position: absolute;bottom: 1.5rem;left: 2.7rem;"> -->
+
+		<!-- </div> -->
+
+	<!-- </div> -->
+
+
+
+<!-- </div> -->
+
+
+
+<div  style="height: 100%;width: 100%;background: #fff;">
+	<div class="content  overflow-scroll" style="width: 100%;height: 100%">
+
+		<!--<div  class="homepage" style="width: 100%;height: 31.6%">-->
+		<div  class="homepage" style="width: 100%;height:42.1%">
+			<!--<img class="homepageImg"  ng-src="{{code.photo}}" />-->
+			<div style="width: 100%;height: 100%;background:url({{datalist.u_cover}}) no-repeat center center; background-size:cover;"  ></div>
+			<input class="btn_file" style="height: 2.5rem;" id="fileInput" type="file" name="file" ng-file-select="saveCover($files)"/>
+			<div class="homepage-rudio">
+				<div class="homepage-rudio-center">
+					<img class="photo" ng-src="{{code.photo}}" />
+					<input class="btn_file" type="file" name="file" ng-file-select="saveHeader($files)"/>
+					<img ng-show="code.u_vip=='1'" class="homepage-member" src="img/member.png" />
+				</div>
+			</div>
+
+			<img src="img/ykEntrance.jpg" ng-click="goU()" style="width: 1.5rem;position: absolute;left: 100%;margin-left: -1.5rem;margin-top: 0rem">
+		</div>
+		<div class="nike" style="margin-top: 0.5rem">
+			<div class="nike-title">
+					<input ng-show="nickNameinput" ng-model="code.nickName" maxlength="8"   class="saveOther1" style="text-align: left;border: none;font-size: 0.37rem;width: 3rem;">
+					<div ng-click="toinput()" id="nickNamediv" style="display: inline-block;" ng-show="nickNamediv">{{code.nickName}}</div>
+				<img ng-show="code.gender=='3'"  src="img/nv.png"/><img  ng-show="code.gender=='2'" src="img/nan.png"/></div>
+			<div class="home-txt">
+				<!--<div class="home-txt-div" class="saveOther">未设置{{code.u_intro}}</div>-->
+				<input maxlength="25" class="home-txt-div saveOther2"  ng-model="datalist.u_intro"  style="border: none;margin-bottom: 0.2rem;font-size: 14px"/>
+			</div>
+			<!-- <div><img class="position" src="img/position.png"/> <span style="color: #0e0e0e">{{nims(datalist.hometown)}}</span> </div> -->
+			<div><img class="position" src="img/position.png"/> <span style="color: #0e0e0e">{{nims(datalist.city)}}</span> </div>
+			
+			<div class="nav-txt">
+				<img src="img/smrzGrey.png" ng-show="!smrz" style="width: 1.12rem">
+				<img src="img/smrzLight.png" ng-show="smrz" style="width: 1.12rem">
+				<img src="img/gzrzGrey.png"  ng-show="!gzrz" style="width: 1.12rem;margin-left:0.175rem ">
+				<img src="img/gzrzLight.png"  ng-show="gzrz" style="width: 1.12rem;margin-left:0.175rem ">
+				<img src="img/xlrzGrey.png"   ng-show="!xlrz" style="width: 1.12rem;margin-left:0.175rem">
+				<img src="img/xlrzLight.png"   ng-show="xlrz" style="width: 1.12rem;margin-left:0.175rem">
+			</div>
+
+            <!--<div style="width: 3.5rem;height: 0.2rem;background:#B3B3B3;margin-top: 0.2rem;text-align: center;color: #D2D2D2;font-size: 0.01rem;line-height: 100%;">-->
+			<div style="width:3.82rem;height: 0.18rem;background:#B3B3B3;margin-top: 0.2rem;text-align: center;color: #FFFFFF;font-size: 0.17rem;line-height: 100%;border-radius: 0.5rem">
+				<span style="position: absolute;margin-left: -0.5rem;line-height: 0.18rem">资料完善度{{point}}%</span>
+				<div id="point" style="height: 0.18rem;background:#8BD2FB;margin-top: 0.2rem ;border-radius: 0.5rem">
+				</div>
+
+
+			</div>
+
+		</div>
+		<div class="album">个人相册</div>
+
+		<div class="images-conter">
+			<div class="images-list2" ng-repeat="m in imgae" ng-style="{'background-image':'url({{m}})'}" ng-click="imagesList(imgae,$index)">
+				<img class="close"  src="img/close3.png" style="position: relative;margin-left: 0.98rem;width: 15px;top:-3px;right: -6px" ng-click="close($event,$index)"/>
+			</div>
+			<div class="images-uplode"  ng-show="showupload">
+				<input type="file" class="images-uplode-file" name="file" ng-file-select="saveImgone($files)"/>
+				<div class="input-size" >{{imglength}}/4</div>
+			</div>
+			
+		</div>
+
+
+
+		<div class="album"  ng-click="isshow1()">
+			基本信息
+			<span style="font-size: 12px;margin-left: 10px;">*全部填写才可以报名活动哦~</span>
+			<img src="img/homePageEditor.jpg" ng-show="jbxxclick==1" ng-click="changejbzl()" style="height: 25px;float: right;margin-top: 5px">
+			<img src="img/buyDetailsGou.jpg" ng-show="jbxxclick==2"   ng-click="changejbzlOk()" style="height: 1rem;margin-top:9rem;position: absolute;margin-left: -1.6rem">
+		</div>
+		<div class="album_center" id="jbzl"    ng-show="isshow3">
+
+			<div class="album_center_list">
+				<div><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;;margin-left: -0.15rem">*</span>真实姓名:</label></div>
+				<div>
+					<!--<input onkeyup="value=value.replace(/[^a-zA-Z\u4e00-\u9fa5]/g,'')" onafterpaste="value=value.replace(/[^a-zA-Z\u4e00-\u9fa5]/g,'')"  type="text" ng-model="datalist.realName" ng-readonly="canChange" style="font-size: 12px;color:  #8c8c8c;background: white" />-->
+					<input   type="text" ng-model="datalist.realName" ng-readonly="canChange" style="font-size: 12px;color:  #8c8c8c;background: white" />
+				</div>
+
+			</div>
+			<div class="album_center_list">
+				<div ng-show="jbxxclick==1" ><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>性别:</label></div>
+				<div ng-show="jbxxclick==2" ><label class="font12 c8c" style="color:#88d2ff"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>性别:</label></div>
+				<div>
+
+					<select style="font-size: 12px;color:  #8c8c8c;height: 0.65rem;line-height: 0.65rem" ng-model="datalist.gender" class="homepage-select"  ng-options="u_children.id as u_children.name for u_children in genderList">
+
+					</select>
+				</div>
+			</div>
+			<div class="album_center_list">
+				<div ng-show="jbxxclick==1"><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>生日:</label></div>
+				<div ng-show="jbxxclick==2"><label class="font12 c8c" style="color:#88d2ff"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>生日:</label></div>
+				<div>
+					<input  type="text" ng-show="birthday" id="birthday" ng-model="datalist.birthday" ng-readonly="canChange"  style="font-size: 12px;color:  #8c8c8c;background:white" />
+				</div>
+
+			</div>
+			<div class="album_center_list">
+				<div ng-show="jbxxclick==1"><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>身高(cm):</label></div>
+				<div ng-show="jbxxclick==2"><label class="font12 c8c" style="color:#88d2ff"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>身高(cm):</label></div>
+				<div>
+					<!--<input  type="text"   ng-model="datalist.height" ng-readonly="canChange"  style="font-size: 12px;color:  #8c8c8c;background:white" />-->
+					<select style="font-size: 12px;color:  #8c8c8c;"  ng-model="datalist.height" ng-readonly="canChange"  class="homepage-select" ng-options="e for e in heightList">
+					</select>
+				</div>
+
+			</div>
+			<div class="album_center_list">
+				<div ng-show="jbxxclick==1"><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>婚姻状况:</label></div>
+				<div ng-show="jbxxclick==2"><label class="font12 c8c" style="color:#88d2ff"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>婚姻状况:</label></div>
+				<div>
+					<select style="font-size: 12px;color:  #8c8c8c;height: 0.65rem" ng-model="datalist.u_marriage"  class="homepage-select" ng-options="m.id as m.name for m in u_marriagelist">
+					</select>
+
+				</div>
+
+
+			</div>
+
+			<div class="album_center_list">
+				<div ng-show="jbxxclick==1"><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>学位:</label></div>
+				<div ng-show="jbxxclick==2"><label class="font12 c8c" style="color:#88d2ff"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>学位:</label></div>
+				<div>
+					<select style="font-size: 12px;color:  #8c8c8c;" ng-model="datalist.academic" class="homepage-select" ng-options="m.id as m.name for m in u_education">
+					</select>
+
+				</div>
+
+			</div>
+			<div class="album_center_list">
+				<div ng-show="jbxxclick==1"><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>毕业院校:</label></div>
+				<div ng-show="jbxxclick==2"><label class="font12 c8c" style="color:#88d2ff"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>毕业院校:</label></div>
+				<div><label class="font12">
+					<input  type="text"  ng-model="datalist.school" ng-readonly="canChange" style="font-size: 12px;color:  #8c8c8c;background: white" />
+				</label>
+				</div>
+
+			</div>
+			<div class="album_center_list">
+				<div ng-show="jbxxclick==1" style="width: 30%" ><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>现居地:</label></div>
+				<div ng-show="jbxxclick==2" style="width: 30%" ><label class="font12 c8c" style="color:#88d2ff"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>现居地:</label></div>
+					<div>
+						<!--<select ng-model="datalist.city" class="homepage-select" ng-options="p for p in u_positions">-->
+						<!--</select>-->
+						<!--<input  ng-model="datalist.city" id="jbxx-xjd" ng-readonly="canChange"  style="border:0px solid #CCCCCC;padding-left: 1.15rem;height: 0.4rem;background: #D2D2D2;color: #666666;font-size: 10px;" />-->
+						<select style="font-size: 12px;color:  #8c8c8c;margin-left: 39.5%" ng-model="datalist.city" class="homepage-select" ng-options="p for p in u_positions">
+						</select>
+
+
+
+					</div>
+
+			</div>
+			<div class="album_center_list">
+				<div ng-show="jbxxclick==1"><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>家乡:</label></div>
+				<div ng-show="jbxxclick==2"><label class="font12 c8c" style="color:#88d2ff"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>家乡:</label></div>
+				<div>
+					<select style="font-size: 12px;color:  #8c8c8c;" ng-model="datalist.hometown" class="homepage-select" ng-options="p for p in u_positions">
+					</select>
+
+				</div>
+
+			</div>
+			<div class="album_center_list">
+				<div><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>工作单位:</label></div>
+				<div><label class="font12">
+					<input  type="text"  ng-model="datalist.work" ng-readonly="canChange" style="font-size: 12px;color:  #8c8c8c;background: white"  />
+				</label>
+				</div>
+
+			</div>
+			<div class="album_center_list">
+				<div ng-show="jbxxclick==1"><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>兴趣爱好:</label></div>
+				<div ng-show="jbxxclick==2"><label class="font12 c8c" style="color:#88d2ff"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>兴趣爱好:</label></div>
+				<div>
+					<div>
+						<!--<select style="font-size: 12px;color:  #8c8c8c;height: 0.65rem;" ng-model="datalist.u_hobby"  class="homepage-select"  ng-options="h.id as h.name for h in hobbyList">-->
+						<!--</select>-->
+						<div ng-show="!showchooseHobby" style="font-size: 12px;color:  #8c8c8c;height: 0.65rem;padding-top:0.05rem"   class="homepage-select"  >{{datalist.u_hobby}}</div>
+						<div ng-show="showchooseHobby" ng-click="chooseHobby()" style="font-size: 12px;color:  #8c8c8c;height: 0.65rem;padding-top:0.05rem"   class="homepage-select"  >{{datalist.u_hobby}}</div>
+
+
+					</div>
+
+
+				</div>
+
+			</div>
+
+			
+			<div class="album_center_list">
+				<div><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>手机号:</label></div>
+				<div><label class="font12">
+					<input  type="text"  ng-model="datalist.mobile" ng-readonly="canChange" style="font-size: 12px;color:  #8c8c8c;background: white"/>
+				</label>
+				</div>
+
+			</div>
+			<div class="album_center_list">
+				<div><label class="font12 c8c"><span style="color:#FF9E9E;margin-right: 0.1rem;margin-left: -0.15rem">*</span>微信号:</label></div>
+				<div><label class="font12">
+					<input  type="text" onKeyUp="value=value.replace(/[^-\w\.\/]/ig,'')" onafterpaste="value=value.replace(/[^-\w\.\/]/ig,'')" ng-model="datalist.wechat_num" ng-readonly="canChange"  style="font-size: 12px;color:  #8c8c8c;background: white;"/>
+				</label>
+				</div>
+
+			</div>
+			<div ng-show="jbxxclick==2"  style="margin-left:0.3rem">
+				<div ><label class="font12 c8c"><span style="color:#88d2ff;margin-right: 0.1rem;margin-left: -0.15rem">蓝色部分为优库公开信息</span></label></div>
+
+			</div>
+		
+		</div>
+		<div class="album" ng-click="isshow2()">更多资料
+			<img src="img/homePageEditor.jpg" ng-show="gdzlclick==1"  ng-click="changegdzl()" style="height: 25px;float: right;margin-top: 5px">
+			<img src="img/buyDetailsGou.jpg" ng-show="gdzlclick==2"   ng-click="changegdzlOk()" style="height: 1rem;margin-top:5.4rem;position: absolute;margin-left:1.35rem">
+		</div>
+		<div class="album_center" id="gdzl" ng-show="isshow4">
+			<div class="album_center_list">
+				<div><label class="font12 c8c">有无子女:</label></div>
+				<div>
+
+					<select style="font-size: 12px;color:  #8c8c8c;height: 0.65rem;line-height: 0.65rem" ng-model="datalist.u_children" class="homepage-select"  ng-options="u_children.id as u_children.name for u_children in select_u_children">
+
+					</select>
+				</div>
+			</div>
+			<div class="album_center_list">
+				<div><label class="font12 c8c">是否独生子女:</label></div>
+				<div>
+
+					<!--<input  type="text" ng-model="datalist.u_isOnly" ng-readonly="gdzlcanChange" style="font-size: 12px;background: #D2D2D2" />-->
+					<select style="font-size: 12px;color:  #8c8c8c;" ng-model="datalist.u_isOnly" class="homepage-select" ng-options="u_isOnly.id as u_isOnly.name for u_isOnly in select_u_isOnly">
+					</select>
+				</div>
+			</div>
+
+			<div class="album_center_list">
+				<div ng-show="gdzlclick==1"><label class="font12 c8c">工作性质:</label></div>
+				<div ng-show="gdzlclick==2"><label class="font12 c8c" style="color:#88d2ff">工作性质:</label></div>
+
+				<div>
+					<select style="font-size: 12px;color:  #8c8c8c;" ng-model="datalist.u_work_property" class="homepage-select" ng-options="m.id as m.name for m in u_work">
+					</select>
+
+				</div>
+			</div>
+			<div class="album_center_list">
+				<div><label class="font12 c8c">年薪:</label></div>
+				<div>
+
+					<select style="font-size: 12px;color:  #8c8c8c;" ng-model="datalist.salary" class="homepage-select" ng-options="salary.id as salary.name for salary in select_u_salary	">
+					</select>
+
+				</div>
+			</div>
+			<div class="album_center_list">
+				<div><label class="font12 c8c">购房状况:</label></div>
+				<div>
+
+					<!--<input  type="text" ng-model="datalist.ishouse" ng-readonly="gdzlcanChange" style="font-size: 12px;background: #D2D2D2" />-->
+
+					<select style="font-size: 12px;color:  #8c8c8c;" ng-model="datalist.ishouse" class="homepage-select" ng-options="u_ishouse.id as u_ishouse.name for u_ishouse in select_u_ishouse">
+					</select>
+				</div>
+			</div>
+			<div class="album_center_list">
+				<div><label class="font12 c8c">购车情况:</label></div>
+				<div>
+					<!--<input  type="text" ng-model="datalist.iscar" ng-readonly="gdzlcanChange" style="font-size: 12px;background: #D2D2D2" />-->
+
+					<select style="font-size: 12px;color:  #8c8c8c;" ng-model="datalist.iscar" class="homepage-select" ng-options="u_iscar.id as u_iscar.name for u_iscar in select_u_iscar">
+					</select>
+				</div>
+			</div>
+			<div class="album_center_list">
+				<div ng-show="gdzlclick==1"><label class="font12 c8c">宗教信仰:</label></div>
+				<div ng-show="gdzlclick==2"><label class="font12 c8c" style="color:#88d2ff">宗教信仰:</label></div>
+				
+				<div>
+					<select style="font-size: 12px;color:  #8c8c8c;" ng-model="datalist.u_religion" class="homepage-select" ng-options="e for e in religionList">
+					</select>
+				</div>
+			</div>
+			<div ng-show="gdzlclick==2"  style="margin-left:0.3rem">
+					<div ><label class="font12 c8c"><span style="color:#88d2ff;margin-right: 0.1rem;margin-left: -0.15rem">蓝色部分为优库公开信息</span></label></div>
+
+				</div>
+
+		</div>
+		<div class="album"  ng-click="isshow5()">择偶需求
+			<img src="img/homePageEditor.jpg" ng-show="zoxqclick==1"  ng-click="changezoxq()" style="height: 25px;float: right;margin-top: 5px">
+			<img src="img/buyDetailsGou.jpg" ng-show="zoxqclick==2"   ng-click="changezoxqOk()" style="height: 1rem;margin-top:8.4rem;position: absolute;margin-left:1.35rem">
+		</div>
+			<div class="album_center" id="zoxq" ng-show="isshow6">
+				<div class="album_center_list">
+					<div ng-show="zoxqclick==1"><label class="font12 c8c">年龄范围:</label></div>
+					<div ng-show="zoxqclick==2"><label class="font12 c8c" style="color:#88d2ff">年龄范围:</label></div>
+					<div>
+						<select  type="text"  ng-model="begin_date" class="homepage-select" ng-options="day1.id as day1.name for day1 in dayList" id="begin_date" ng-readonly="zoxqcanChange" style="background:white;width: 1.2rem;display: inline-block;text-align: center;font-size: 12px;color:  #8c8c8c;" >
+							</select>
+						<span style="position: absolute;;margin-left: -0.5rem;">-</span>
+						<select  type="text"  ng-model="end_date" class="homepage-select" ng-options="day.id as day.name for day in dayList" id="end_date"  ng-readonly="zoxqcanChange" style="background:white;width: 1.2rem;display: inline-block;text-align: center;font-size: 12px;color:  #8c8c8c;" >
+							</select>
+					</div>
+				</div>
+				<div class="album_center_list">
+					<!-- <div><label class="font12 c8c">身高范围:</label></div> -->
+					<div ng-show="zoxqclick==1"><label class="font12 c8c">身高范围:</label></div>
+					<div ng-show="zoxqclick==2"><label class="font12 c8c" style="color:#88d2ff">身高范围:</label></div>
+					<div>
+						<!--<input  type="text" ng-model="datalist.iscar" ng-readonly="gdzlcanChange" style="font-size: 12px;background: #D2D2D2" />-->
+						<!--<select style="font-size: 12px;color:  #8c8c8c;" ng-model="selection.height" class="homepage-select" ng-options="u_iscar.id as u_iscar.name for u_iscar in u_height">-->
+						<!--</select>-->
+
+						<select  type="text"  ng-model="begin_height" class="homepage-select" ng-options="e for e in heightList" id="begin_height" ng-readonly="zoxqcanChange" style="background:white;width: 1.2rem;display: inline-block;text-align: center;font-size: 12px;color:  #8c8c8c;" >
+						</select>
+						<span style="position: absolute;;margin-left: -0.5rem;">-</span>
+						<select  type="text"  ng-model="end_height" class="homepage-select" ng-options="e for e in heightList" id="end_height"  ng-readonly="zoxqcanChange" style="background:white;width: 1.2rem;display: inline-block;text-align: center;font-size: 12px;color:  #8c8c8c;" >
+						</select>
+
+
+					</div>
+				</div>
+
+				<div class="album_center_list">
+					<!-- <div><label class="font12 c8c">婚姻状况:</label></div> -->
+					<div ng-show="zoxqclick==1"><label class="font12 c8c">婚姻状况:</label></div>
+					<div ng-show="zoxqclick==2"><label class="font12 c8c" style="color:#88d2ff">婚姻状况:</label></div>
+					<div>
+						<select style="font-size: 12px;color:  #8c8c8c;" ng-model="selection.marry_state" class="homepage-select" ng-options="m.id as m.name for m in u_marriagelist2">
+						</select>
+
+					</div>
+				</div>
+				<div class="album_center_list">
+					<div><label class="font12 c8c">有无子女:</label></div>
+					<div>
+
+						<select style="font-size: 12px;color:  #8c8c8c;" ng-model="selection.children" class="homepage-select"  ng-options="u_children.id as u_children.name for u_children in select_u_children2">
+
+						</select>
+					</div>
+				</div>
+				<div class="album_center_list">
+					<!-- <div><label class="font12 c8c">学位:</label></div> -->
+					<div ng-show="zoxqclick==1"><label class="font12 c8c">学位:</label></div>
+					<div ng-show="zoxqclick==2"><label class="font12 c8c" style="color:#88d2ff">学位:</label></div>
+					<div>
+						<select style="font-size: 12px;color:  #8c8c8c;" ng-model="selection.degree" class="homepage-select" ng-options="m.id as m.name for m in u_education2">
+						</select>
+
+					</div>
+				</div>
+				<div class="album_center_list">
+					<!-- <div style="width: 30%"><label class="font12 c8c">居住地:</label></div> -->
+					<div style="width: 30%" ng-show="zoxqclick==1"><label class="font12 c8c">居住地:</label></div>
+					<div style="width: 30%" ng-show="zoxqclick==2"><label class="font12 c8c" style="color:#88d2ff">居住地:</label></div>
+					<div >
+						<!--<select ng-model="selection.domicile" id="zoxq-jzd" class="homepage-select" ng-options="p for p in u_positions">-->
+						<!--</select>-->
+
+						<!--<input  ng-model="selection.domicile" ng-readonly="zoxqcanChange" id="zoxq-jzd"  style="border:0px solid #CCCCCC;height: 0.4rem;background: #D2D2D2;color: #666666;font-size: 10px;padding-left: 1.15rem" />-->
+						<select style="font-size: 12px;color:  #8c8c8c;margin-left: 39.5%" ng-model="selection.domicile" class="homepage-select" ng-options="p for p in u_positions2">
+						</select>
+
+
+					</div>
+				</div>
+				<div class="album_center_list">
+					<div><label class="font12 c8c">家乡:</label></div>
+					<div>
+						<select style="font-size: 12px;color:  #8c8c8c;" ng-model="selection.hometown" class="homepage-select" ng-options="p for p in u_positions2">
+						</select>
+
+					</div>
+				</div>
+				<div class="album_center_list">
+					<!-- <div><label class="font12 c8c">工作性质:</label></div> -->
+					<div ng-show="zoxqclick==1"><label class="font12 c8c">工作性质:</label></div>
+					<div ng-show="zoxqclick==2"><label class="font12 c8c" style="color:#88d2ff">工作性质:</label></div>
+					<div>
+						<select style="font-size: 12px;color:  #8c8c8c;" ng-model="selection.work_property" class="homepage-select" ng-options="m.id as m.name for m in u_work2">
+						</select>
+
+					</div>
+				</div>
+				<div class="album_center_list">
+					<div><label class="font12 c8c">年薪范围:</label></div>
+					<div>
+
+						<select style="font-size: 12px;color:  #8c8c8c;" ng-model="selection.salary" class="homepage-select" ng-options="salary.id as salary.name for salary in select_u_salary2	">
+						</select>
+
+					</div>
+				</div>
+				<div class="album_center_list">
+					<div><label class="font12 c8c">购房情况:</label></div>
+					<div>
+
+						<!--<input  type="text" ng-model="datalist.ishouse" ng-readonly="gdzlcanChange" style="font-size: 12px;background: #D2D2D2" />-->
+
+						<select style="font-size: 12px;color:  #8c8c8c;" ng-model="selection.house" class="homepage-select" ng-options="u_ishouse.id as u_ishouse.name for u_ishouse in select_u_ishouse2">
+						</select>
+					</div>
+				</div>
+				<div class="album_center_list">
+					<div><label class="font12 c8c">购车情况:</label></div>
+					<div>
+						<!--<input  type="text" ng-model="datalist.iscar" ng-readonly="gdzlcanChange" style="font-size: 12px;background: #D2D2D2" />-->
+
+						<select style="font-size: 12px;color:  #8c8c8c;" ng-model="selection.car" class="homepage-select" ng-options="u_iscar.id as u_iscar.name for u_iscar in select_u_iscar2">
+						</select>
+					</div>
+				</div>
+				<div class="album_center_list">
+					<!-- <div><label class="font12 c8c">宗教信仰:</label></div> -->
+					<div ng-show="zoxqclick==1"><label class="font12 c8c">宗教信仰:</label></div>
+					<div ng-show="zoxqclick==2"><label class="font12 c8c" style="color:#88d2ff">宗教信仰:</label></div>
+					<div>
+						<select style="font-size: 12px;color:  #8c8c8c;" ng-model="selection.religon" class="homepage-select" ng-options="e for e in religionList2">
+						</select>
+					</div>
+				</div>
+				
+				<div ng-show="zoxqclick==2"  style="margin-left:0.3rem">
+					<div ><label class="font12 c8c"><span style="color:#88d2ff;margin-right: 0.1rem;margin-left: -0.15rem">蓝色部分为优库公开信息</span></label></div>
+
+				</div>
+
+			</div>
+		<div class="album" ng-click="isshow7()">认证材料
+			<img src="img/homePageEditor.jpg" ng-show="rzclclick==1"  ng-click="changerzcl()" style="height: 25px;float: right;margin-top: 5px;">
+		</div>
+
+		<div class="album_center"  id="rzcl"   ng-show="isshow8">
+
+			<div class="album_center_list">
+				<div><label class="font12 c8c">真实姓名:</label></div>
+				<div>
+					<input  type="text" ng-model="datalist.realName"   ng-readonly="rzclcanChange" style="font-size: 12px;color:  #8c8c8c;background: white" />
+				</div>
+
+			</div>
+			<div class="album_center_list">
+				<div id="sfz"><label class="font12 c8c">身份证号码:</label></div>
+				<div>
+					<input  type="text" ng-model="datalist.u_idCardNo" ng-readonly="rzclcanChange" style="font-size: 12px;color:  #8c8c8c;background:white" />
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="photo-center text-center"  ng-show="isshow8">
+			<div class="add-photo">
+				<div class="">
+					<div class="identity">
+						<img  ng-src="{{datalist.u_idCardImg0}}" ng-show="datalist.idCardImg0!=''"  style="width: 100%;height:100% ;"/>
+						<input class="btn_file imgClass" disabled type="file" name="file" ng-file-select="saveImg($files,1)" />
+						<!-- <input class="btn_file"  type="file" name="file" ng-file-select="saveImg($files,1)" /> -->
+					</div>
+					<div class="c666 mt5">身份证正面(必选)</div>
+				</div>
+				<div class="">
+					<div class="identity">
+						<img ng-src="{{datalist.u_idCardImg1}}"  ng-show="datalist.idCardImg1!=''"   style="width: 100%;height:100% ;"/>
+						<input class="btn_file imgClass" disabled type="file" name="file" ng-file-select="saveImg($files,2)"/>
+						<!-- <input class="btn_file"  type="file" name="file" ng-file-select="saveImg($files,2)"/> -->
+					</div>
+					<div class="c666 mt5">身份证反面(必选)</div>
+				</div>
+			</div>
+
+			<div class="add-photo mt20">
+
+				<div class="">
+					<div class="identity">
+						<img ng-src="{{datalist.u_academicImg}}" ng-show="datalist.academicImg!=''"   style="width: 100%;height:100% ;"/>
+						<input class="btn_file imgClass" disabled type="file" name="file" ng-file-select="saveImg($files,3)" ng-model="imageUrl2"/> 
+						<!-- <input class="btn_file"  type="file" name="file" ng-file-select="saveImg($files,3)" ng-model="imageUrl2"/> -->
+					</div>
+					<div class="c666 mt5">学历证书照片(选填)</div>
+				</div>
+				<div class="">
+					<div class="identity">
+						<!--<img ng-src="{{datalist.u_workerImg}}" ng-show="datalist.u_workerImg!=''"  style="width: 100%;height:100% ;"/>-->
+						<img ng-src="{{datalist.u_workerImg}}"  style="width: 100%;height:100% ;"/>
+						 <input class="btn_file imgClass" disabled type="file" name="file"  ng-file-select="saveImg($files,4)" ng-model="imageUrl3"/>
+						<!-- <input class="btn_file"  type="file" name="file"  ng-file-select="saveImg($files,4)" ng-model="imageUrl3"/> -->
+					</div>
+					<div class="c666 mt5">工作证明照片(选填)</div>
+				</div>
+			</div>
+
+			<img src="img/buyDetailsGou.jpg" ng-show="rzclclick==2"  ng-click="changerzclOk()" style="height: 1rem;margin-top: 0.5rem;margin-bottom: 0.5rem">
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<div class="" style="position: fixed; top: 0;margin: 0px;height: 100%; background: #0e0e0e;width: 100%;z-index: 22;" ng-if="isfixed" ng-click="close1()">
+	<ion-slide-box does-continue="true"   style="" active-slide="indexs">
+		<ion-slide ng-repeat="m in imgaes track by $index" >
+			<img class="thumbnail" ng-src="{{m}}">
+		</ion-slide>
+	</ion-slide-box>
+</div>

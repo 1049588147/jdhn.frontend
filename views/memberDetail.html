@@ -1,0 +1,228 @@
+<style>
+    .slider{position: relative;top: 50%;transform: translate(0,-50%);-moz-transform: translate(0,-50%);-webkit-transform: translate(0,-50%);-ms-transform: translate(0,-50%);-o-transform: translate(0,-50%);}
+    .slider-pager .slider-pager-page { display: inline-block;margin: 0px 3px;  width: 15px;  color: #F5F5F5; text-decoration: none; opacity: 0.8; }
+</style>
+
+<!--打招呼(0次页面)-->
+<div ng-click="out()" ng-show="call0" style="width: 100%;height: 100%;background: rgba(0,0,0,0.3);position: absolute;z-index:999 ">
+    <img src="img/qyqNext.png" ng-show="call0img" style="width: 100%;height: 100%" alt=""/>
+    
+     <div ng-click="donothing()" ng-show="call0div" style="width: 90%;height:60%;background: #F3F3F3;position: absolute;left: 5%;top: 20% ;text-align: center;border-radius:0.15rem">
+         <div style="color: #A9A9A9;font-size: 0.4rem;font-family: 'Microsoft YaHei UI';margin-top: 0.3rem">您还有</div>
+         <div style="font-size: 0.3rem;font-family: 'Microsoft YaHei UI';color: #A1A1A1;margin-top: 0.5rem;letter-spacing: 0.1rem"><span style="color:#88D2FF;font-size:0.6rem ">0</span>次</div>
+         <div style="color: #A9A9A9;font-size: 0.4rem;font-family: 'Microsoft YaHei UI';margin-top: 0.35rem">打招呼的机会~</div>
+
+         <div style="color:#999999;margin-top: 0.6rem;font-size:0.2rem ">邀请朋友<span style="color: #88D2FF">成功注册</span>交大红娘服务号即可获得<span style="color: #88D2FF">免费</span>机会哦~</div>
+
+
+       <img ng-click="qyq()" src="img/qyq.png" style="width: 70%;margin-top: 0.5rem"> 
+         <!-- <img ng-click="payment()" src="img/fffs.png" style="width: 70%;margin-top:0.8rem"> -->
+		    <img ng-click="payment()" src="img/fffs.png" style="width: 70%;margin-top:0rem">
+
+
+
+     </div>
+
+
+
+
+</div>
+
+
+
+
+<!--打招呼(n次页面)-->
+<div ng-click="out()" ng-show="calln" style="width: 100%;height: 100%;background: rgba(0,0,0,0.3);position: absolute;z-index:999 ">
+    <div ng-click="donothing()" style="width: 90%;height:60%;background: #F3F3F3;position: absolute;left: 5%;top: 20% ;text-align: center;border-radius:0.15rem">
+        <div style="color:#9C9C9C;font-size: 0.4rem;font-family: 'Microsoft YaHei UI';margin-top: 0.3rem">您还有</div>
+        <div style="font-size: 0.3rem;font-family: 'Microsoft YaHei UI';color: #9C9C9C;margin-top: 0.5rem;letter-spacing: 0.1rem"><span style="color:#88D2FF;font-size:0.6rem ">{{msgTotal}}</span>次</div>
+        <div style="color: #9C9C9C;font-size: 0.4rem;font-family: 'Microsoft YaHei UI';margin-top: 0.5rem">打招呼的机会~</div>
+
+        <div style="color:#999999;margin-top: 0.8rem ">{{usage_free_msg}}{{usage_recom_msg}}{{usage_buy_msg}}</div>
+
+
+        <img src="img/ljfs.gif" ng-click="ljfsClick()" style="width: 70%;margin-top: 0.5rem">
+
+    </div>
+
+</div>
+
+
+<!--打招呼(固定语句页面)-->
+<div ng-click="out()"  ng-show="callmsg"  style="width: 100%;height: 100%;background: rgba(0,0,0,0.3);position: absolute;z-index:999 ">
+    <div ng-click="donothing()" style="width: 90%;height:60%;background: #F3F3F3;position: absolute;left: 5%;top: 20% ;text-align: center;">
+        <img src="img/gdyj_0101.gif" id="gdyj_0101" msg="HI~" ng-click="setMsg($event,1)" style="width: 100%;margin-top: 0.1rem">
+        <img src="img/gdyj_0201.gif" id="gdyj_0201" msg="你好,可以认识一下吗~" ng-click="setMsg($event,2)"  style="width: 100%;margin-top: 0rem">
+        <img src="img/gdyj_0301.gif" id="gdyj_0301" msg="今天天气很好,适合交朋友哦！~"  ng-click="setMsg($event,3)"  style="width: 100%;margin-top: 0rem">
+        <img src="img/gdyj_0401.gif" id="gdyj_0401" msg="认识一下,给彼此增加一些可能~"  ng-click="setMsg($event,4)" style="width: 100%;margin-top: 0rem">
+        <img src="img/gdyj_0501.gif" id="gdyj_0501"  msg="对你好感度爆爆爆爆表！！！~"  ng-click="setMsg($event,5)" style="width: 100%;margin-top: 0rem">
+
+        <img src="img/fsxy.gif" ng-click="sendMsg()" style="width: 60%;margin-top: 0.2rem">
+
+        <img src="img/fsxy_below.gif" style="width: 100%;margin-top: 0rem">
+
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<div style="width: 100%;height: 100%;overflow: auto"   >
+    <div style="width: 100%;background: #fff;background: url('img/memberDetailBg.jpg') bottom;background-size: 100% 100%;padding-top: 0.5rem;padding-bottom: 1.2rem">
+        <div style="width: 90%;margin-left: 5%;background: #FFFFFF;border-radius:0.2rem">
+
+
+
+            <div class="homepage"  style="width: 100%;height:4.2rem;background:url({{data.u_cover}}) no-repeat center center; background-size:cover;" ng-click="doNothing()">
+                <div style="height: 3.6rem;position: relative;margin-left: 4.55rem;padding-top:0.01rem" >
+                   <div ng-repeat="tag in TagList" style="height: 0.3rem;width:1.2rem;background:url('img/TagBlueFour.png') no-repeat center center; background-size:100%;margin-top: 0.1rem">
+                        <div style="height: 0.3rem;width: 1rem;margin-left: 0.2rem;line-height: 0.3rem;font-size: 10px;color: #FFFFFF;text-align: center">{{tag}}</div>
+                   </div>
+				 
+
+                </div>
+
+            </div>
+            <div style=";width: 1.5rem; height: 1.5rem;border-radius: 50%;border: 1px solid #CCCCCC;margin-top: -0.7rem;margin-left: 0.3rem;background:url({{data.u_portrait}}) no-repeat center center; background-size:cover;">
+            </div>
+
+                <img  src="img/memberDetailEmail.png" ng-if='isshow1' ng-click="CallMove()"  style="height: 1.2rem;left: 4rem;position: relative;top: -1.4rem">
+                <img  src="img/greyHeart-btn.png" ng-if='isshow2'    ng-click="setMove()"  style="height: 1.2rem;left: 4rem;position: relative;top: -1.4rem">
+
+
+
+            <div class="nike" >
+                <div class="nike-title" style="color:#6F6F6F;font-family: MiMicrosoft YaHei UI;margin-left: 0.1rem ;">{{nims(data.nickName)}} <img ng-if="data.gender=='3'" src="img/nv.png"/><img style="width: 23px;" ng-if="data.gender=='2'" src="img/nan.png"/></div>
+                <div class="home-txt">
+                    <div class="home-txt-div" style="color:#6F6F6F;font-family: MiMicrosoft YaHei UI;margin-left: 0.1rem">{{data.u_intro}}</div>
+                </div>
+                <div><img class="position" src="img/position.png" style="margin-top: 0.2rem;margin-left: 0.1rem;font-family: MiMicrosoft YaHei UI;color:#777777;"/>{{nims(data.city)}}</div>
+                <div class="memberDetail-confirm">
+                    <img src="img/smrzGrey.png" ng-show="!smrz" style="width: 1.12rem">
+                    <img src="img/smrzLight.png" ng-show="smrz" style="width: 1.12rem">
+                    <img src="img/gzrzGrey.png"  ng-show="!gzrz" style="width: 1.12rem;margin-left:0.175rem ">
+                    <img src="img/gzrzLight.png"  ng-show="gzrz" style="width: 1.12rem;margin-left:0.175rem ">
+                    <img src="img/xlrzGrey.png"   ng-show="!xlrz" style="width: 1.12rem;margin-left:0.175rem">
+                    <img src="img/xlrzLight.png"   ng-show="xlrz" style="width: 1.12rem;margin-left:0.175rem">
+                </div>
+            </div>
+            <div class="album">个人相册</div>
+            <div class="images-conter">
+                <div class="images-list" ng-click="imagesList(u_personImgs,$index)" ng-repeat="u_personImg in u_personImgs track by $index" ng-style="{'background-image':'url({{m}})'}" >
+                    <img  ng-src="{{u_personImg}}" style="height: 1.2rem;width: 1.2rem"/>
+                </div>
+                <!--<div class="images-uplode">-->
+                <!--<input type="file" class="images-uplode-file" name="file" ng-file-select="saveImgone($files)"/>-->
+                <!--<div class="input-size">{{imglength}}/4</div>-->
+                <!--</div>-->
+
+            </div>
+            <div class="album">个人资料</div>
+            <div class="album_center">
+
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">年龄:</label></div>
+                    <div><label class="font12">{{nims(data.u_birthday)}}</label></div>
+                </div>
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">身高(cm):</label></div>
+                    <div><label class="font12">{{nims(data.height)}}</label></div>
+                </div>
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">学位:</label></div>
+                    <div><label class="font12">{{education(data.academic)}}</label></div>
+                </div>
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">毕业院校:</label></div>
+                    <div><label class="font12">{{nims(data.school)}}</label></div>
+                </div>
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">居住地:</label></div>
+                    <div><label class="font12">{{nims(data.city)}}</label></div>
+                </div>
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">家乡:</label></div>
+                    <div><label class="font12">{{nims(data.u_hometown)}}</label></div>
+                </div>
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">工作性质:</label></div>
+                    <div><label class="font12">{{data.u_work_property}}</label></div>
+                </div>
+
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">宗教信仰:</label></div>
+                    <div><label class="font12">{{religion(data.u_religion) }}</label></div>
+                </div>
+
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">兴趣爱好:</label></div>
+                    <div><label class="font12">{{nims(data.u_hobby)}}</label></div>
+                </div>
+
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">婚姻状况:</label></div>
+                    <div><label class="font12">{{nims(data.u_marriage)}}</label></div>
+                </div>
+
+            </div>
+            <div class="album">择偶需求</div>
+            <div class="album_center">
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">年龄:</label></div>
+                    <div><label class="font12">{{nims(marrayInfo.age)}}</label></div>
+                </div>
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">身高:</label></div>
+                    <div><label class="font12">{{nims(marrayInfo.height)}}</label></div>
+                </div>
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">学位:</label></div>
+                    <div><label class="font12">{{nims(marrayInfo.degree)}}</label></div>
+                </div>
+
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">居住地:</label></div>
+                    <div><label class="font12">{{nims(marrayInfo.domicile)}}</label></div>
+                </div>
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">工作性质:</label></div>
+                    <div><label class="font12">{{nims(marrayInfo.work_property)}}</label></div>
+                </div>
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">宗教信仰:</label></div>
+                    <div><label class="font12">{{nims(marrayInfo.religon)}}</label></div>
+                </div>
+                <div class="album_center_list">
+                    <div><label class="font12 c8c">婚姻状况:</label></div>
+                    <div><label class="font12">{{nims(marrayInfo.marry_state)}}</label></div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<div class="" style="position: fixed; top: 0;margin: 0px;height: 100%; background: #0e0e0e;width: 100%;z-index: 22;" ng-if="isfixed" ng-click="close1()">
+    <ion-slide-box does-continue="true"   style="" active-slide="indexs">
+        <ion-slide ng-repeat="m in imgaes track by $index" >
+            <img class="thumbnail" ng-src="{{m}}">
+        </ion-slide>
+    </ion-slide-box>
+</div>
+

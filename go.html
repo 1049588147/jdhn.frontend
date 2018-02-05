@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+	</head>
+	<body>
+	
+		<script>
+			var getPops = function(name){
+			    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+			     var r = window.location.search.substr(1).match(reg);
+			    if(r!=null)return  unescape(r[2]); return null; 
+			}
+			var code=getPops("code");
+			var activity_id=getPops("id");	
+			var urlsrc='http://api.jdhn.top/home/enlist/wechatLoginBack?act_id='+activity_id+"&code="+code;
+			$.get(urlsrc,function(res){
+					var data=JSON.parse(res);
+				switch(data.code){
+					case "200":
+						var data=JSON.parse(res);
+						 window.localStorage.setItem("fee",data.fee);	
+						 window.localStorage.setItem("act_id",activity_id);	
+						 window.localStorage.setItem("uid",data.data.uid);	
+						 window.location.href="outofactivity.html"
+					  break;
+					case "202":
+						
+						window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx23062c6be91741d3&redirect_uri=http://www.jdhn.top/affsiteregistration.html?id="+activity_id+"&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"
+					  break;
+					case "203":
+						var data=JSON.parse(res);
+						 window.localStorage.setItem("fee",data.fee);	
+						 window.localStorage.setItem("act_id",activity_id);	
+						 window.localStorage.setItem("uid",data.data.uid);	
+						 window.location.href="outofactivity.html"
+					   break;
+					case "204":
+						window.location="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx23062c6be91741d3&redirect_uri=http://www.jdhn.top/sign/sign.html?id="+activity_id+"&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"
+						break;
+					default:
+					 
+				}
+			})
+		</script>
+	</body>
+</html>

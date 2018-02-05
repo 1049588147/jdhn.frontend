@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试获得code</title>
+	<script src='./jquery2.1.4.min.js'></script>
+</head>
+<body>
+<button class='button' onclick = 'getcode()'>点击这里</button>
+</body>
+</html>
+<script>
+    var getPops = function(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    var code = getPops("code");
+	alert(code);
+	function getcode(){
+		$.ajax({
+		type:'get',
+		url:'./demo.php?code='+code,
+		success:function(res){
+//			console.log(res);
+		}
+	});
+	}
+   
+</script>

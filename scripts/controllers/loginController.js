@@ -8,45 +8,21 @@
 
     function loginCtrl($scope, $rootScope, $state, $timeout, $window, $location, $http) {
 		$rootScope.title = $state.$current.data.pageTitle;
-      	
-//    	$scope.appSize=function(){
-//		var browser = {
-//			  versions: function () {
-//			    var u = navigator.userAgent, app = navigator.appVersion;
-//			    return {     //移动终端浏览器版本信息
-//			      trident: u.indexOf('Trident') > -1, //IE内核
-//			      presto: u.indexOf('Presto') > -1, //opera内核
-//			      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-//			      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-//			      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-//			      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-//			      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
-//			      iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
-//			      iPad: u.indexOf('iPad') > -1, //是否iPad
-//			      webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
-//			    };
-//			  }(),
-//			  language: (navigator.browserLanguage || navigator.language).toLowerCase()
-//			}
-//		          	
-//			if(browser.versions.mobile){
-//				$(".imgAlert").css("display","none")
-//			}else{
-//				$(".imgAlert").css("display","block")
-//			}
-//		}
-//	
-//		$scope.appSize()	
-//		$(window).resize(function() {
-//		  $scope.appSize()
-//	    });	
-		
-		
+		$scope.token=$window.localStorage.getItem("token");
+		$scope.uid=$window.localStorage.getItem("uid");
+		if($scope.token==""||$scope.token==null){
+			
+		}else if($scope.uid==""||$scope.uid==null){
+			
+		}else{
+			 $state.go("home")
+		}
 		
 		$scope.loginParameter={}
-		
+		layer.close($rootScope.n);
+		layer.close($rootScope.li);
 		$scope.loginBtn=function(){
-			if($scope.loginParameter.mobilePhone==null || !(/^1[34578]\d{9}$/.test($scope.loginParameter.mobilePhone))){
+			if($scope.loginParameter.uname==null){
 				layer.open({
 				    content: '请输入手机号码！'
 				    ,skin: 'msg'
@@ -54,7 +30,15 @@
 				  });
 				return;
 			}
-			if($scope.loginParameter.pass==null || $scope.loginParameter.pass==""){
+			if(!(/^1[34578]\d{9}$/.test($scope.loginParameter.uname))){
+				layer.open({
+				    content: '手机号不正确！'
+				    ,skin: 'msg'
+				    ,time: 2 //2秒后自动关闭
+				  });
+				return;
+			}
+			if($scope.loginParameter.upass==null || $scope.loginParameter.upass==""){
 				layer.open({
 				    content: '请输入密码！'
 				    ,skin: 'msg'
@@ -63,9 +47,53 @@
 				return;
 			}
 			
-			$window.localStorage.setItem("login", $scope.loginParameter.mobilePhone);
-		    $window.localStorage.setItem("pass", $scope.loginParameter.pass);
-		    $state.go("home")
+			var s=  layer.open({
+			    type: 2
+			    ,content: '加载中'
+			});
+			
+		    var srcurl='http://api.jdhn.top/home/member/dologin'
+		    $.ajax({
+				type:"POST",
+				url:srcurl,/*url写异域的请求地址*/
+				data:$scope.loginParameter,
+					success:function(result){
+							
+							var data = JSON.parse(result)
+							if(data.code==1){
+								  layer.close(s);
+								  $window.localStorage.setItem("token",data.data.token);	
+								  $window.localStorage.setItem("uid",data.data.uid);	   
+		 						  $state.go("home")
+							}else if(result.code==510){
+								 $window.localStorage.setItem("token","");	
+							     $window.localStorage.setItem("uid","");
+							     
+								$state.go("login");
+								layer.close(s);
+								layer.open({
+				    				content: "您的账号已在其他地点登录！"
+								    ,skin: 'msg'
+								    ,time: 2 //2秒后自动关闭
+								});
+							}else{
+								layer.close(s);
+								layer.open({
+				    				content: data.message
+								    ,skin: 'msg'
+								    ,time: 2 //2秒后自动关闭
+								});
+							}
+					}
+			});
+		}
+
+		onkeydown = function(event){
+			 var e = event || window.event || arguments.callee.caller.arguments[0];
+			if(e.keyCode == 13)
+			{
+				$scope.loginBtn()
+			}
 		}
     }
 	

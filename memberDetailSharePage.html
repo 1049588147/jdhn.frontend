@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script>
+    var referCodeString=location.href.split('?')[1]
+    console.log(referCodeString)
+    var referCode=referCodeString.split('=')[1];
+	localStorage.setItem('referCode',referCode)
+    var url='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx23062c6be91741d3&redirect_uri=http://www.jdhn.top/welcome.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+    console.log(url)
+    location.href=url;
+
+</script>
+
+</body>
+</html>

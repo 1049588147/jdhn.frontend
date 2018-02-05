@@ -1,29 +1,50 @@
 <div style="height: 100%;width: 100%;background: #F2F2F2;">
-	<div class="content overflow-scroll">
+<!--	<div class="content overflow-scroll">-->
+		<ion-content class="">
 		<div class="list">
-		    <a class="item item-thumbnail-left" style="height: 118px;">
-		     	<img class="beike" src="img/beike.png">
-			    <h2 class="c000 font14 font-w">KTV青春交友派对，报名啦！</h2>
-			    <div class="times mt5">
+		    <a class="item item-thumbnail-left mt10" style="height: 105px;" ng-repeat="l in myactivity" ng-click="detalisclick(l.act_id)">
+		     	<img class="beike" ng-src="{{l.thumb}}">
+			    <h2 class="c000 font14 font-w" style="margin-top: 6px;">{{l.title}}</h2>
+			    <!--<div class="times mt5">
 			      	<label class="font12 c666">报名编号：</label>
-			      	<label class="font12 c666">2121</label>
-			    </div>
+			      	<label class="font12 c666">{{l.enroll_id}}</label>
+			    </div>-->
 			    <div class="place">
 			      	<label class="font12 c666">活动时间：</label>
-			      	<label class="font12 c666">07月19 18:30</label>
+			      	<label class="font12 c666">{{l.beginTime}}</label>
 			      	<label class="font12 c666">~</label>
-			      	<label class="font12 c666">07月19 18:30</label>
+			      	<label class="font12 c666">{{l.endTime}}</label>
 			    </div>
 			    <div class="numberOf">
 			      	<label class="font12 c666">地点：</label>
-			      	<label class="font12 c666">交大美女贼多交大美女贼多交大美女贼多交大美女贼多交大美女贼多</label>
+			      	<label class="font12 c666">{{l.address}}</label>
 			    </div>	
 			    <div class="mt5">
 			    	<label class="font14 active font-w">活动状态：</label>
-			    	<label class="font14 active font-w">已提交</label>
-			    	<label class="font14 active font-w payment">去支付</label>
+			    	<label class="font14 active font-w" ng-if="l.enroll_state==271">已提交</label>
+			    	<label class="font14 active font-w payment" ng-if="l.enroll_state==271">去支付</label>
+			    	
+			    	<label class="font14 active font-w" ng-if="l.enroll_state==272">已支付</label>
+			    	<label class="font14 active font-w payment" ng-if="l.enroll_state==272">待审核</label>
+			    	
+			    	<label class="font14 active font-w" ng-if="l.enroll_state==273">报名成功</label>
+			    	<label class="font14 active font-w payment" ng-if="l.enroll_state==273">已通过</label>
+			    	
+			    	<label class="font14 active font-w" ng-if="l.enroll_state==274">报名失败</label>
+			    	<label class="font14 active font-w payment" ng-if="l.enroll_state==274">待退款</label>
+			    	
+			    	<label class="font14 active font-w" ng-if="l.enroll_state==275">已退款</label>
+					
+					<label class="font14 active font-w" ng-if="l.enroll_state==276">已完成</label>
+			    	<label class="font14 active font-w payment" ng-if="l.enroll_state==276" ng-click="evaluate($event,l.act_id,l.enroll_id)">评价</label>
+			    	
+			    	<label class="font14 active font-w" ng-if="l.enroll_state==277">已完成</label>
+			    	<label class="font14 active font-w payment" ng-if="l.enroll_state==277">已评价</label>
 			    </div>
 		    </a>
 	    </div>
-	</div>
+		<div ng-show="loading" style="position:static;font-size:16px;z-index:9999;margin:30px 0 -70px 0;padding-bottom:10px;text-align:center;">加载中</div>
+			<ion-infinite-scroll ng-if="loadMoresss" on-infinite="loadMore()" spinner>
+		</ion-infinite-scroll>
+		</ion-content>
 </div>
